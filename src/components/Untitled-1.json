@@ -1,0 +1,643 @@
+{
+    "title": " SEO",
+    "boxData": [
+        {
+            "id": 1,
+            "count": 39,
+            "description": "מילות מפתח",
+            "icon": "target-two"
+        },
+        {
+            "id": 2,
+            "count": 30,
+            "description": "ביטויים בעמוד ראשון",
+            "icon": "area-graph"
+        }
+    ],
+    "dataTable": [
+        {
+            "id": 27255572,
+            "keyword": "בולמי זעזועים לתעשיה",
+            "created_at": "2018-03-11",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 30
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 6,
+                    "highest_ranking_page": "https://www.mhm.co.il/בולמי-זעזועים-לתעשיה/"
+                }
+            ]
+        },
+        {
+            "id": 27255562,
+            "keyword": "צירים לדלתות",
+            "created_at": "2018-03-11",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 720
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 25,
+                    "highest_ranking_page": "https://www.mhm.co.il/צירים-לדלתות/"
+                }
+            ]
+        },
+        {
+            "id": 36301645,
+            "keyword": "צלעות קירור",
+            "created_at": "2019-03-26",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 170
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 6,
+                    "highest_ranking_page": "https://www.mhm.co.il/מאווררים-וגופי-קירור/"
+                }
+            ]
+        },
+        {
+            "id": 47048546,
+            "keyword": "גופי קירור",
+            "created_at": "2020-03-26",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 10
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 4,
+                    "highest_ranking_page": "https://www.mhm.co.il/מאווררים-וגופי-קירור/"
+                }
+            ]
+        },
+        {
+            "id": 27255570,
+            "keyword": "סגרים",
+            "created_at": "2018-03-11",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 90
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 3,
+                    "highest_ranking_page": "https://www.mhm.co.il/סגרים/"
+                }
+            ]
+        },
+        {
+            "id": 54957618,
+            "keyword": "מגנטים חזקים לתעשייה",
+            "created_at": "2021-03-03",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 10
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 6,
+                    "highest_ranking_page": "https://www.mhm.co.il/מגנטים-לתעשיה/"
+                }
+            ]
+        },
+        {
+            "id": 47048544,
+            "keyword": "ברגים לפלסטיק",
+            "created_at": "2020-03-26",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 20
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 6,
+                    "highest_ranking_page": "https://www.mhm.co.il/ברגים-לפלסטיק/"
+                }
+            ]
+        },
+        {
+            "id": 47048547,
+            "keyword": "אביזרים למכונות",
+            "created_at": "2020-03-26",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 10
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 1,
+                    "highest_ranking_page": "https://www.mhm.co.il/אביזרים-למכונות/"
+                }
+            ]
+        },
+        {
+            "id": 27255561,
+            "keyword": "בולמי זעזועים",
+            "created_at": "2018-03-11",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 590
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 5,
+                    "highest_ranking_page": "https://www.mhm.co.il/בולמי-זעזועים/"
+                }
+            ]
+        },
+        {
+            "id": 27255567,
+            "keyword": "דפינה",
+            "created_at": "2018-03-11",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 70
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 10,
+                    "highest_ranking_page": "https://www.mhm.co.il/רכיבים-לתעשיית-המכונות-ואביזרי-דפינה/"
+                }
+            ]
+        },
+        {
+            "id": 27255556,
+            "keyword": "גלגלים לעגלות",
+            "created_at": "2018-03-11",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 1300
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 16,
+                    "highest_ranking_page": "https://www.mhm.co.il/גלגלים-לעגלות/"
+                }
+            ]
+        },
+        {
+            "id": 27255566,
+            "keyword": "מגנטים לתעשיה",
+            "created_at": "2018-03-11",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 70
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 7,
+                    "highest_ranking_page": "https://www.mhm.co.il/מגנטים-לתעשיה/"
+                }
+            ]
+        },
+        {
+            "id": 54957621,
+            "keyword": "רכיבי פירזול לתעשייה",
+            "created_at": "2021-03-03",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 10
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 1,
+                    "highest_ranking_page": "https://www.mhm.co.il/פירזול-אביזרים-למכונות/"
+                }
+            ]
+        },
+        {
+            "id": 27255563,
+            "keyword": "קשיחים",
+            "created_at": "2018-03-11",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 210
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 2,
+                    "highest_ranking_page": "https://www.mhm.co.il/"
+                }
+            ]
+        },
+        {
+            "id": 27255574,
+            "keyword": "מאווררים לתעשיה",
+            "created_at": "2018-03-11",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 20
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 23,
+                    "highest_ranking_page": "https://www.mhm.co.il/מאווררים-לתעשיה/"
+                }
+            ]
+        },
+        {
+            "id": 54954881,
+            "keyword": "פרזול לזיווד אלקטרוני",
+            "created_at": "2021-03-03",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 0
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 1,
+                    "highest_ranking_page": "https://www.mhm.co.il/פרזול-לזיווד-אלקטרוני/"
+                }
+            ]
+        },
+        {
+            "id": 27255568,
+            "keyword": "יריעות גומי",
+            "created_at": "2018-03-11",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 110
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 14,
+                    "highest_ranking_page": "https://www.mhm.co.il/יריעות-גומי/"
+                }
+            ]
+        },
+        {
+            "id": 27255557,
+            "keyword": "דבק דו צדדי",
+            "created_at": "2018-03-11",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 1600
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 26,
+                    "highest_ranking_page": "https://www.mhm.co.il/דבק-דו-צדדי/"
+                }
+            ]
+        },
+        {
+            "id": 27255559,
+            "keyword": "מסילות למגירות",
+            "created_at": "2018-03-11",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 1000
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 12,
+                    "highest_ranking_page": "https://www.mhm.co.il/מסילות-למגירות/"
+                }
+            ]
+        },
+        {
+            "id": 54957617,
+            "keyword": "מאווררים לתעשייה",
+            "created_at": "2021-03-03",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 20
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 25,
+                    "highest_ranking_page": "https://www.mhm.co.il/מאווררים-לתעשיה/"
+                }
+            ]
+        },
+        {
+            "id": 54957616,
+            "keyword": "גלגלים לתעשייה",
+            "created_at": "2021-03-03",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 140
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 10,
+                    "highest_ranking_page": "https://www.mhm.co.il/גלגלים-לתעשיה/"
+                }
+            ]
+        },
+        {
+            "id": 36301642,
+            "keyword": "מהדקי דפינה",
+            "created_at": "2019-03-26",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 10
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 3,
+                    "highest_ranking_page": "https://www.mhm.co.il/מהדקי-דפינה/"
+                }
+            ]
+        },
+        {
+            "id": 27255564,
+            "keyword": "מסילות טלסקופיות",
+            "created_at": "2018-03-11",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 210
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 3,
+                    "highest_ranking_page": "https://www.mhm.co.il/מסילות-טלסקופיות/"
+                }
+            ]
+        },
+        {
+            "id": 27255555,
+            "keyword": "חיתוך בלייזר",
+            "created_at": "2018-03-11",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 390
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 25,
+                    "highest_ranking_page": "https://www.mhm.co.il/חיתוך-בלייזר/"
+                }
+            ]
+        },
+        {
+            "id": 27255573,
+            "keyword": "ידיות למכונות",
+            "created_at": "2018-03-11",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 20
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 2,
+                    "highest_ranking_page": "https://www.mhm.co.il/ידיות-למכונות/"
+                }
+            ]
+        },
+        {
+            "id": 47048543,
+            "keyword": "צירים לדלת ארון",
+            "created_at": "2020-03-26",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 320
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 51,
+                    "highest_ranking_page": "https://www.mhm.co.il/צירים-לדלתות/"
+                }
+            ]
+        },
+        {
+            "id": 63996703,
+            "keyword": "פלאנג׳ר",
+            "created_at": "2022-04-03",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 0
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 4,
+                    "highest_ranking_page": "https://www.mhm.co.il/פלאנגר/"
+                }
+            ]
+        },
+        {
+            "id": 27255565,
+            "keyword": "גלגלים לתעשיה",
+            "created_at": "2018-03-11",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 140
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 5,
+                    "highest_ranking_page": "https://www.mhm.co.il/גלגלים-לתעשיה/"
+                }
+            ]
+        },
+        {
+            "id": 47048548,
+            "keyword": "פרזול לארונות חשמל",
+            "created_at": "2020-03-26",
+            "starred": true,
+            "search_volume": {
+                "search_volume": 10
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 3,
+                    "highest_ranking_page": "https://www.mhm.co.il/פרזול-לארונות-חשמל/"
+                }
+            ]
+        },
+        {
+            "id": 27255558,
+            "keyword": "פוליאמיד",
+            "created_at": "2018-03-11",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 480
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 1,
+                    "highest_ranking_page": "https://www.mhm.co.il/מה-זה-פוליאמיד/"
+                }
+            ]
+        },
+        {
+            "id": 36301994,
+            "keyword": "פדים תרמיים",
+            "created_at": "2019-03-26",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 30
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 6,
+                    "highest_ranking_page": "https://www.mhm.co.il/פדים-תרמיים/"
+                }
+            ]
+        },
+        {
+            "id": 27255569,
+            "keyword": "פין אבטחה",
+            "created_at": "2018-03-11",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 90
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 3,
+                    "highest_ranking_page": "https://www.mhm.co.il/פין-אבטחה/"
+                }
+            ]
+        },
+        {
+            "id": 27255571,
+            "keyword": "רגליות פילוס",
+            "created_at": "2018-03-11",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 110
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 6,
+                    "highest_ranking_page": "https://www.mhm.co.il/רגליות-פילוס/"
+                }
+            ]
+        },
+        {
+            "id": 36301644,
+            "keyword": "פורון",
+            "created_at": "2019-03-26",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 50
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 5,
+                    "highest_ranking_page": "https://www.mhm.co.il/פורון/"
+                }
+            ]
+        },
+        {
+            "id": 47048545,
+            "keyword": "אינסרטים",
+            "created_at": "2020-03-26",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 320
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 3,
+                    "highest_ranking_page": "https://www.mhm.co.il/אינסרטים/"
+                }
+            ]
+        },
+        {
+            "id": 54957619,
+            "keyword": "פירזול אביזרים למכונות",
+            "created_at": "2021-03-03",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 10
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 1,
+                    "highest_ranking_page": "https://www.mhm.co.il/פירזול-אביזרים-למכונות/"
+                }
+            ]
+        },
+        {
+            "id": 54957620,
+            "keyword": "קינסרט",
+            "created_at": "2021-03-03",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 50
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 2,
+                    "highest_ranking_page": "https://www.mhm.co.il/קינסרט/"
+                }
+            ]
+        },
+        {
+            "id": 27255560,
+            "keyword": "מוליכות חום",
+            "created_at": "2018-03-11",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 170
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 7,
+                    "highest_ranking_page": "https://www.mhm.co.il/מוליכות-חום/"
+                }
+            ]
+        },
+        {
+            "id": 54957615,
+            "keyword": "בושינג",
+            "created_at": "2021-03-03",
+            "starred": false,
+            "search_volume": {
+                "search_volume": 320
+            },
+            "ranks": [
+                {
+                    "created_at": "2024-02-06T13:12:00Z",
+                    "rank": 8,
+                    "highest_ranking_page": "https://www.mhm.co.il/בושינג/"
+                }
+            ]
+        }
+    ]
+}

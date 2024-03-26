@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Leos Media",
+    "slug": "laosMedia-app",
+    "version": "1.0.5",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "buildNumber": "5",
+      "supportsTablet": true,
+      "bundleIdentifier": "il.co.leoszone.leosmedia"
+    },
+    "android": {
+      "versionCode": 3,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "il.co.leoszone.leosapp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a54a7f10-0412-4ba1-b226-d1333deee023"
+      }
+    }
+  }
+}
