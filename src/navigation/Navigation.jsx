@@ -17,13 +17,10 @@ const navRoutes = {
     MyTabs: MyTabs
 }
 
-export const MainNavigation = () => {
-    return (
-
+export const MainNavigation = () =>
+    (
         <Drawer.Navigator screenOptions={{headerShown: false, drawerPosition: 'right'}}
                           drawerContent={props => <DrawerNavigation {...props} />}>
             {Object.entries(navRoutes).map(([key, value]) => <Drawer.Screen name={key} component={value} key={key}/>)}
         </Drawer.Navigator>
-
     );
-};

@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import apiClient from '../../core/apiClient';
 import {setUser} from '../../core/auth';
 import Toast from 'react-native-toast-message';
+import {routes} from "../../routes/routes";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -18,45 +19,38 @@ const fields = [
     },
     {
         name: "phoneNumber",
-        placeholder: "050877345",
+        placeholder: "כתוב כאן מספר טלפון",
         label: "מספר פלאפון",
         type: "phone",
     },
-    {
-        name: "password",
-        placeholder: "******",
-        label: "אימות סיסמא בהודעה",
-        type: "password",
-    },
+    // {
+    //     name: "password",
+    //     placeholder: "******",
+    //     label: "אימות סיסמא בהודעה",
+    //     type: "password",
+    // },
 ];
 
+const formInitValues = {
+    phoneNumber: "0525226939",
+    bnNumber: "313882557",
+    // password: "UCrICsS1HD",
+};
+const formValidationSchema = Yup.object().shape({
+    phoneNumber: Yup.string()
+        .matches(/^[0-9]{9,10}$/, {message: "פורמט לא חוקי"})
+        .required("זהו שדה חובה"),
+    bnNumber: Yup.string().required("זהו שדה חובה"),
+    // password: Yup.string().required("זהו שדה חובה")
+});
+
 const Login = ({navigation}) => {
-    const formInitValues = {
-        phoneNumber: "0525226939",
-        // phoneNumber: "525226939",
-        password: "UCrICsS1HD",
-        bnNumber: "313882000",
-    };
-    // const formInitValues = {
-    //   phoneNumber: "",
-    //   password: "",
-    //   bnNumber: "",
-    // };
-    const formValidationSchema = Yup.object().shape({
-        phoneNumber: Yup.string()
-            .matches(/^[0-9]{9,10}$/, {message: "פורמט לא חוקי"})
-            .required("זהו שדה חובה"),
-        bnNumber: Yup.string().required("זהו שדה חובה"),
-        password: Yup.string().required("זהו שדה חובה")
-    });
     const onSubmit = async (values) => {
         try {
-            // const loginResponse = await apiClient.login('app@leos.co.il', values.password);
-            // const token = loginResponse.data.token;
-            // await setToken(token);
-            const userInfoResponse = await apiClient.getUserInfo(values.phoneNumber, values.bnNumber);
-            setUser({...userInfoResponse.data, leos_id: '94872929494729748'});
-            navigation.navigate("CustomerDetails");
+            const userInfo = await apiClient.getUserInfo(values.phoneNumber, values.bnNumber);
+            // setUser({...userInfoResponse.data, leos_id: '94872929494729748'});
+            await setUser(userInfo);
+            navigation.navigate(routes.CUSTOMER_DETAILS);
         } catch (error) {
             console.log(error?.response?.data?.message);
             console.log('An error occurred');
@@ -66,7 +60,6 @@ const Login = ({navigation}) => {
             });
         }
     };
-
     return (
         <View style={styles.container}>
             <View>

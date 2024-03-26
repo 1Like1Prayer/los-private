@@ -1,52 +1,39 @@
 import {StatusBar} from "expo-status-bar";
-import React, {useEffect} from "react";
+import React from "react";
 import {Dimensions, Image, StyleSheet, Text, View,} from "react-native";
 import ButtonLower from "../../components/Button/ButtonLower";
-import {getUser} from '../../core/auth';
 import {routes} from "../../routes/routes";
-
 
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const Intro=({navigation})=> {
-    const handleClick = () =>
-        navigation.navigate(routes.LOGIN);
-    ;
-    useEffect(() => {
-        getUser().then(res => {
-            if (res) {
-                navigation.navigate("MyTabs");
-            }
-        })
-    }, [])
-    return (
-            <View style={styles.containerGetStarted}>
-                <View>
-                    <Image
-                        source={require("../../../assets/images/Layer_1.png")}
-                        style={styles.LogoPurple}
-                        resizeMode="contain"
-                    />
-                </View>
-                <View style={styles.DivIconImage}>
-                    <Image
-                        source={require("../../../assets/images/iconPic.png")}
-                        style={styles.iconsPicture}
-                        resizeMode="contain"
-                    />
-                    <Text style={styles.WelcomeText}>
-                        ברוך הבא לעידן חדש בניהול הקמפיינים של העסק שלך
-                    </Text>
-                </View>
-                <View>
-                    <ButtonLower title={"יאללה, בואו נתחיל"} handlePress={handleClick}/>
-                </View>
-                <StatusBar style="auto"/>
+const Intro = ({navigation}) =>
+    (
+        <View style={styles.containerGetStarted}>
+            <View>
+                <Image
+                    source={require("../../../assets/images/Layer_1.png")}
+                    style={styles.LogoPurple}
+                    resizeMode="contain"
+                />
             </View>
-    );
-}
+            <View style={styles.DivIconImage}>
+                <Image
+                    source={require("../../../assets/images/iconPic.png")}
+                    style={styles.iconsPicture}
+                    resizeMode="contain"
+                />
+                <Text style={styles.WelcomeText}>
+                    ברוך הבא לעידן חדש בניהול הקמפיינים של העסק שלך
+                </Text>
+            </View>
+            <View>
+                <ButtonLower title={"יאללה, בואו נתחיל"} handlePress={() => navigation.navigate(routes.LOGIN)}/>
+            </View>
+            <StatusBar style="auto"/>
+        </View>
+    )
 
 const styles = StyleSheet.create({
     containerGetStarted: {
