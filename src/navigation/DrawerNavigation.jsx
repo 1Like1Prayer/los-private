@@ -1,15 +1,59 @@
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import HomePage from "../pages/homePage"; 
+import {DrawerContentScrollView, DrawerItem} from "@react-navigation/drawer";
+import {deleteUser} from "../core/auth";
+import {navigate} from "./NavigationService";
+import {View} from "react-native";
+import {Image} from "react-native-elements";
 
-const Drawer = createDrawerNavigator();
 
-const DrawerNavigation = () => {
-  return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={HomePage} />
-      {/* Add more drawer screens as needed */}
-    </Drawer.Navigator>
-  );
+const labels = {
+    home: 'בית',
+    profile: 'הפרופיל שלי',
+    logout: 'התנתק'
+}
+
+export const DrawerNavigation = ({props}) => {
+    const logout = () => {
+        deleteUser().catch(err => {
+            console.log(err)
+        }).finally(() => {
+            navigate('Login')
+        })
+    }
+    return (
+        <DrawerContentScrollView {...props}>
+            <View style={{marginLeft: 150, marginTop: 20}}>
+                <Image
+                    source={require("../../assets/images/Layer_1.png")}
+                    resizeMode="contain"
+                    style={{width: 100, height: 100}} // Adjust the width and height as per your image dimensions
+                />
+            </View>
+            <View style={{marginLeft: 180, marginTop: 20}}>
+                <DrawerItem
+                    label={labels.home}
+                    onPress={() => navigate('MyTabs', {screen: 'Home'})}
+                />
+            </View>
+            <View style={{marginLeft: 150}}>
+                <DrawerItem
+                    label={labels.profile}
+                    onPress={() => navigate('CustomerDetails')}
+                />
+            </View>
+            <View style={{
+                borderBottomWidth: 1,
+                borderBottomColor: 'grey',
+                marginVertical: 10,
+                marginHorizontal: 20
+            }}></View>
+
+            <View style={{marginLeft: 160}}>
+                <DrawerItem
+                    label={labels.logout}
+                    onPress={logout}
+                />
+            </View>
+        </DrawerContentScrollView>
+    );
+
 };
-
-export default DrawerNavigation;
