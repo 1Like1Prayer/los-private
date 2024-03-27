@@ -10,29 +10,23 @@ import FailedPayment from "../pages/failedPayment";
 
 const Tab = createBottomTabNavigator();
 
+const TabNavigation = {
+    Home: HomePage,
+    Invoices: Invoices,
+    MarketPlace: MarketPlace,
+    ComingSoon: ComingSoon,
+    CheckoutPage: CheckoutPage,
+    Success: SuccessPayment,
+    Failed: FailedPayment
+}
+
 function MyTabs() {
     return (
         <Tab.Navigator
             tabBar={(props) => <FooterMenu {...props} />}
             screenOptions={{header: () => null, headerShown: false}}
         >
-
-            <Tab.Screen name="Home" component={HomePage}/>
-
-            <Tab.Screen name="Invoices" component={Invoices}/>
-
-            <Tab.Screen name="MarketPlace" component={MarketPlace}/>
-
-            <Tab.Screen name="ComingSoon" component={ComingSoon}/>
-
-            <Tab.Screen name="CheckoutPage" component={CheckoutPage}/>
-
-            <Tab.Screen name="Success" component={SuccessPayment}/>
-
-            <Tab.Screen name="Failed" component={FailedPayment}/>
-
-            {/* <Tab.Screen name="Drawer" component={DrawerNavigation} /> */}
-
+            {Object.entries(TabNavigation).map(([key, value]) => <Tab.Screen key={key} name={key} component={value}/>)}
         </Tab.Navigator>
     );
 }

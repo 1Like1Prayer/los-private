@@ -1,8 +1,8 @@
 import {DrawerContentScrollView, DrawerItem} from "@react-navigation/drawer";
 import {deleteUser} from "../core/auth";
-import {navigate} from "./NavigationService";
 import {View} from "react-native";
 import {Image} from "react-native-elements";
+import {routes} from "../routes/routes";
 
 
 const labels = {
@@ -11,12 +11,12 @@ const labels = {
     logout: 'התנתק'
 }
 
-export const DrawerNavigation = ({props}) => {
+export const DrawerNavigation = ({navigation, props}) => {
     const logout = () => {
         deleteUser().catch(err => {
             console.log(err)
         }).finally(() => {
-            navigate('Login')
+            navigation.navigate(routes.LOGIN)
         })
     }
     return (
@@ -31,13 +31,13 @@ export const DrawerNavigation = ({props}) => {
             <View style={{marginLeft: 180, marginTop: 20}}>
                 <DrawerItem
                     label={labels.home}
-                    onPress={() => navigate('MyTabs', {screen: 'Home'})}
+                    onPress={() => navigation.navigate(routes.MY_TABS, {screen: 'Home'})}
                 />
             </View>
             <View style={{marginLeft: 150}}>
                 <DrawerItem
                     label={labels.profile}
-                    onPress={() => navigate('CustomerDetails')}
+                    onPress={() => navigation.navigate(routes.CUSTOMER_DETAILS)}
                 />
             </View>
             <View style={{

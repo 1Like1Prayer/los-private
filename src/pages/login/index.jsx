@@ -48,12 +48,12 @@ const Login = ({navigation}) => {
     const onSubmit = async (values) => {
         try {
             const userInfo = await apiClient.getUserInfo(values.phoneNumber, values.bnNumber);
+            console.log(userInfo)
             // setUser({...userInfoResponse.data, leos_id: '94872929494729748'});
             await setUser(userInfo);
-            navigation.navigate(routes.CUSTOMER_DETAILS);
+            navigation.navigate(routes.CUSTOMER_DETAILS,{companyName:userInfo.name,bnNumber:values.bnNumber,phoneNumber:values.phoneNumber});
         } catch (error) {
-            console.log(error?.response?.data?.message);
-            console.log('An error occurred');
+            console.log('An error occurred',error?.response?.data?.message);
             Toast.show({
                 type: 'error',
                 text1: error?.response?.data?.message ?? 'An error occurred'
