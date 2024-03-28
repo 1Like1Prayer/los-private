@@ -14,8 +14,8 @@ class API {
     }
 
     async getClientInvoices(leos_id) {
-        const res = await this.axios.get(`/api/app/getClientInvoices`, {params: {leos_id}});
-        return res.data;
+        const {data:{data:{invoices}}} = await this.axios.get(`/api/app/getClientInvoices`, {params: {leos_id}});
+        return invoices;
     }
 
     async getUserInfo(phone, bn_number) {

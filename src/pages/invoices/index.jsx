@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Dimensions, FlatList, Image, Pressable, StyleSheet, Text, View} from "react-native";
-// import axios from "axios";
+import {Alert, Dimensions, FlatList, Image, Linking, Pressable, StyleSheet, Text, View} from "react-native";
 import apiClient from '../../core/apiClient';
 import InvoiceSection from "../../components/InvoiceSection";
 import FilterDropDown from "../../components/FilterDropDown";
 import {getUser} from "../../core/auth";
 import {Modal} from "react-native-paper";
 import {TouchableOpacity} from "react-native-gesture-handler";
+import Toast from "react-native-toast-message";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -38,72 +38,55 @@ const months = [
     {label: "דצמבר", value: 12},
 ];
 
-export default function Invoices() {
+const Invoices = () => {
     const [invoicesData, setInvoicesData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [filter, setFilter] = useState({year: "all", month: "all"})
 
     useEffect(() => {
-
         (async () => {
-            const {leos_id} = await getUser()
-            apiClient.getClientInvoices(leos_id)
-                .then((response) => {
-                    function groupInvoicesByYearAndMonth(invoices) {
-                        const groupedData = [];
-
-                        invoices.forEach((invoice) => {
-                            const date = new Date(invoice.date);
-                            const year = date.getFullYear();
-                            const month = date.getMonth() + 1; // Adding 1 to match the 1-12 format
-
-                            // Check if the year exists in the grouped data
-                            const yearIndex = groupedData.findIndex(
-                                (item) => item.year === year
-                            );
-
-                            if (yearIndex === -1) {
-                                // If the year doesn't exist, create a new entry for it
-                                groupedData.push({
-                                    year,
-                                    data: [{month, invoices: [invoice.invoice_id]}],
-                                });
-                            } else {
-                                // If the year exists, check if the month exists for that year
-                                const monthIndex = groupedData[yearIndex].data.findIndex(
-                                    (item) => item.month === month
-                                );
-
-                                if (monthIndex === -1) {
-                                    // If the month doesn't exist, create a new entry for it
-                                    groupedData[yearIndex].data.push({
-                                        month,
-                                        invoices: [invoice.invoice_id],
-                                    });
-                                } else {
-                                    // If the month exists, add the invoice to it
-                                    groupedData[yearIndex].data[monthIndex].invoices.push(
-                                        invoice.invoice_id
-                                    );
-                                }
-                            }
-                        });
-
-                        return groupedData;
-                    }
-
-                    // Call the function with the invoices data
-                    const newData = groupInvoicesByYearAndMonth(
-                        response.data.invoices
+            try {
+                const {leos_id} = await getUser()
+                const invoices = await apiClient.getClientInvoices(leos_id)
+                let groupedData = [];
+                invoices.forEach((invoice) => {
+                    const date = new Date(invoice.date);
+                    const year = date.getFullYear();
+                    const month = date.getMonth() + 1; // Adding 1 to match the 1-12 format
+                    const yearIndex = groupedData.findIndex(
+                        (item) => item.year === year
                     );
 
-                    setInvoicesData(newData);
-                    setFilteredData(newData);
+                    if (yearIndex === -1) {
+                        groupedData.push({
+                            year,
+                            data: [{month, invoices: [invoice.invoice_id]}],
+                        });
+                    } else {
+                        const monthIndex = groupedData[yearIndex].data.findIndex(
+                            (item) => item.month === month
+                        );
+                        if (monthIndex === -1) {
+                            groupedData[yearIndex].data.push({
+                                month,
+                                invoices: [invoice.invoice_id],
+                            });
+                        } else {
+                            groupedData[yearIndex].data[monthIndex].invoices.push(
+                                invoice.invoice_id
+                            );
+                        }
+                    }
                 })
-                .catch((error) => {
-                    // Handle any errors here
-                    console.error("Error:", error);
+                setInvoicesData(groupedData);
+                setFilteredData(groupedData);
+            } catch (error) {
+                console.error("Error:", error);
+                Toast.show({
+                    type: 'error',
+                    text1: error?.response?.data?.message ?? 'An error occurred while getting invoices data'
                 });
+            }
         })()
     }, []);
 
@@ -138,17 +121,13 @@ export default function Invoices() {
         }
     };
 
-
     const updateFilter = (newFilter) => {
         setFilter(newFilter)
         handleFilterData()
-
     }
-
     const [modalVisible, setModalVisible] = useState(false);
-
-
     const openInvoiceModal = (leosId, invoiceId) => {
+        setModalVisible(true)
         apiClient.getInvoice(leosId, invoiceId)
             .then((response) => {
                 const {invoice} = response.data;
@@ -167,7 +146,7 @@ export default function Invoices() {
             });
     };
 
-    downloadPDF = () => {
+    const downloadPDF = () => {
         // const { url } = this.state;
         const localFilePath = `${RNFS.DocumentDirectoryPath}/downloadedFile.pdf`;
 
@@ -202,7 +181,6 @@ export default function Invoices() {
                     )}
                 />
             </View>
-            {/* <View style={styles.centeredView}> */}
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -214,10 +192,11 @@ export default function Invoices() {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
 
-                        {/* <Text>
-          <iframe src="https://yaad-prod.s3.eu-central-1.amazonaws.com/PDFInvoices/4500748231/2023/07/XXTE9WS0E2.pdf" title=""> </iframe>
-          </Text>  */}
-
+                        {/*{<Text>*/}
+                        {/*    <iframe*/}
+                        {/*        src="https://yaad-prod.s3.eu-central-1.amazonaws.com/PDFInvoices/4500748231/2023/07/XXTE9WS0E2.pdf"*/}
+                        {/*        title=""></iframe>*/}
+                        {/*</Text>}*/}
                         <View style={{
                             display: "flex",
                             flexDirection: "row",
@@ -236,10 +215,7 @@ export default function Invoices() {
                                 style={styles.LogoPurple}
                                 resizeMode="contain"
                             />
-
-
                         </View>
-
                         <View style={{display: "flex", alignItems: "flex-end", margin: 5}}>
                             <Text>חשבונית </Text>
                         </View>
@@ -294,7 +270,7 @@ export default function Invoices() {
                             margin: 5
                         }}>
                             <Text style={styles.textspace}>1000 ש״ח</Text>
-                            <Text>ביית אתר</Text>
+                            <Text>בניית אתר</Text>
 
                         </View>
 
@@ -336,22 +312,20 @@ export default function Invoices() {
                     </View>
                 </View>
             </Modal>
-            {/* </View> */}
-
-
         </View>
     );
 }
+
+export default Invoices
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#FBF8FF",
         width: windowWidth,
-        height: windowHeight,
+        height: windowHeight * 0.76,
         paddingBottom: 60,
     },
     dataContainer: {
-        flex: 1,
         justifyContent: "center",
         alignItems: "center",
     },
@@ -372,12 +346,8 @@ const styles = StyleSheet.create({
     modalView: {
         width: 330,
         height: 400,
-        // margin: 20,
-        // marginTop: 10,
         backgroundColor: 'white',
         borderRadius: 20,
-        // padding: 35,
-        // alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -386,21 +356,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
-        // alignItems: "center",
-        // justifyContent: "center",
-
     },
     button: {
         borderRadius: 20,
         padding: 10,
         elevation: 2,
         width: 150
-    },
-    buttonOpen: {
-        // backgroundColor: '#F194FF',
-    },
-    buttonClose: {
-        // backgroundColor: '#2196F3',
     },
     textStyle: {
         color: 'white',
