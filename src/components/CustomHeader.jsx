@@ -1,32 +1,38 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Dimensions, Image, Pressable, SafeAreaView, StyleSheet, View} from "react-native";
+import {Image, Pressable, SafeAreaView, StyleSheet, View} from "react-native";
 import MenuIcon from "../icons/MenueIcon";
-import {getUser} from "../core/auth";
 import profilePic2 from '../../assets/images/profilePic.png';
 import {routes} from "../routes/routes";
 import {useNavigation} from "@react-navigation/native";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import {getValue} from "../core/secureStore";
+import Toast from "react-native-toast-message";
 
 const CustomHeader = () => {
-    const [profilePic, setProfilePic] = useState()
+    const [profilePic, setProfilePic] = useState(' ');
     const mounted = useRef(false)
     const navigation = useNavigation()
+    const [customerDataState, setCustomerDataState] = useState({})
+    useEffect(() => {
+        (async () => {
+            const customerData = await getValue('customerData')
+            setCustomerDataState(customerData);
+        })()
+    }, []);
     useEffect(() => {
         const fetchProfilePic = async () => {
             try {
-                const {avatar} = await getUser();
-                console.log('avatar:', avatar);
-
+                const avatar = await getValue('avatar');
                 // Ensure the component is mounted before setting profile picture
                 if (!mounted.current) {
-                    // Assuming the avatar received is the full URL
                     setProfilePic(avatar);
                     mounted.current = true;
                 }
             } catch (error) {
                 console.error('Error fetching profile picture:', error);
+                Toast.show({
+                    type: 'error',
+                    text1: error?.response?.data?.message ?? 'An error occurred while uploading image'
+                });
             }
         };
 
@@ -38,10 +44,10 @@ const CustomHeader = () => {
         <SafeAreaView>
             <View style={styles.headerContainer}>
                 <Pressable onPress={() => {
-                    navigation.navigate(routes.CUSTOMER_DETAILS)
+                    navigation.navigate(routes.CUSTOMER_DETAILS, JSON.parse(customerDataState))
                 }}>
                     <Image
-                        source={profilePic ? {uri: profilePic} : profilePic2}
+                        source={!profilePic ? {uri: profilePic} : profilePic2}
                         resizeMode="contain"
                         style={styles.image}
                     />
@@ -70,7 +76,6 @@ const styles = StyleSheet.create({
         paddingVertical: 40,
         paddingHorizontal: 17,
         marginTop: 5
-        // backgroundColor: 'red',
     },
     image: {
         width: 36,

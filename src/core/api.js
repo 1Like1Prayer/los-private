@@ -4,8 +4,8 @@ class API {
     }
 
     async getClientData(leos_id, service) {
-        const res = await this.axios.get(`/api/app/getClientData`, {params: {leos_id, service}});
-        return res.data;
+        const {data:{data:{original:{data}}}} = await this.axios.get(`/api/app/getClientData`, {params: {leos_id, service}});
+        return data;
     }
 
     async getInvoice(leos_id, invoice_id) {

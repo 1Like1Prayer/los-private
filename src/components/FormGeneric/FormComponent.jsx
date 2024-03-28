@@ -108,20 +108,19 @@ const FormComponent = ({
                     {uploadImage ? <UploadImage onChange={setImages}/> : null}
                     <View style={{marginTop: 30, marginBottom: 10}}>
                         {/* Disable the button if form is not valid */}
-                        <ButtonLower title={"שלח והתחל"} handlePress={handleSubmit}/>
+                        <ButtonLower title={route.name !== routes.CUSTOMER_DETAILS?"שלח והתחל":"אימות נתונים"} handlePress={handleSubmit}/>
                     </View>
-
-                    {route.name === routes.CUSTOMER_DETAILS &&
-                        <View style={{
-                            alignItems: 'center',
-                            marginTop: 10,
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                        }}>
-                            <Ionicons name="pencil" size={24} color="black" style={{color: "#6226CF"}}/>
-                            <Text style={{fontSize: 16, marginRight: 5, color: "#6226CF"}}>אימות פרטים</Text>
-                        </View>
-                    }
+                    {/*{route.name === routes.CUSTOMER_DETAILS &&*/}
+                    {/*    <View style={{*/}
+                    {/*        alignItems: 'center',*/}
+                    {/*        marginTop: 10,*/}
+                    {/*        flexDirection: 'row',*/}
+                    {/*        justifyContent: 'center',*/}
+                    {/*    }}>*/}
+                    {/*        <Ionicons name="pencil" size={24} color="black" style={{color: "#6226CF"}}/>*/}
+                    {/*        <Text style={{fontSize: 16, marginRight: 5, color: "#6226CF"}}>אימות פרטים</Text>*/}
+                    {/*    </View>*/}
+                    {/*}*/}
                 </View>
             )}
         </Formik>

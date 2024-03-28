@@ -1,14 +1,13 @@
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import {Dimensions, StyleSheet, View} from "react-native";
 import BoxData from "./BoxData";
-// import { panelData } from "../../assets/data/homePage";
 
 const windowWidth = Dimensions.get("window").width;
 
 
 const BoxItems = ({data}) => {
   // Create an array of arrays, each containing two items from panelData.boxData
-  const groupedData = groupDataIntoRows(data, 2);
+  const groupedData = groupDataIntoRows(data, 2)
 
   return (
     <View style={styles.itemsContainer}>

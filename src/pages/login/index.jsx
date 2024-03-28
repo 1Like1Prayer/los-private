@@ -6,6 +6,7 @@ import apiClient from '../../core/apiClient';
 import {setUser} from '../../core/auth';
 import Toast from 'react-native-toast-message';
 import {routes} from "../../routes/routes";
+import {setValue} from "../../core/secureStore";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -48,15 +49,16 @@ const Login = ({navigation}) => {
     const onSubmit = async (values) => {
         try {
             const userInfo = await apiClient.getUserInfo(values.phoneNumber, values.bnNumber);
-            console.log(userInfo)
-            // setUser({...userInfoResponse.data, leos_id: '94872929494729748'});
+            const customerData = {bnNumber:values.bnNumber,phoneNumber:values.phoneNumber,companyName:userInfo.name}
             await setUser(userInfo);
-            navigation.navigate(routes.CUSTOMER_DETAILS,{companyName:userInfo.name,bnNumber:values.bnNumber,phoneNumber:values.phoneNumber});
+            await setValue('avatar',userInfo.avatar)
+            await setValue('customerData',JSON.stringify(customerData));
+            await navigation.navigate(routes.CUSTOMER_DETAILS,customerData);
         } catch (error) {
             console.log('An error occurred',error?.response?.data?.message);
             Toast.show({
                 type: 'error',
-                text1: error?.response?.data?.message ?? 'An error occurred'
+                text1: error?.response?.data?.message ?? 'An error occurred while fetching user'
             });
         }
     };

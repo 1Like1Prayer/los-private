@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Dimensions, Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import FormComponent from "../../components/FormGeneric/FormComponent";
@@ -7,7 +7,7 @@ import Toast from 'react-native-toast-message';
 import apiClient from '../../core/apiClient';
 import {getUser} from '../../core/auth';
 import {routes} from "../../routes/routes";
-import {setValue} from "../../core/secureStore";
+import {getValue, setValue} from "../../core/secureStore";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -51,11 +51,10 @@ const CustomerDetails = ({navigation, route: {params: {companyName, bnNumber, ph
             if (values.images.length) {
                 const {leos_id} = await getUser()
                 const {data} = await apiClient.updateClientAvatar(leos_id, values.images[0]);
+                console.log('upload',data);
                 await setValue('avatar', data);
-                navigation.navigate("MyTabs");
-            } else {
-                navigation.navigate("MyTabs");
             }
+            await navigation.navigate("MyTabs");
         } catch (error) {
             console.log('update failed:', error);
             Toast.show({
