@@ -9,8 +9,8 @@ class API {
     }
 
     async getInvoice(leos_id, invoice_id) {
-        const res = await this.axios.get(`/api/app/getInvoice`, {params: {leos_id, invoice_id}});
-        return res.data;
+        const {data:{data:{invoice}}} = await this.axios.get(`/api/app/getInvoice`, {params: {leos_id, invoice_id}});
+        return invoice;
     }
 
     async getClientInvoices(leos_id) {

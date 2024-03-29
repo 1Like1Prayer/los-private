@@ -3,6 +3,7 @@ import React from "react";
 import {Dimensions, Image, StyleSheet, Text, View,} from "react-native";
 import ButtonLower from "../../components/Button/ButtonLower";
 import {routes} from "../../routes/routes";
+import SvgComponent from "../../../assets/svgs/leos-logo";
 
 
 const windowWidth = Dimensions.get("window").width;
@@ -12,6 +13,12 @@ const Intro = ({navigation}) =>
     (
         <View style={styles.containerGetStarted}>
             <View>
+                {/*<SvgComponent style={styles.LogoPurple}/>*/}
+
+                {/*<Image source={require("../../../assets/images/LeosLogo.svg")} style={{*/}
+                {/*    width: windowWidth * 0.5,*/}
+                {/*    height: windowHeight * 0.1*/}
+                {/*}}/>*/}
                 <Image
                     source={require("../../../assets/images/Layer_1.png")}
                     style={styles.LogoPurple}
@@ -57,7 +64,6 @@ const styles = StyleSheet.create({
     iconsPicture: {
         width: windowWidth * 0.75,
         height: windowHeight * 0.3,
-        // marginTop:windowHeight*0.1,
     },
     WelcomeText: {
         fontFamily: "OpenSans-Bold",

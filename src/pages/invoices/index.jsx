@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Alert, Dimensions, FlatList, Image, Linking, Pressable, StyleSheet, Text, View} from "react-native";
+import {Dimensions, FlatList, StyleSheet, View} from "react-native";
 import apiClient from '../../core/apiClient';
 import InvoiceSection from "../../components/InvoiceSection";
 import FilterDropDown from "../../components/FilterDropDown";
 import {getUser} from "../../core/auth";
-import {Modal} from "react-native-paper";
-import {TouchableOpacity} from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
 
 const windowWidth = Dimensions.get("window").width;
@@ -41,6 +39,7 @@ const months = [
 const Invoices = () => {
     const [invoicesData, setInvoicesData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
+    const [invoiceURI, setInvoiceURI] = useState(' ');
     const [filter, setFilter] = useState({year: "all", month: "all"})
 
     useEffect(() => {
@@ -128,38 +127,22 @@ const Invoices = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const openInvoiceModal = (leosId, invoiceId) => {
         setModalVisible(true)
-        apiClient.getInvoice(leosId, invoiceId)
-            .then((response) => {
-                const {invoice} = response.data;
-                if (invoice) {
-                    console.log('Invoice:', invoice);
-                    Linking.openURL(invoice)
-                        .catch((error) => {
-                            console.error('Failed to open URL:', error);
-                        });
-                } else {
-                    console.error('Invoice not found in the response');
-                }
-            })
-            .catch((error) => {
-                console.error('Error fetching invoice:', error);
-            });
-    };
-
-    const downloadPDF = () => {
-        // const { url } = this.state;
-        const localFilePath = `${RNFS.DocumentDirectoryPath}/downloadedFile.pdf`;
-
-        RNFS.downloadFile({
-            fromUrl: "https://yaad-prod.s3.eu-central-1.amazonaws.com/PDFInvoices/4500748231/2023/07/XXTE9WS0E2.pdf",
-            toFile: localFilePath,
-        }).promise.then((response) => {
-            if (response.statusCode === 200) {
-                this.setState({filePath: localFilePath});
-            }
-        }).catch((error) => {
-            console.log('Error downloading file: ', error);
-        });
+        // apiClient.getInvoice(leosId, invoiceId)
+        //     .then((response) => {
+        //         const {invoice} = response.data;
+        //         if (invoice) {
+        //             setInvoiceURI(invoice)
+        //             Linking.openURL(invoice)
+        //                 .catch((error) => {
+        //                     console.error('Failed to open URL:', error);
+        //                 });
+        //         } else {
+        //             console.error('Invoice not found in the response');
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error fetching invoice:', error);
+        //     });
     };
 
     return (
@@ -181,137 +164,145 @@ const Invoices = () => {
                     )}
                 />
             </View>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert('Modal has been closed.');
-                    setModalVisible(!modalVisible);
-                }}>
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
+            {/*<Modal*/}
+            {/*    animationType="slide"*/}
+            {/*    transparent={true}*/}
+            {/*    visible={modalVisible}*/}
+            {/*    onRequestClose={() => {*/}
+            {/*        Alert.alert('Modal has been closed.');*/}
+            {/*        setModalVisible(!modalVisible);*/}
+            {/*    }}>*/}
+            {/*    <View style={styles.modalContent}>*/}
+            {/*        <WebView*/}
+            {/*            onBlur={() => setModalVisible(false)}*/}
 
-                        {/*{<Text>*/}
-                        {/*    <iframe*/}
-                        {/*        src="https://yaad-prod.s3.eu-central-1.amazonaws.com/PDFInvoices/4500748231/2023/07/XXTE9WS0E2.pdf"*/}
-                        {/*        title=""></iframe>*/}
-                        {/*</Text>}*/}
-                        <View style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-evenly",
-                            marginRight: 100
-                        }}>
-                            <TouchableOpacity onPress={openInvoiceModal}>
-                                <Image
-                                    source={require("../../../assets/images/download.png")}
-                                    style={styles.download}
-                                    resizeMode="contain"
-                                />
-                            </TouchableOpacity>
-                            <Image
-                                source={require("../../../assets/images/LogoPurple.png")}
-                                style={styles.LogoPurple}
-                                resizeMode="contain"
-                            />
-                        </View>
-                        <View style={{display: "flex", alignItems: "flex-end", margin: 5}}>
-                            <Text>חשבונית </Text>
-                        </View>
+            {/*            source={{uri: `https://docs.google.com/gview?embedded=true&url=${invoiceURI}`}}*/}
+            {/*        />*/}
+            {/*    </View>*/}
+            {/*</Modal>*/}
+            {/*    <View style={styles.centeredView}>*/}
+            {/*        <View style={styles.modalView}>*/}
 
-                        <View style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "flex-end",
-                            alignItems: "flex-end",
-                            margin: 5
-                        }}>
-                            <Text style={styles.textspace}>2022-02-03 18:34:28</Text>
-                            <Text>תאריך הוצאת חשבונית</Text>
+            {/*            /!*{<Text>*!/*/}
+            {/*            /!*    <iframe*!/*/}
+            {/*            /!*        src="https://yaad-prod.s3.eu-central-1.amazonaws.com/PDFInvoices/4500748231/2023/07/XXTE9WS0E2.pdf"*!/*/}
+            {/*            /!*        title=""></iframe>*!/*/}
+            {/*            /!*</Text>}*!/*/}
+            {/*            <View style={{*/}
+            {/*                display: "flex",*/}
+            {/*                flexDirection: "row",*/}
+            {/*                justifyContent: "space-evenly",*/}
+            {/*                marginRight: 100*/}
+            {/*            }}>*/}
+            {/*                <TouchableOpacity onPress={openInvoiceModal}>*/}
+            {/*                    <Image*/}
+            {/*                        source={require("../../../assets/images/download.png")}*/}
+            {/*                        style={styles.download}*/}
+            {/*                        resizeMode="contain"*/}
+            {/*                    />*/}
+            {/*                </TouchableOpacity>*/}
+            {/*                <Image*/}
+            {/*                    source={require("../../../assets/images/LogoPurple.png")}*/}
+            {/*                    style={styles.LogoPurple}*/}
+            {/*                    resizeMode="contain"*/}
+            {/*                />*/}
+            {/*            </View>*/}
+            {/*            <View style={{display: "flex", alignItems: "flex-end", margin: 5}}>*/}
+            {/*                <Text>חשבונית </Text>*/}
+            {/*            </View>*/}
 
-                        </View>
+            {/*            <View style={{*/}
+            {/*                display: "flex",*/}
+            {/*                flexDirection: "row",*/}
+            {/*                justifyContent: "flex-end",*/}
+            {/*                alignItems: "flex-end",*/}
+            {/*                margin: 5*/}
+            {/*            }}>*/}
+            {/*                <Text style={styles.textspace}>2022-02-03 18:34:28</Text>*/}
+            {/*                <Text>תאריך הוצאת חשבונית</Text>*/}
 
-                        <View style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "flex-end",
-                            alignItems: "flex-end",
-                            margin: 5
-                        }}>
-                            <Text style={styles.textspace}>team-c</Text>
-                            <Text>תאריך הוצאת חשבונית</Text>
+            {/*            </View>*/}
 
-                        </View>
+            {/*            <View style={{*/}
+            {/*                display: "flex",*/}
+            {/*                flexDirection: "row",*/}
+            {/*                justifyContent: "flex-end",*/}
+            {/*                alignItems: "flex-end",*/}
+            {/*                margin: 5*/}
+            {/*            }}>*/}
+            {/*                <Text style={styles.textspace}>team-c</Text>*/}
+            {/*                <Text>תאריך הוצאת חשבונית</Text>*/}
 
-                        <View style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "flex-end",
-                            alignItems: "flex-end",
-                            margin: 5
-                        }}>
-                            <Text style={styles.textspace}>653457</Text>
-                            <Text style={styles.textspace2}>תאריך הוצאת חשבונית</Text>
+            {/*            </View>*/}
 
-                        </View>
+            {/*            <View style={{*/}
+            {/*                display: "flex",*/}
+            {/*                flexDirection: "row",*/}
+            {/*                justifyContent: "flex-end",*/}
+            {/*                alignItems: "flex-end",*/}
+            {/*                margin: 5*/}
+            {/*            }}>*/}
+            {/*                <Text style={styles.textspace}>653457</Text>*/}
+            {/*                <Text style={styles.textspace2}>תאריך הוצאת חשבונית</Text>*/}
 
-                        <View style={styles.horizontalLine}/>
+            {/*            </View>*/}
 
-                        <View style={{display: "flex", alignItems: "flex-end", margin: 5}}>
-                            <Text>מוצרים:</Text>
-                        </View>
+            {/*            <View style={styles.horizontalLine}/>*/}
 
-                        <View style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "flex-end",
-                            alignItems: "flex-end",
-                            margin: 5
-                        }}>
-                            <Text style={styles.textspace}>1000 ש״ח</Text>
-                            <Text>בניית אתר</Text>
+            {/*            <View style={{display: "flex", alignItems: "flex-end", margin: 5}}>*/}
+            {/*                <Text>מוצרים:</Text>*/}
+            {/*            </View>*/}
 
-                        </View>
+            {/*            <View style={{*/}
+            {/*                display: "flex",*/}
+            {/*                flexDirection: "row",*/}
+            {/*                justifyContent: "flex-end",*/}
+            {/*                alignItems: "flex-end",*/}
+            {/*                margin: 5*/}
+            {/*            }}>*/}
+            {/*                <Text style={styles.textspace}>1000 ש״ח</Text>*/}
+            {/*                <Text>בניית אתר</Text>*/}
 
-                        <View style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "flex-end",
-                            alignItems: "flex-end",
-                            margin: 5
-                        }}>
-                            <Text style={styles.textspace}>170 ש״ח</Text>
-                            <Text>מע״מ</Text>
+            {/*            </View>*/}
 
-                        </View>
+            {/*            <View style={{*/}
+            {/*                display: "flex",*/}
+            {/*                flexDirection: "row",*/}
+            {/*                justifyContent: "flex-end",*/}
+            {/*                alignItems: "flex-end",*/}
+            {/*                margin: 5*/}
+            {/*            }}>*/}
+            {/*                <Text style={styles.textspace}>170 ש״ח</Text>*/}
+            {/*                <Text>מע״מ</Text>*/}
+
+            {/*            </View>*/}
 
 
-                        <View style={{marginBottom: 60}}></View>
+            {/*            <View style={{marginBottom: 60}}></View>*/}
 
-                        <View style={styles.horizontalLine}/>
+            {/*            <View style={styles.horizontalLine}/>*/}
 
-                        <View style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "flex-end",
-                            alignItems: "flex-end",
-                            margin: 5
-                        }}>
-                            <Text style={styles.textspace}>1170 ₪</Text>
-                            <Text>סך הכל לתשלום</Text>
+            {/*            <View style={{*/}
+            {/*                display: "flex",*/}
+            {/*                flexDirection: "row",*/}
+            {/*                justifyContent: "flex-end",*/}
+            {/*                alignItems: "flex-end",*/}
+            {/*                margin: 5*/}
+            {/*            }}>*/}
+            {/*                <Text style={styles.textspace}>1170 ₪</Text>*/}
+            {/*                <Text>סך הכל לתשלום</Text>*/}
 
-                        </View>
+            {/*            </View>*/}
 
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Hide Modal</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </Modal>
+            {/*            <Pressable*/}
+            {/*                style={[styles.button, styles.buttonClose]}*/}
+            {/*                onPress={() => setModalVisible(!modalVisible)}*/}
+            {/*            >*/}
+            {/*                <Text style={styles.textStyle}>Hide Modal</Text>*/}
+            {/*            </Pressable>*/}
+            {/*        </View>*/}
+            {/*    </View>*/}
+            {/*</Modal>*/}
         </View>
     );
 }
@@ -389,5 +380,17 @@ const styles = StyleSheet.create({
     textspace: {
         marginRight: 30
     },
+    webview: {
+        width: '100%',
+        height: '80%',
+        flex: 1,
+    },
+    modalContent: {
+        width: '100%',
+        height: '95%',
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+    }
 
 });

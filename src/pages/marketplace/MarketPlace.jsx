@@ -17,10 +17,6 @@ export default function MarketPlace({navigation}) {
         loadMarketplaceData()
     }, [])
 
-    // useEffect(() => {
-    //   console.log("marketData :" , marketData)
-    // }, [marketData])
-
     const handleCheck = (e, index) => {
         // console.log("MarketData: " , marketData)
         const updateData = [...marketData];

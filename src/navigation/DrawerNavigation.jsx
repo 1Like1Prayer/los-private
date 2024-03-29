@@ -3,6 +3,8 @@ import {deleteUser} from "../core/auth";
 import {View} from "react-native";
 import {Image} from "react-native-elements";
 import {routes} from "../routes/routes";
+import {getValue} from "../core/secureStore";
+import {useEffect, useState} from "react";
 
 
 const labels = {
@@ -12,6 +14,13 @@ const labels = {
 }
 
 export const DrawerNavigation = ({navigation, props}) => {
+    const [customerDataState, setCustomerDataState] = useState({});
+    useEffect(() => {
+        (async () => {
+            const customerData = await getValue('customerData')
+            setCustomerDataState(customerData);
+        })()
+    }, []);
     const logout = () => {
         deleteUser().catch(err => {
             console.log(err)
@@ -37,7 +46,7 @@ export const DrawerNavigation = ({navigation, props}) => {
             <View style={{marginLeft: 150}}>
                 <DrawerItem
                     label={labels.profile}
-                    onPress={() => navigation.navigate(routes.CUSTOMER_DETAILS)}
+                    onPress={() => navigation.navigate(routes.CUSTOMER_DETAILS, JSON.stringify(customerDataState))}
                 />
             </View>
             <View style={{
