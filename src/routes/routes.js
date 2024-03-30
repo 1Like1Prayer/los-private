@@ -3,5 +3,6 @@ export const routes = {
     INTRO: 'Intro',
     LOGIN: 'Login',
     CUSTOMER_DETAILS: 'CustomerDetails',
-    MY_TABS: 'MyTabs'
+    MY_TABS: 'MyTabs',
+    CHECKOUT:'Checkout'
 }

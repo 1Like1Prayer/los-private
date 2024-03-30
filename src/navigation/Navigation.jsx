@@ -5,6 +5,7 @@ import CustomerDetails from "../pages/customerdetails";
 import MyTabs from "./TabNavigator";
 import {DrawerNavigation} from "./DrawerNavigation";
 import {createDrawerNavigator} from "@react-navigation/drawer";
+import Checkout from '../pages/checkout';
 
 
 const Drawer = createDrawerNavigator();
@@ -14,7 +15,8 @@ const navRoutes = {
     Intro: Intro,
     Login: Login,
     CustomerDetails: CustomerDetails,
-    MyTabs: MyTabs
+    MyTabs: MyTabs,
+    Checkout:Checkout
 }
 
 export const MainNavigation = () =>

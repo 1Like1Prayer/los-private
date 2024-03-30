@@ -1,13 +1,12 @@
 import React, {useEffect} from 'react';
 import {Dimensions, Image, StyleSheet} from 'react-native';
 import * as Font from 'expo-font';
-import {LinearGradient} from "expo-linear-gradient";
-import {routes} from "../../routes/routes";
+import {LinearGradient} from 'expo-linear-gradient';
+import {routes} from '../../routes/routes';
 
 
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const Splash = ({navigation}) => {
     useEffect(() => {
@@ -16,9 +15,9 @@ const Splash = ({navigation}) => {
                 'OpenSans-Bold': require('../../../assets/fonts/OpenSans-Bold.ttf'),
                 'OpenSans': require('../../../assets/fonts/OpenSans-Regular.ttf'),
             });
-        }
+        };
         loadFonts().then(() => {
-            setTimeout(() => navigation.navigate(routes.INTRO), 4000)
+            setTimeout(() => navigation.navigate(routes.INTRO), 4000);
         }).catch((error) => console.error('Error loading fonts:', error));
     }, []);
     return (
@@ -29,13 +28,13 @@ const Splash = ({navigation}) => {
             style={styles.gradient}
         >
             <Image
-                source={require("../../../assets/images/LogoWhite.png")}
+                source={require('../../../assets/images/LogoWhiteNew.png')}
                 resizeMode="contain"
                 style={styles.image}/>
 
         </LinearGradient>
-    )
-}
+    );
+};
 
 
 const styles = StyleSheet.create({
@@ -58,4 +57,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Splash
+export default Splash;

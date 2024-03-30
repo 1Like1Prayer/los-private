@@ -1,38 +1,42 @@
-import React, {useEffect, useState} from "react";
-import {Dimensions, FlatList, StyleSheet, View,} from "react-native";
-import ButtonLower from "../../components/Button/ButtonLower";
-import MarketplaceItem from "../../components/marketplaceItem";
+import React, {useEffect, useState} from 'react';
+import {Dimensions, FlatList, StyleSheet, View,} from 'react-native';
+import ButtonLower from '../../components/Button/ButtonLower';
+import MarketplaceItem from '../../components/marketplaceItem';
 import apiClient from '../../core/apiClient';
+import Toast from 'react-native-toast-message';
+import {routes} from '../../routes/routes';
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default function MarketPlace({navigation}) {
 
     const [totalPrice, setTotalPrice] = useState(0);
     const [marketData, setMarketData] = useState([]);
 
-
     useEffect(() => {
-        loadMarketplaceData()
-    }, [])
+        (async () => {
+                try {
+                    const products = await apiClient.getProducts();
+                    setMarketData(products.map(product => ({...product, checked: false})));
+                } catch (error) {
+                    console.log(error);
+                    Toast.show({
+                        type: 'error',
+                        text1: error?.response?.data?.message ?? 'An error occurred while getting market Data'
+                    });
+                }
+            }
+        )
+        ();
+    }, []);
 
     const handleCheck = (e, index) => {
-        // console.log("MarketData: " , marketData)
         const updateData = [...marketData];
         updateData[index].checked = e;
-        console.log("updated Data:", updateData[0])
-        setMarketData(updateData)
-    }
-
-    const loadMarketplaceData = async () => {
-        try {
-            const {data} = await apiClient.getProducts()
-            setMarketData(data.products.map(e => ({...e, checked: false})))
-        } catch (error) {
-            console.log(error)
-        }
-    }
+        setMarketData(updateData);
+    };
 
     return (
         <View style={styles.container}>
@@ -41,20 +45,23 @@ export default function MarketPlace({navigation}) {
                     showsVerticalScrollIndicator={false}
                     data={marketData}
                     ListFooterComponent={<ButtonLower
-                        title={"יאללה סיימתי"}
-                        handlePress={() => marketData.some((e) => e.checked) ? navigation.navigate('CheckoutPage') : () => {
-                        }}
+                        title={'יאללה סיימתי'}
+                        handlePress={() => marketData.some((e) => e.checked) ? navigation.navigate(routes.CHECKOUT) : Toast.show({
+                            type: 'info',
+                            text1: 'עלייך לסמן לפחות מוצר אחד מהתפריט'
+                        })
+                        }
                     />}
                     renderItem={({item, index}) => (
                         <MarketplaceItem
                             description={item.description}
                             title={item.name}
-                            relatedProduct={item?.variations ? Object.entries(JSON.parse(item.variations)).map(([key, value]) => ({
+                            variations={item?.variations ? Object.entries(JSON.parse(item.variations)).map(([key, value]) => ({
                                 title: key,
-                                price: value,
-                                id: Math.random()
+                                price: Number(value),
+                                id: key
                             })) : []}
-                            price={item.price}
+                            price={Number(item.price)}
                             setTotalPrice={setTotalPrice}
                             totalPrice={totalPrice}
                             handleCheck={(e) => handleCheck(e, index)}
@@ -68,14 +75,14 @@ export default function MarketPlace({navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#FBF8FF",
+        backgroundColor: '#FBF8FF',
         width: windowWidth,
         height: windowHeight * 0.75,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     containerItems: {
         width: windowWidth,
-        alignItems: "center",
+        alignItems: 'center',
     },
 });

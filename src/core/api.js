@@ -33,8 +33,8 @@ class API {
     }
 
     async getProducts() {
-        const res = await this.axios.get(`/api/app/getProducts`);
-        return res.data;
+        const {data: {data:{products}}} = await this.axios.get(`/api/app/getProducts`);
+        return products
     }
 
     async login(email, password) {
