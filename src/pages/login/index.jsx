@@ -28,9 +28,10 @@ const fields = [
     },
 ];
 
+//testing 0525226939 - 313882557
 const formInitValues = {
-    phoneNumber: "0525226939",
-    bnNumber: "313882557",
+    phoneNumber: "",
+    bnNumber: "",
 };
 const formValidationSchema = Yup.object().shape({
     phoneNumber: Yup.string()
@@ -47,6 +48,12 @@ const Login = ({navigation}) => {
         const [randomPass, setRandomPass] = useState('')
         const onSubmit = async (values) => {
             try {
+                const userInfo = await apiClient.getUserInfo(values.phoneNumber, values.bnNumber);
+                const customerData = {
+                    bnNumber: values.bnNumber,
+                    phoneNumber: values.phoneNumber,
+                    companyName: userInfo.name
+                }
                 const tempRand = (String(Math.floor(Math.random() * 9000) + 1000))
                 setRandomPass(tempRand)
                 await axios.post('https://capi.inforu.co.il/api/v2/SMS/SendSms', JSON.stringify({
@@ -54,7 +61,7 @@ const Login = ({navigation}) => {
                         Message: `הסיסמא החד פעמית שלך היא - ${tempRand}`,
                         Recipients: [
                             {
-                                Phone: '0524565122',
+                                Phone: `${values.phoneNumber}`,
                             },
                         ],
                         Settings: {
@@ -68,12 +75,6 @@ const Login = ({navigation}) => {
                             `Basic ${encode('leosapp:7504a046-7952-4dfc-a2d1-ab8f04a8557f')}`
                     }
                 })
-                const userInfo = await apiClient.getUserInfo(values.phoneNumber, values.bnNumber);
-                const customerData = {
-                    bnNumber: values.bnNumber,
-                    phoneNumber: values.phoneNumber,
-                    companyName: userInfo.name
-                }
                 dispatch(setStoreUser(userInfo))
                 dispatch(setCustomer(customerData))
                 setIsOpen(prev => !prev)
