@@ -2,18 +2,18 @@ import React, {useEffect, useState} from "react";
 import {Dimensions, FlatList, StyleSheet, View} from "react-native";
 import apiClient from '../../core/apiClient';
 import Panel from "../../components/Panel";
-import {getUser} from "../../core/auth";
 import Toast from "react-native-toast-message";
+import {useSelector} from "react-redux";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const HomePage = () => {
+    const leos_id = useSelector(state => state.user.user.leos_id)
     const [clientData, setClientData] = useState([])
     useEffect(() => {
         (async () => {
             try {
-                const {leos_id} = await getUser();
                 const data = await apiClient.getClientData(leos_id, 'seo')
 
                 setClientData([data]);

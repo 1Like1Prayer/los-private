@@ -1,14 +1,13 @@
 import React from "react";
 import {Linking, Pressable, StyleSheet, Text, View} from "react-native";
 import apiClient from '../core/apiClient';
-import {getUser} from "../core/auth";
 import Toast from "react-native-toast-message";
+import {useSelector} from "react-redux";
 
 const InvoiceLink = ({invoiceId, openInvoiceModal}) => {
+    const leos_id = useSelector(state => state.user.user.leos_id)
     const handleDownloadInvoice = async () => {
         try {
-
-            const {leos_id} = await getUser()
             openInvoiceModal(leos_id, invoiceId);
             const invoice = await apiClient.getInvoice(leos_id, invoiceId)
             await Linking.openURL(invoice);

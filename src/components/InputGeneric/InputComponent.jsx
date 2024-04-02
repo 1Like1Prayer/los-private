@@ -13,7 +13,7 @@ const InputComponent = ({field, value, onChangeText, onBlur, error, isDisabled})
     };
 
     const handlePhoneNumberChange = (text) => {
-        const isValidPhoneNumber = /^[1-9][0-9]*$/.test(text);
+        const isValidPhoneNumber = /^[0-9]*$/.test(text);
         if (!isValidPhoneNumber) {
             setPhoneNumberError("Phone number must start with a digit from 1 to 9.");
         } else {

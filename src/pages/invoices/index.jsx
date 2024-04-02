@@ -3,8 +3,8 @@ import {Dimensions, FlatList, StyleSheet, View} from "react-native";
 import apiClient from '../../core/apiClient';
 import InvoiceSection from "../../components/InvoiceSection";
 import FilterDropDown from "../../components/FilterDropDown";
-import {getUser} from "../../core/auth";
 import Toast from "react-native-toast-message";
+import {useSelector} from "react-redux";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -39,13 +39,11 @@ const months = [
 const Invoices = () => {
     const [invoicesData, setInvoicesData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
-    const [invoiceURI, setInvoiceURI] = useState(' ');
     const [filter, setFilter] = useState({year: "all", month: "all"})
-
+    const leos_id = useSelector(state => state.user.user.leos_id)
     useEffect(() => {
         (async () => {
             try {
-                const {leos_id} = await getUser()
                 const invoices = await apiClient.getClientInvoices(leos_id)
                 let groupedData = [];
                 invoices.forEach((invoice) => {
