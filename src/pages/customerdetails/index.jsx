@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimensions, Image, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Dimensions, I18nManager, Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import FormComponent from "../../components/FormGeneric/FormComponent";
 import * as Yup from "yup";
@@ -11,6 +11,8 @@ import {setAvatar} from "../../store/userSlice";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+const isRTL = I18nManager.isRTL;
+
 
 const fields = [
     {
@@ -40,7 +42,7 @@ const formValidationSchema = Yup.object().shape({
         .required("זהו שדה חובה"),
 });
 
-const CustomerDetails = ({navigation, route: {params: {companyName, bnNumber, phoneNumber}}}) => {
+const CustomerDetails = ({navigation, route: {params: {companyName, bnNumber, phoneNumber,cameFromLogin}}}) => {
     const formInitValues = {
         companyName,
         bnNumber,
@@ -67,12 +69,17 @@ const CustomerDetails = ({navigation, route: {params: {companyName, bnNumber, ph
     return (
         <View style={styles.container}>
             <View
-                style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-                <View style={{marginRight: 20}}>
+                style={{
+                    display: "flex",
+                    flexDirection: isRTL ? "row-reverse" : 'row',
+                    justifyContent: "space-between",
+                    alignItems: "center"
+                }}>
+                <View style={{...(isRTL ? {marginLeft: 20} : {marginRight: 20})}}>
                     <TouchableOpacity
                         style={styles.backButton}
                         onPress={() => {
-                            navigation.navigate(routes.LOGIN)
+                            navigation.navigate(!cameFromLogin?'MyTabs':'Login')
                         }}
                     >
                         <Ionicons name="arrow-back" size={24} color="black"/>

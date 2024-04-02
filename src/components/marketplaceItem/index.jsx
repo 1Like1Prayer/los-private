@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
-import {Dimensions, FlatList, Pressable, ScrollView, StyleSheet, Text, View,} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Dimensions, FlatList, I18nManager, Pressable, ScrollView, StyleSheet, Text, View,} from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addProduct, removeProduct} from "../../store/marketSlice";
+import axios from "axios";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+const isRTL = I18nManager.isRTL;
 
 const MarketplaceItem = ({
                              title,
@@ -19,7 +21,6 @@ const MarketplaceItem = ({
     const [itemPrice, setItemPrice] = useState(price);
     const [checked, setChecked] = useState(false);
     const [selected, setSelected] = useState(initSelected);
-
     const handlePress = () => {
         !checked ? dispatch(addProduct({name: title, price: itemPrice})) : dispatch(removeProduct(title));
         handleCheck(!checked);
@@ -85,9 +86,9 @@ const MarketplaceItem = ({
                                 </Pressable>
                                 {!!item.price && <Text style={styles.price}>{item.price + '₪'}</Text>}
                                 <Text style={{
-                                    textAlign: 'right',
+                                    textAlign: isRTL ? 'left' : 'right',
                                     flex: 1,
-                                    marginRight: windowWidth * 0.0467
+                                    ...(isRTL ? {marginLeft: 15} : {marginRight: 15}),
                                 }}>{item.title}</Text>
                             </View>
                         )}
@@ -117,11 +118,11 @@ const styles = StyleSheet.create({
         marginLeft: windowWidth * 0.0467,
         flex: 1,
         alignItems: 'center',
-        flexDirection: 'row',
+        flexDirection: isRTL ? 'row-reverse' : 'row',
     },
     innerContainerCheckBox: {
         marginLeft: windowWidth * 0.0467,
-        flexDirection: 'row',
+        flexDirection: isRTL ? 'row-reverse' : "row",
         alignItems: 'center',
         // justifyContent:'space-between',
         width: windowWidth * 0.9
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
         shadowRadius: 0,
     },
     titleRelated: {
-        textAlign: 'right',
+        textAlign: isRTL ? 'left' : 'right',
         width: '90%',
     },
 
@@ -141,20 +142,19 @@ const styles = StyleSheet.create({
         marginTop: windowHeight * 0.025,
         justifyContent: 'space-between',
         width: '100%',
-        flexDirection: 'row',
-        textAlign: 'left',
+        flexDirection: isRTL ? 'row-reverse' : 'row',
         alignItems: 'center',
         marginHorizontal: windowWidth * 0.0467,
     },
     title: {
         fontFamily: 'OpenSans-Bold',
-        fontSize: 16,
+        fontSize: windowWidth * 0.035,
         color: '#19073A',
         marginHorizontal: windowWidth * 0.0467,
     },
     price: {
         fontFamily: 'OpenSans-Bold',
-        fontSize: 20,
+        fontSize: windowWidth * 0.04,
         color: '#6226CF',
     },
     lineGray: {
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'OpenSans',
         color: '#797285',
-        textAlign: 'right',
+        textAlign: isRTL ? 'left' : 'right',
     },
     containerDescription: {
         marginBottom: windowHeight * 0.03239,

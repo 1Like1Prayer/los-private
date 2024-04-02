@@ -1,10 +1,12 @@
 import React, {useState} from "react";
-import {Dimensions, FlatList, Pressable, StyleSheet, Text, View,} from "react-native";
+import {Dimensions, FlatList, I18nManager, Pressable, StyleSheet, Text, View,} from "react-native";
 import InvoiceLink from "./InvoiceLink";
 import SvgDropDownClose from "../icons/DropDownCloseIcon";
 import SvgDropDownOpen from "../icons/DropDownOpenIcon";
 
 const windowWidth = Dimensions.get("window").width;
+const isRTL = I18nManager.isRTL;
+
 
 const monthMap = {
     1: "ינואר",
@@ -36,7 +38,7 @@ const InvoicesBox = ({invoicesData, year, openInvoiceModal}) => {
             </View>
             {isOpen ? (
                 <FlatList
-                    style={{alignItems: "flex-end", marginTop: 22}}
+                    style={{alignItems: isRTL?"flex-start":"flex-end", marginTop: 22}}
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
                     data={invoicesData.invoices}
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
         borderColor: "rgba(159, 159, 159, 0.5)",
     },
     topContainer: {
-        flexDirection: "row",
+        flexDirection: isRTL ? "row-reverse" : "row",
         justifyContent: "space-between",
         alignItems: "center",
     },

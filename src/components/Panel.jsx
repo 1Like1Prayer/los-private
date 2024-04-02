@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Dimensions, Platform, Pressable, ScrollView, StyleSheet, Text, View,} from "react-native";
+import {Dimensions, I18nManager, Platform, Pressable, ScrollView, StyleSheet, Text, View,} from "react-native";
 import BoxItems from "./BoxItems";
 import SvgGoogleIcon from "../icons/GoogleIcon";
 import SvgDropDownClose from "../icons/DropDownCloseIcon";
@@ -8,6 +8,7 @@ import DataTable from "./DataTable";
 import SearchBar from "./SearchBar";
 
 const windowWidth = Dimensions.get("window").width;
+const isRTL = I18nManager.isRTL;
 
 const Panel = ({title, boxData, dataTable}) => {
     const [filteredDataTable, setFilteredDataTable] = useState(dataTable ? dataTable : []);
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     },
     panelHeader: {
         display: "flex",
-        flexDirection: "row-reverse",
+        flexDirection: isRTL ? "row" : "row-reverse",
         alignItems: "center",
         justifyContent: "space-between",
         paddingVertical: 15,
@@ -101,12 +102,12 @@ const styles = StyleSheet.create({
     },
     panelHeaderRight: {
         display: "flex",
-        flexDirection: "row-reverse",
+        flexDirection: isRTL?"row":"row-reverse",
         alignItems: "center",
         justifyContent: "flex-start",
     },
     icon: {
-        marginLeft: 8,
+        margin: 8,
     },
     lineGray: {
         height: 1,

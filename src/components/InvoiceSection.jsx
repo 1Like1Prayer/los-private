@@ -1,8 +1,10 @@
 import React from "react";
-import {Dimensions, FlatList, StyleSheet, Text, View} from "react-native";
+import {Dimensions, FlatList, I18nManager, StyleSheet, Text, View} from "react-native";
 import InvoicesBox from "./InvoicesBox";
 
 const windowWidth = Dimensions.get("window").width;
+const isRTL = I18nManager.isRTL;
+
 const InvoiceSection = ({year, invoices, openInvoiceModal}) =>
     (<View>
         <View style={styles.title}>
@@ -33,8 +35,9 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontFamily: "OpenSans",
         fontSize: 16,
-        textAlign: "right",
-        marginRight: 15
+        textAlign: isRTL?"left":"right",
+        ...(isRTL ? { marginLeft: 15 } : { marginRight: 15 }),
+
     },
 
 });

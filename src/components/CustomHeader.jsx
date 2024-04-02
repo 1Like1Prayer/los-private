@@ -1,10 +1,12 @@
 import React, {useState} from "react";
-import {Image, Pressable, SafeAreaView, StyleSheet, View} from "react-native";
+import {I18nManager, Image, Pressable, SafeAreaView, StyleSheet, View} from "react-native";
 import MenuIcon from "../icons/MenueIcon";
 import profilePic2 from '../../assets/images/profilePic.png';
 import {routes} from "../routes/routes";
 import {useNavigation} from "@react-navigation/native";
 import {useSelector} from "react-redux";
+
+const isRTL = I18nManager.isRTL;
 
 const CustomHeader = () => {
     const [profilePic, setProfilePic] = useState(' ');
@@ -43,7 +45,7 @@ export default CustomHeader;
 
 const styles = StyleSheet.create({
     headerContainer: {
-        flexDirection: "row",
+        flexDirection: isRTL ? "row-reverse" : "row",
         justifyContent: "space-between",
         alignItems: "center",
         paddingVertical: 40,

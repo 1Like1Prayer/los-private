@@ -56,6 +56,7 @@ const Login = ({navigation}) => {
                 }
                 const tempRand = (String(Math.floor(Math.random() * 9000) + 1000))
                 setRandomPass(tempRand)
+                setIsOpen(prev => !prev)
                 await axios.post('https://capi.inforu.co.il/api/v2/SMS/SendSms', JSON.stringify({
                     Data: {
                         Message: `הסיסמא החד פעמית שלך היא - ${tempRand}`,
@@ -77,7 +78,6 @@ const Login = ({navigation}) => {
                 })
                 dispatch(setStoreUser(userInfo))
                 dispatch(setCustomer(customerData))
-                setIsOpen(prev => !prev)
             } catch
                 (error) {
                 console.log(error)
@@ -92,7 +92,7 @@ const Login = ({navigation}) => {
             try {
                 if (randomPass===otp) {
                     setIsOpen(false);
-                    await navigation.navigate(routes.CUSTOMER_DETAILS, customerData);
+                    await navigation.navigate(routes.CUSTOMER_DETAILS, {...customerData,cameFromLogin:true});
                 } else {
 
                     Toast.show({
@@ -191,7 +191,8 @@ const styles = StyleSheet.create({
     },
     modalText: {
         marginBottom: 15,
-        textAlign: "center"
+        textAlign: "center",
+        flexWrap: 'wrap',
     },
     modalInput: {
         marginBottom: 15,

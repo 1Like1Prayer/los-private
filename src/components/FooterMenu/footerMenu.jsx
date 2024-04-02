@@ -3,11 +3,13 @@ import SvgMoneyIcon from '../../icons/MoneyIcon'
 import SvgHomeIcon from '../../icons/HomeIcon'
 import SvgMarketPlaceIcon from '../../icons/MarketPlaceIcon'
 import SvgComingSoonIcon from '../../icons/ComingSoonIcon'
-import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, I18nManager, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {routes} from "../../routes/routes";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+const isRTL = I18nManager.isRTL;
+
 const FooterMenu = ({navigation}) => {
 
     const [currentTab, setCurrentTab] = useState("Home");
@@ -54,8 +56,8 @@ const FooterMenu = ({navigation}) => {
 
             <View style={styles.item}>
                 <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab(routes.TABS_HOME)}>
-                    <SvgHomeIcon ColorFill={currentTab === "Home" ? "#6226CF" : '#9F9F9F'}/>
-                    <Text style={[styles.text, {color: currentTab === "Home" ? "#6226CF" : '#9F9F9F'}]}>בית</Text>
+                    <SvgHomeIcon ColorFill={currentTab === "TabsHome" ? "#6226CF" : '#9F9F9F'}/>
+                    <Text style={[styles.text, {color: currentTab === "TabsHome" ? "#6226CF" : '#9F9F9F'}]}>בית</Text>
                 </TouchableOpacity>
             </View>
 
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
             width: windowWidth,
             height: windowHeight * 0.088,
             flex: 1,
-            flexDirection: 'row',
+            flexDirection: isRTL ? 'row-reverse' : 'row',
             justifyContent: 'space-between',
             position: 'absolute',
             top: windowHeight - windowHeight * 0.088,

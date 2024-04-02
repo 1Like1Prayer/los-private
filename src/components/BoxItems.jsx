@@ -1,8 +1,9 @@
 import React from "react";
-import {Dimensions, StyleSheet, View} from "react-native";
+import {Dimensions, I18nManager, StyleSheet, View} from "react-native";
 import BoxData from "./BoxData";
 
 const windowWidth = Dimensions.get("window").width;
+const isRTL = I18nManager.isRTL;
 
 
 const BoxItems = ({data}) => {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     marginBottom:30
   },
   rowContainer: {
-    flexDirection: "row-reverse",
+    flexDirection: isRTL?"row":"row-reverse",
     justifyContent: "space-between",
     marginBottom: 15,
     width: windowWidth * 0.85

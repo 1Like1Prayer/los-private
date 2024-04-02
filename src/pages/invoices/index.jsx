@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Dimensions, FlatList, StyleSheet, View} from "react-native";
+import {Dimensions, FlatList, I18nManager, StyleSheet, View} from "react-native";
 import apiClient from '../../core/apiClient';
 import InvoiceSection from "../../components/InvoiceSection";
 import FilterDropDown from "../../components/FilterDropDown";
@@ -8,6 +8,8 @@ import {useSelector} from "react-redux";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+const isRTL = I18nManager.isRTL;
+
 
 const currentYear = new Date().getFullYear();
 const startYear = 2000;
@@ -303,7 +305,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     filerContainer: {
-        flexDirection: "row",
+        flexDirection: isRTL?"row-reverse":"row",
         justifyContent: "space-between",
         alignItems: "center",
         paddingHorizontal: windowWidth * 0.05,

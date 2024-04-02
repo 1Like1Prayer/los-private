@@ -1,9 +1,11 @@
 import React from "react";
-import {Dimensions, StyleSheet, Text, View} from "react-native";
+import {Dimensions, I18nManager, StyleSheet, Text, View} from "react-native";
 import SvgLocationIcon from "../icons/LocationIcon";
 import SvgSearchIcon from "../icons/SearchIcon";
 
 const windowWidth = Dimensions.get("window").width;
+const isRTL = I18nManager.isRTL;
+
 
 const DataTable = ({data, inputValue}) => {
     return (
@@ -62,15 +64,17 @@ const styles = StyleSheet.create({
         backgroundColor: "red",
     },
     tableRow: {
-        flexDirection: "row",
+        flexDirection: isRTL ? "row-reverse" : "row",
     },
     tableHeaderCell: {
         width: windowWidth * 0.06,
         marginLeft: windowWidth * 0.045,
+        flexDirection: isRTL ? "row-reverse" : "row",
     },
     tableHeaderCellRight: {
         width: windowWidth * 0.38,
         marginLeft: windowWidth * 0.27,
+        flexDirection: isRTL ? "row-reverse" : "row",
     },
     headerText: {
         fontFamily: "OpenSans",
@@ -80,10 +84,13 @@ const styles = StyleSheet.create({
         // flex: 1,
         paddingVertical: 15,
         width: windowWidth * 0.1,
+        flexDirection: isRTL ? "row-reverse" : "row",
     },
     cellText: {
         fontFamily: "OpenSans",
-        textAlign: "right",
+        textAlign: isRTL ? "left" : "right",
+        flexDirection: isRTL ? "row-reverse" : "row"
+
     },
     nameCell: {
         color: "#797285",

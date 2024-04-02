@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Dimensions, StyleSheet, TextInput, View} from "react-native";
+import {Dimensions, I18nManager, StyleSheet, TextInput, View} from "react-native";
 import {Ionicons} from '@expo/vector-icons';
 
 const windowWidth = Dimensions.get("window").width;
+const isRTL = I18nManager.isRTL;
+
 
 const SearchBar = ({onTextInputChange}) => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     searchIcon: {
         position: "absolute",
         top: 7,
-        left: 10,
+        ...(isRTL ? {right: 15} : {left: 15}),
         color: "lightgrey"
     }
 });

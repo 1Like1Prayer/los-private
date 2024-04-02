@@ -1,8 +1,10 @@
 import React from "react";
-import {Linking, Pressable, StyleSheet, Text, View} from "react-native";
+import {I18nManager, Linking, Pressable, StyleSheet, Text, View} from "react-native";
 import apiClient from '../core/apiClient';
 import Toast from "react-native-toast-message";
 import {useSelector} from "react-redux";
+
+const isRTL = I18nManager.isRTL;
 
 const InvoiceLink = ({invoiceId, openInvoiceModal}) => {
     const leos_id = useSelector(state => state.user.user.leos_id)
@@ -34,7 +36,7 @@ const InvoiceLink = ({invoiceId, openInvoiceModal}) => {
 
 const styles = StyleSheet.create({
     invoiceLinkContainer: {
-        flexDirection: "row",
+        flexDirection: isRTL ? "row-reverse" : "row",
         width: "100%",
         alignItems: "center",
         marginBottom: 20,

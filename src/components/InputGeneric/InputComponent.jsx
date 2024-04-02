@@ -1,9 +1,11 @@
 import React, {useState} from "react";
-import {Dimensions, Keyboard, StyleSheet, Text, TextInput, View} from "react-native";
+import {Dimensions, Keyboard, StyleSheet, Text, TextInput, View, I18nManager} from "react-native";
 import {TouchableWithoutFeedback} from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Feather"; // Assuming you're using Feather icons
 
 const windowWidth = Dimensions.get("window").width;
+const isRTL = I18nManager.isRTL;
+
 
 const InputComponent = ({field, value, onChangeText, onBlur, error, isDisabled}) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -49,7 +51,7 @@ const InputComponent = ({field, value, onChangeText, onBlur, error, isDisabled})
                         onBlur={onBlur}
                         value={value}
                         secureTextEntry={!showPassword && field.type === "password"}
-                        style={[styles.input, field.name === "phoneNumber" && styles.inputWithPrefix]}
+                        style={[styles.input, field.name === "phoneNumber"]}
                         label={field.label}
                         keyboardType={
                             field && ["phoneNumber", "bnNumber"].includes(field.name)
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 8,
         fontFamily: "OpenSans",
-        textAlign: "right",
+        textAlign: isRTL ? "left" : "right",
     },
     input: {
         height: 56,
@@ -93,13 +95,10 @@ const styles = StyleSheet.create({
         textAlign: "right",
         backgroundColor: "transparent",
     },
-    inputWithPrefix: {
-        paddingLeft: 50, // Adjust according to the prefix width
-    },
     prefixText: {
         position: "absolute",
-        top: 18,
-        left: 15,
+        top: 15,
+        ...(isRTL ? {right: 15} : {left: 15}),
         fontSize: 16,
         fontFamily: "OpenSans",
     },

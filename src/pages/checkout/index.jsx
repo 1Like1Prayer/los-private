@@ -38,9 +38,8 @@ function CheckoutPage() {
             })
             const url = `https://icom.yaad.net/p/?${data}&PassP=yCUMShJAR`
             Linking.openURL(url).catch((err) => console.error('An error occurred', err));
-            navigator.navigate(routes.TABS_HOME);
+            navigator.navigate(routes.MARKETPLACE);
         })()
-
     }, [cart]);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
     const [visible, setVisible] = useState(false);

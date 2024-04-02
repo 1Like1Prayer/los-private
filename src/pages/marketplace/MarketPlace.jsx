@@ -1,17 +1,48 @@
 import React, {useEffect, useState} from 'react';
-import {Dimensions, FlatList, StyleSheet, View,} from 'react-native';
+import {Dimensions, FlatList, Linking, StyleSheet, View,} from 'react-native';
 import ButtonLower from '../../components/Button/ButtonLower';
 import MarketplaceItem from '../../components/marketplaceItem';
 import apiClient from '../../core/apiClient';
 import Toast from 'react-native-toast-message';
 import {routes} from '../../routes/routes';
+import {useSelector} from "react-redux";
+import axios from "axios";
 
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+
 export default function MarketPlace({navigation}) {
     const [marketData, setMarketData] = useState([]);
+    const [url, setUrl] = useState(' ')
+    const {cart, totalPrice} = useSelector(state => state.cart)
+    useEffect(() => {
+        const formDataAPISign = new FormData();
+        formDataAPISign.append('action', 'APISign');
+        formDataAPISign.append('What', 'SIGN');
+        formDataAPISign.append('KEY', 'd7c19db1377f260dd6122ed3a985d7ff8ca60b50');
+        formDataAPISign.append('PassP', 'yCUMShJAR');
+        formDataAPISign.append('Masof', '4500147832');
+        formDataAPISign.append('UTF8out', 'True');
+        formDataAPISign.append('UTF8', 'True');
+        formDataAPISign.append('tmp', '4');
+        formDataAPISign.append('PageLang', 'HEB');
+        formDataAPISign.append('Pritim', 'True');
+        formDataAPISign.append('Amount', `${totalPrice}`);
+        formDataAPISign.append('heshDesc', `[${Object.entries(cart).map(([key, val]) => `0~${key}~1~${val}`)}]`.split(',').map(item => `[${item}]`).join(''));
+        formDataAPISign.append('MoreData', 'True');
+        (async () => {
+                const {data} = await axios.post('https://icom.yaad.net/p/', formDataAPISign, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                setUrl(`https://icom.yaad.net/p/?${data}&PassP=yCUMShJAR`)
+            }
+        )
+        ()
+    }, [cart]);
 
     useEffect(() => {
         (async () => {
@@ -35,6 +66,10 @@ export default function MarketPlace({navigation}) {
         updateData[index].checked = e;
         setMarketData(updateData);
     };
+
+    const handleCheckout =()=>{
+        Linking.openURL(url).catch((err) => console.error('An error occurred', err));
+    }
 
     return (
         <View style={styles.container}>

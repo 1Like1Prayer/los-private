@@ -8,6 +8,7 @@ import {useSelector} from "react-redux";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
+
 const HomePage = () => {
     const leos_id = useSelector(state => state.user.user.leos_id)
     const [clientData, setClientData] = useState([])
@@ -44,7 +45,8 @@ const styles = StyleSheet.create({
     container: {
         width: windowWidth,
         height: windowHeight * 0.85,
-        backgroundColor: "#FBF8FF"
+        backgroundColor: "#FBF8FF",
+
     },
     homeContainer: {
         flex: 1,

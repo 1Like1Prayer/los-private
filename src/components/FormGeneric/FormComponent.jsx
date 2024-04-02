@@ -1,16 +1,16 @@
 import React, {useState} from "react";
-import {Dimensions, Linking, StyleSheet, Text, View} from "react-native";
+import {Dimensions, I18nManager, Linking, StyleSheet, Text, View} from "react-native";
 import {Formik} from "formik";
 import ButtonLower from "../Button/ButtonLower";
 import InputComponent from "../InputGeneric/InputComponent";
 import CheckBox from "../CustomCheckBox/CheckBox";
 import UploadImage from "../UploadData/UploadImage";
-import {Ionicons} from '@expo/vector-icons';
 import {useRoute} from "@react-navigation/native";
 import {routes} from "../../routes/routes";
 import Toast from "react-native-toast-message";
 
 const windowWidth = Dimensions.get("window").width;
+const isRTL = I18nManager.isRTL;
 
 const FormComponent = ({
                            fields,
@@ -108,7 +108,8 @@ const FormComponent = ({
                     {uploadImage ? <UploadImage onChange={setImages}/> : null}
                     <View style={{marginTop: 30, marginBottom: 10}}>
                         {/* Disable the button if form is not valid */}
-                        <ButtonLower title={route.name !== routes.CUSTOMER_DETAILS?"שלח והתחל":"אימות נתונים"} handlePress={handleSubmit}/>
+                        <ButtonLower title={route.name !== routes.CUSTOMER_DETAILS ? "שלח והתחל" : "אימות נתונים"}
+                                     handlePress={handleSubmit}/>
                     </View>
                     {/*{route.name === routes.CUSTOMER_DETAILS &&*/}
                     {/*    <View style={{*/}
@@ -138,16 +139,8 @@ const styles = StyleSheet.create({
     inputs: {
         marginTop: windowWidth * 0.2,
     },
-    checkboxContainer: {
-        flexDirection: "row-reverse",
-        alignItems: "flex-start",
-    },
-    checkbox: {
-        backgroundColor: "#6226CF",
-        color: "#6226CF",
-    },
     label: {
-        textAlign: "right",
+        textAlign: isRTL?"left":"right",
 
     }
 });
