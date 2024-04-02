@@ -31,6 +31,7 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
+      "smsApi": "https://capi.inforu.co.il/api/v2/SMS/SendSms",
       "eas": {
         "projectId": "c90462cd-1af7-4c4c-bb24-a984ed25035f"
       }

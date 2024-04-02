@@ -127,22 +127,6 @@ const Invoices = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const openInvoiceModal = (leosId, invoiceId) => {
         setModalVisible(true)
-        // apiClient.getInvoice(leosId, invoiceId)
-        //     .then((response) => {
-        //         const {invoice} = response.data;
-        //         if (invoice) {
-        //             setInvoiceURI(invoice)
-        //             Linking.openURL(invoice)
-        //                 .catch((error) => {
-        //                     console.error('Failed to open URL:', error);
-        //                 });
-        //         } else {
-        //             console.error('Invoice not found in the response');
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching invoice:', error);
-        //     });
     };
 
     return (

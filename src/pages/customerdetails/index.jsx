@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Dimensions, Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import FormComponent from "../../components/FormGeneric/FormComponent";
 import * as Yup from "yup";
 import Toast from 'react-native-toast-message';
 import apiClient from '../../core/apiClient';
-import {getUser} from '../../core/auth';
 import {routes} from "../../routes/routes";
-import {getValue, setValue} from "../../core/secureStore";
+import {useDispatch, useSelector} from "react-redux";
+import {setAvatar} from "../../store/userSlice";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -46,13 +46,13 @@ const CustomerDetails = ({navigation, route: {params: {companyName, bnNumber, ph
         bnNumber,
         phoneNumber
     };
+    const leos_id = useSelector(state => state.user.leos_id)
+    const dispatch = useDispatch();
     const onSubmit = async (values) => {
         try {
             if (values.images.length) {
-                const {leos_id} = await getUser()
                 const {data} = await apiClient.updateClientAvatar(leos_id, values.images[0]);
-                console.log('upload',data);
-                await setValue('avatar', data);
+                dispatch(setAvatar, data);
             }
             await navigation.navigate("MyTabs");
         } catch (error) {

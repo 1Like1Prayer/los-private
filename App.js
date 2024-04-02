@@ -3,6 +3,8 @@ import {Dimensions, StyleSheet} from 'react-native'; // Import Text component
 import {NavigationContainer} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import {MainNavigation} from "./src/navigation/Navigation";
+import {Provider} from "react-redux";
+import {store} from "./src/store/state";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -10,10 +12,12 @@ const windowHeight = Dimensions.get("window").height;
 export default function App() {
     return (
         <>
-            <NavigationContainer styles={styles.container}>
-                <MainNavigation/>
-            </NavigationContainer>
-            <Toast/>
+            <Provider store={store}>
+                <NavigationContainer styles={styles.container}>
+                    <MainNavigation/>
+                </NavigationContainer>
+                <Toast/>
+            </Provider>
         </>
     );
 }

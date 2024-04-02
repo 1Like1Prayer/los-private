@@ -4,6 +4,7 @@ import SvgHomeIcon from '../../icons/HomeIcon'
 import SvgMarketPlaceIcon from '../../icons/MarketPlaceIcon'
 import SvgComingSoonIcon from '../../icons/ComingSoonIcon'
 import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {routes} from "../../routes/routes";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -28,7 +29,7 @@ const FooterMenu = ({navigation}) => {
         <View style={styles.container}>
 
             <View style={styles.item}>
-                <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab('ComingSoon')}>
+                <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab(routes.COMING_SOON)}>
                     <SvgComingSoonIcon style={styles.icon}
                                        ColorFill={currentTab === "ComingSoon" ? "#6226CF" : '#9F9F9F'}/>
                     <Text
@@ -37,7 +38,7 @@ const FooterMenu = ({navigation}) => {
             </View>
 
             <View style={styles.item}>
-                <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab('MarketPlace')}>
+                <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab(routes.MARKETPLACE)}>
                     <SvgMarketPlaceIcon ColorFill={currentTab === "MarketPlace" ? "#6226CF" : '#9F9F9F'}/>
                     <Text style={[styles.text, {color: currentTab === "MarketPlace" ? "#6226CF" : '#9F9F9F'}]}>זירת
                         מסחר</Text>
@@ -45,14 +46,14 @@ const FooterMenu = ({navigation}) => {
             </View>
 
             <View style={styles.item}>
-                <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab('Invoices')}>
+                <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab(routes.INVOICE)}>
                     <SvgMoneyIcon ColorFill={currentTab === "Invoices" ? "#6226CF" : '#9F9F9F'}/>
                     <Text style={[styles.text, {color: currentTab === "Invoices" ? "#6226CF" : '#9F9F9F'}]}>כספים</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.item}>
-                <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab('Home')}>
+                <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab(routes.TABS_HOME)}>
                     <SvgHomeIcon ColorFill={currentTab === "Home" ? "#6226CF" : '#9F9F9F'}/>
                     <Text style={[styles.text, {color: currentTab === "Home" ? "#6226CF" : '#9F9F9F'}]}>בית</Text>
                 </TouchableOpacity>

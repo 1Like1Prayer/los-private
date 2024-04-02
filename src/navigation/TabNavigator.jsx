@@ -2,32 +2,27 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import ComingSoon from "../pages/comingSoon";
 import FooterMenu from "../components/FooterMenu/footerMenu";
 import Invoices from "../pages/invoices";
-import MarketPlace from "../pages/marketplace/MarketPlace";
 import HomePage from "../pages/homePage";
-import CheckoutPage from "../pages/checkout";
-import SuccessPayment from "../pages/successPayment";
-import FailedPayment from "../pages/failedPayment";
 import CustomHeader from "../components/CustomHeader";
 import React from "react";
+import {MarketPlaceNavigation} from "./MarketPlaceNavigation";
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = {
-    Home: HomePage,
+    TabsHome: HomePage,
     Invoices: Invoices,
-    MarketPlace: MarketPlace,
+    MarketPlace: MarketPlaceNavigation,
     ComingSoon: ComingSoon,
-    CheckoutPage: CheckoutPage,
-    Success: SuccessPayment,
-    Failed: FailedPayment
 }
 
-const MyTabs = () =>
+const TabsNavigation = () =>
     <Tab.Navigator
+        initialRouteName={'TabsHome'}
         tabBar={(props) => <FooterMenu {...props} />}
         screenOptions={{header: () => <CustomHeader/>, headerShown: true}}
     >
         {Object.entries(TabNavigation).map(([key, value]) => <Tab.Screen key={key} name={key} component={value}/>)}
     </Tab.Navigator>
 
-export default MyTabs;
+export default TabsNavigation;

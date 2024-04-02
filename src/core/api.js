@@ -1,5 +1,6 @@
 class API {
-    constructor(axios) {
+    constructor(
+        axios) {
         this.axios = axios;
     }
 
