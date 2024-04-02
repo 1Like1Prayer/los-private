@@ -13,7 +13,7 @@ const labels = {
 }
 
 export const DrawerComponent = ({navigation, props}) => {
-    const customerData = useSelector(state => state.customer)
+    const customerData = useSelector(state => state.user.customer)
 
     const logout = () => {
         deleteUser().catch(err => {

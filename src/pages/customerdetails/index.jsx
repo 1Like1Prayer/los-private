@@ -46,7 +46,7 @@ const CustomerDetails = ({navigation, route: {params: {companyName, bnNumber, ph
         bnNumber,
         phoneNumber
     };
-    const leos_id = useSelector(state => state.user.leos_id)
+    const leos_id = useSelector(state => state.user.user.leos_id)
     const dispatch = useDispatch();
     const onSubmit = async (values) => {
         try {

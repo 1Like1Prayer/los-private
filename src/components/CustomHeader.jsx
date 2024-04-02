@@ -9,8 +9,8 @@ import {useSelector} from "react-redux";
 const CustomHeader = () => {
     const [profilePic, setProfilePic] = useState(' ');
     const navigation = useNavigation()
-    const customerData = useSelector(state => state.customer)
-    const avatar = useSelector(state => state.user.avatar)
+    const customerData = useSelector(state => state.user.customer)
+    const avatar = useSelector(state => state.user.user.avatar)
 
 
     return (

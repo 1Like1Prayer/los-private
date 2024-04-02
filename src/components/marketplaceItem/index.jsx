@@ -1,6 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Dimensions, FlatList, Pressable, ScrollView, StyleSheet, Text, View,} from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
+import {useDispatch} from "react-redux";
+import {addProduct, removeProduct} from "../../store/marketSlice";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -10,17 +12,16 @@ const MarketplaceItem = ({
                              price,
                              description,
                              variations,
-                             setTotalPrice,
-                             totalPrice,
                              handleCheck,
                          }) => {
+    const dispatch = useDispatch();
     const initSelected = {id: ' ', price: 0};
     const [itemPrice, setItemPrice] = useState(price);
     const [checked, setChecked] = useState(false);
     const [selected, setSelected] = useState(initSelected);
 
     const handlePress = () => {
-        !checked ? setTotalPrice(totalPrice + itemPrice) : setTotalPrice(totalPrice - itemPrice);
+        !checked ? dispatch(addProduct({name: title, price: itemPrice})) : dispatch(removeProduct(title));
         handleCheck(!checked);
         setChecked((prev) => !prev);
     };
@@ -29,11 +30,12 @@ const MarketplaceItem = ({
         if (id !== selected.id) {
             setSelected({id, price});
             setItemPrice(prev => prev - selected.price + price);
-            setTotalPrice(totalPrice - selected.price + price);
+            dispatch(removeProduct(selected.id));
+            dispatch(addProduct({name: id.toString(), price: price}));
         } else if (selected.id === id) {
             setSelected(initSelected);
             setItemPrice(prev => prev - selected.price);
-            setTotalPrice(totalPrice - selected.price);
+            dispatch(removeProduct(id));
             handleCheck(!checked);
             setChecked((prev) => !prev);
         }

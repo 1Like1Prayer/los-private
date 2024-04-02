@@ -24,7 +24,6 @@ const InvoicesBox = ({invoicesData, year, openInvoiceModal}) => {
     const [isOpen, setIsOpen] = useState(false);
     const title = `${monthMap[invoicesData.month]} ${year}`
     const togglePanel = () => {
-        console.log('toggled')
         setIsOpen(!isOpen);
     };
     return (

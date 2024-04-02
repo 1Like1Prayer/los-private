@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Dimensions, Image, Modal, StyleSheet, Text, TextInput, View} from "react-native";
 import FormComponent from "../../components/FormGeneric/FormComponent";
 import * as Yup from "yup";
@@ -39,35 +39,33 @@ const formValidationSchema = Yup.object().shape({
     bnNumber: Yup.string().required("זהו שדה חובה"),
 });
 
-const data = {
-    Data: {
-        Message: 'Hello world',
-        Recipients: [
-            {
-                Phone: '0524565122',
-            },
-        ],
-        Settings: {
-            Sender: 'Leos',
-        },
-    },
-};
 const Login = ({navigation}) => {
         const dispatch = useDispatch();
-        const customerData = useSelector(state => state.customer)
+        const customerData = useSelector(state => state.user.customer)
         const [isOpen, setIsOpen] = useState(false);
-        const [otp, setOtp] = useState(' ')
-        const [randomPass, setRandomPass] = useState(' ')
+        const [otp, setOtp] = useState('')
+        const [randomPass, setRandomPass] = useState('')
         const onSubmit = async (values) => {
             try {
-                setRandomPass(String(Math.floor(Math.random() * 9000) + 1000))
-                const {
-                    data,
-                    error
-                } = await axios.post('https://capi.inforu.co.il/api/v2/SMS/SendSms', data, {
+                const tempRand = (String(Math.floor(Math.random() * 9000) + 1000))
+                setRandomPass(tempRand)
+                await axios.post('https://capi.inforu.co.il/api/v2/SMS/SendSms', JSON.stringify({
+                    Data: {
+                        Message: `הסיסמא החד פעמית שלך היא - ${tempRand}`,
+                        Recipients: [
+                            {
+                                Phone: '0524565122',
+                            },
+                        ],
+                        Settings: {
+                            Sender: 'Leos',
+                        },
+                    }
+                }), {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Basic ${encode('leosapp:7504a046-7952-4dfc-a2d1-ab8f04a8557f')}`
+                        'Authorization':
+                            `Basic ${encode('leosapp:7504a046-7952-4dfc-a2d1-ab8f04a8557f')}`
                     }
                 })
                 const userInfo = await apiClient.getUserInfo(values.phoneNumber, values.bnNumber);
@@ -91,15 +89,16 @@ const Login = ({navigation}) => {
         };
         const onOtpSubmit = async () => {
             try {
-                if (randomPass === otp) {
+                if (randomPass===otp) {
                     setIsOpen(false);
                     await navigation.navigate(routes.CUSTOMER_DETAILS, customerData);
-                }
-                else{
+                } else {
+
                     Toast.show({
                         type: 'error',
-                        text1: 'סיסמא שגויה! אנא נסה שנית'
+                        text1: 'Wrong Password! Try again'
                     })
+                    setOtp('');
                     setIsOpen(false);
                 }
             } catch (error) {
@@ -175,6 +174,7 @@ const styles = StyleSheet.create({
     },
     modalView: {
         margin: 20,
+        marginTop:windowHeight*0.25,
         backgroundColor: "white",
         borderRadius: 20,
         padding: 35,

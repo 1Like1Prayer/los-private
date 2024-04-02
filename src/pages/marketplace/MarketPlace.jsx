@@ -11,8 +11,6 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function MarketPlace({navigation}) {
-
-    const [totalPrice, setTotalPrice] = useState(0);
     const [marketData, setMarketData] = useState([]);
 
     useEffect(() => {
@@ -62,8 +60,6 @@ export default function MarketPlace({navigation}) {
                                 id: key
                             })) : []}
                             price={Number(item.price)}
-                            setTotalPrice={setTotalPrice}
-                            totalPrice={totalPrice}
                             handleCheck={(e) => handleCheck(e, index)}
                         />
                     )}
