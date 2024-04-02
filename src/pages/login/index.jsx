@@ -57,10 +57,10 @@ const Login = ({navigation}) => {
         const customerData = useSelector(state => state.customer)
         const [isOpen, setIsOpen] = useState(false);
         const [otp, setOtp] = useState(' ')
-        const [randomPass, setRandomPass] = useState(0)
+        const [randomPass, setRandomPass] = useState(' ')
         const onSubmit = async (values) => {
             try {
-                setRandomPass(Math.floor(Math.random() * 9000) + 1000)
+                setRandomPass(String(Math.floor(Math.random() * 9000) + 1000))
                 const {
                     data,
                     error
@@ -91,8 +91,17 @@ const Login = ({navigation}) => {
         };
         const onOtpSubmit = async () => {
             try {
-                setIsOpen(false);
-                await navigation.navigate(routes.CUSTOMER_DETAILS, customerData);
+                if (randomPass === otp) {
+                    setIsOpen(false);
+                    await navigation.navigate(routes.CUSTOMER_DETAILS, customerData);
+                }
+                else{
+                    Toast.show({
+                        type: 'error',
+                        text1: 'סיסמא שגויה! אנא נסה שנית'
+                    })
+                    setIsOpen(false);
+                }
             } catch (error) {
                 console.log('An error occurred', error?.response?.data?.message);
                 Toast.show({
