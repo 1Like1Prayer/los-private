@@ -31,8 +31,8 @@ const fields = [
 
 //testing 0525226939 - 313882557
 const formInitValues = {
-    phoneNumber: "0525226939",
-    bnNumber: "313882557",
+    phoneNumber: "",
+    bnNumber: "",
 };
 const formValidationSchema = Yup.object().shape({
     phoneNumber: Yup.string()
@@ -70,25 +70,25 @@ const Login = ({navigation}) => {
 	            console.log(tempRand)
 	            setRandomPass(tempRand)
                 setIsOpen(prev => !prev)
-                // await axios.post('https://capi.inforu.co.il/api/v2/SMS/SendSms', JSON.stringify({
-                //     Data: {
-                //         Message: `הסיסמא החד פעמית שלך היא - ${tempRand}`,
-                //         Recipients: [
-                //             {
-                //                 Phone: `${values.phoneNumber}`,
-                //             },
-                //         ],
-                //         Settings: {
-                //             Sender: 'Leos',
-                //         },
-                //     }
-                // }), {
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         'Authorization':
-                //             `Basic ${encode('leosapp:7504a046-7952-4dfc-a2d1-ab8f04a8557f')}`
-                //     }
-                // })
+                await axios.post('https://capi.inforu.co.il/api/v2/SMS/SendSms', JSON.stringify({
+                    Data: {
+                        Message: `הסיסמא החד פעמית שלך היא - ${tempRand}`,
+                        Recipients: [
+                            {
+                                Phone: `${values.phoneNumber}`,
+                            },
+                        ],
+                        Settings: {
+                            Sender: 'Leos',
+                        },
+                    }
+                }), {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':
+                            `Basic ${encode('leosapp:7504a046-7952-4dfc-a2d1-ab8f04a8557f')}`
+                    }
+                })
                 dispatch(setStoreUser(userInfo))
                 dispatch(setCustomer(customerData))
             } catch
