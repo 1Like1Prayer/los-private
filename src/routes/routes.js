@@ -4,6 +4,7 @@ export const routes = {
     LOGIN: 'Login',
     CUSTOMER_DETAILS: 'CustomerDetails',
     MY_TABS: 'DrawerHome',
+	TABS: 'MyTabs',
     CHECKOUT:'Checkout',
     TABS_HOME:'TabsHome',
     INVOICE:'Invoices',

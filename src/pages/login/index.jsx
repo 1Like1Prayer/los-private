@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setCustomer, setUser as setStoreUser} from '../../store/userSlice'
 import axios from "axios";
 import {encode} from 'base-64';
+import { setUser } from "../../core/auth";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -30,8 +31,8 @@ const fields = [
 
 //testing 0525226939 - 313882557
 const formInitValues = {
-    phoneNumber: "",
-    bnNumber: "",
+    phoneNumber: "0525226939",
+    bnNumber: "313882557",
 };
 const formValidationSchema = Yup.object().shape({
     phoneNumber: Yup.string()
@@ -46,8 +47,19 @@ const Login = ({navigation}) => {
         const [isOpen, setIsOpen] = useState(false);
         const [otp, setOtp] = useState('')
         const [randomPass, setRandomPass] = useState('')
+		const [dataToSave, setDataToSave] = useState({
+			bnNumber: '',
+			phoneNumber: '',
+		});
+	
         const onSubmit = async (values) => {
             try {
+	            setDataToSave(() => {
+		            return {
+			            bnNumber: values.bnNumber,
+			            phoneNumber: values.phoneNumber,
+		            }
+	            })
                 const userInfo = await apiClient.getUserInfo(values.phoneNumber, values.bnNumber);
                 const customerData = {
                     bnNumber: values.bnNumber,
@@ -55,27 +67,28 @@ const Login = ({navigation}) => {
                     companyName: userInfo.name
                 }
                 const tempRand = (String(Math.floor(Math.random() * 9000) + 1000))
-                setRandomPass(tempRand)
+	            console.log(tempRand)
+	            setRandomPass(tempRand)
                 setIsOpen(prev => !prev)
-                await axios.post('https://capi.inforu.co.il/api/v2/SMS/SendSms', JSON.stringify({
-                    Data: {
-                        Message: `הסיסמא החד פעמית שלך היא - ${tempRand}`,
-                        Recipients: [
-                            {
-                                Phone: `${values.phoneNumber}`,
-                            },
-                        ],
-                        Settings: {
-                            Sender: 'Leos',
-                        },
-                    }
-                }), {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization':
-                            `Basic ${encode('leosapp:7504a046-7952-4dfc-a2d1-ab8f04a8557f')}`
-                    }
-                })
+                // await axios.post('https://capi.inforu.co.il/api/v2/SMS/SendSms', JSON.stringify({
+                //     Data: {
+                //         Message: `הסיסמא החד פעמית שלך היא - ${tempRand}`,
+                //         Recipients: [
+                //             {
+                //                 Phone: `${values.phoneNumber}`,
+                //             },
+                //         ],
+                //         Settings: {
+                //             Sender: 'Leos',
+                //         },
+                //     }
+                // }), {
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         'Authorization':
+                //             `Basic ${encode('leosapp:7504a046-7952-4dfc-a2d1-ab8f04a8557f')}`
+                //     }
+                // })
                 dispatch(setStoreUser(userInfo))
                 dispatch(setCustomer(customerData))
             } catch
@@ -92,6 +105,7 @@ const Login = ({navigation}) => {
             try {
                 if (randomPass===otp) {
                     setIsOpen(false);
+	                await setUser(dataToSave);
                     await navigation.navigate(routes.CUSTOMER_DETAILS, {...customerData,cameFromLogin:true});
                 } else {
 
