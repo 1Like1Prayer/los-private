@@ -8,12 +8,13 @@ import {useSelector} from "react-redux";
 
 const isRTL = I18nManager.isRTL;
 
+const IMAGE_URL = 'https://leos-zone.fra1.digitaloceanspaces.com'
+
 const CustomHeader = () => {
     const [profilePic, setProfilePic] = useState(' ');
     const navigation = useNavigation()
     const customerData = useSelector(state => state.user.customer)
     const avatar = useSelector(state => state.user.user.avatar)
-
 
     return (
         <SafeAreaView>
@@ -22,7 +23,7 @@ const CustomHeader = () => {
                     navigation.navigate(routes.CUSTOMER_DETAILS, customerData)
                 }}>
                     <Image
-                        source={!avatar ? {uri: profilePic} : profilePic2}
+                        source={avatar ? {uri: `${IMAGE_URL}/${avatar}`} : profilePic2}
                         resizeMode="contain"
                         style={styles.image}
                     />
