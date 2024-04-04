@@ -42,61 +42,63 @@ const MarketplaceItem = ({
         }
     };
 
-    return <ScrollView>
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <View style={styles.containerCheckBox}>
-                    <Pressable onPress={handlePress}>
-                        <MaterialCommunityIcons
-                            name={checked ?
-                                'checkbox-marked' : 'checkbox-blank-outline'} size={34}
-                            color={checked ? '#6226CF' : '#9F9F9F'}
-                            style={{opacity: checked ? 1 : 0.5}}
-                        />
-                    </Pressable>
-                    {!!itemPrice && <Text style={styles.price}>{itemPrice + '₪'}</Text>}
-                </View>
-                <View>
-                    <Text style={styles.title}>{title}</Text>
-                </View>
-            </View>
-            <View style={styles.lineGray}></View>
-            <View style={styles.containerDescription}>
-                <Text style={styles.description}>{description}</Text>
-            </View>
-            {variations.length && checked ? (
-                <View style={styles.container}>
-                    <View style={styles.lineGray}></View>
-                    <Text style={[styles.title, styles.titleRelated]}>
-                        אפשרויות
-                    </Text>
-                    <FlatList
-                        showsVerticalScrollIndicator={false}
-                        horizontal={false}
-                        data={variations}
-                        renderItem={({item, index}) => (
-                            <View style={styles.innerContainerCheckBox}>
-                                <Pressable onPress={() => handleInnerPress(item.id, item.price)}>
-                                    <MaterialCommunityIcons
-                                        name={selected.id === item.id ?
-                                            'checkbox-marked' : 'checkbox-blank-outline'} size={34}
-                                        color={selected.id === item.id ? '#6226CF' : '#9F9F9F'}
-                                        style={{opacity: selected.id === item.id ? 1 : 0.5}}
-                                    />
-                                </Pressable>
-                                {!!item.price && <Text style={styles.price}>{item.price + '₪'}</Text>}
-                                <Text style={{
-                                    textAlign: isRTL ? 'left' : 'right',
-                                    flex: 1,
-                                    ...(isRTL ? {marginLeft: 15} : {marginRight: 15}),
-                                }}>{item.title}</Text>
-                            </View>
-                        )}
-                    />
-                </View>
-            ) : null}
-        </View>
-    </ScrollView>;
+    return (
+	    <ScrollView>
+		    <View style={styles.container}>
+			    <View style={styles.header}>
+				    <View style={styles.containerCheckBox}>
+					    <Pressable onPress={handlePress}>
+						    <MaterialCommunityIcons
+							    name={checked ?
+								    'checkbox-marked' : 'checkbox-blank-outline'} size={34}
+							    color={checked ? '#6226CF' : '#9F9F9F'}
+							    style={{opacity: checked ? 1 : 0.5}}
+						    />
+					    </Pressable>
+					    {!!itemPrice && <Text style={styles.price}>{itemPrice + '₪'}</Text>}
+				    </View>
+				    <View>
+					    <Text style={styles.title}>{title}</Text>
+				    </View>
+			    </View>
+			    <View style={styles.lineGray}></View>
+			    <View style={styles.containerDescription}>
+				    <Text style={styles.description}>{description}</Text>
+			    </View>
+			    {variations.length && checked ? (
+				    <View style={styles.container}>
+					    <View style={styles.lineGray}></View>
+					    <Text style={[styles.title, styles.titleRelated]}>
+						    אפשרויות
+					    </Text>
+					    <FlatList
+						    showsVerticalScrollIndicator={false}
+						    horizontal={false}
+						    data={variations}
+						    renderItem={({item, index}) => (
+							    <View style={styles.innerContainerCheckBox}>
+								    <Pressable onPress={() => handleInnerPress(item.id, item.price)}>
+									    <MaterialCommunityIcons
+										    name={selected.id === item.id ?
+											    'checkbox-marked' : 'checkbox-blank-outline'} size={34}
+										    color={selected.id === item.id ? '#6226CF' : '#9F9F9F'}
+										    style={{opacity: selected.id === item.id ? 1 : 0.5}}
+									    />
+								    </Pressable>
+								    {!!item.price && <Text style={styles.price}>{item.price + '₪'}</Text>}
+								    <Text style={{
+									    textAlign: isRTL ? 'left' : 'right',
+									    flex: 1,
+									    ...(isRTL ? {marginLeft: 15} : {marginRight: 15}),
+								    }}>{item.title}</Text>
+							    </View>
+						    )}
+					    />
+				    </View>
+			    ) : null}
+		    </View>
+	    </ScrollView>
+    );
 };
 
 

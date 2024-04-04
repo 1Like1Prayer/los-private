@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, StyleSheet, Dimensions, I18nManager} from "react-native";
+import {View, StyleSheet, Dimensions, I18nManager, Platform} from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Dropdown } from 'react-native-element-dropdown';
 
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
 		borderColor: "#9F9F9F",
 		borderWidth: 0.5,
 		borderRadius: 8,
-		marginTop: -25,
+		marginTop: Platform.OS === 'android' ? -25 : 0,
 		overflowY: "hidden",
 	}
 });

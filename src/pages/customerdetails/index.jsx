@@ -1,5 +1,14 @@
 import React from "react";
-import {Dimensions, I18nManager, Image, StyleSheet, TouchableOpacity, View} from "react-native";
+import {
+	Dimensions,
+	I18nManager,
+	Image,
+	SafeAreaView,
+	ScrollView,
+	StyleSheet,
+	TouchableOpacity,
+	View
+} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import FormComponent from "../../components/FormGeneric/FormComponent";
 import * as Yup from "yup";
@@ -67,42 +76,44 @@ const CustomerDetails = ({navigation, route: {params: {companyName, bnNumber, ph
     };
 
     return (
-        <View style={styles.container}>
-            <View
-                style={{
-                    display: "flex",
-                    flexDirection: isRTL ? "row-reverse" : 'row',
-                    justifyContent: "space-between",
-                    alignItems: "center"
-                }}>
-                <View style={{...(isRTL ? {marginLeft: 20} : {marginRight: 20})}}>
-                    <TouchableOpacity
-                        style={styles.backButton}
-                        onPress={() => {
-                            navigation.navigate(!cameFromLogin?'MyTabs':'Login')
-                        }}
-                    >
-                        <Ionicons name="arrow-back" size={24} color="black"/>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <Image
-                        source={require("../../../assets/images/Layer_1.png")}
-                        style={styles.logo}
-                        resizeMode="contain"
-                    />
-                </View>
-            </View>
-            <FormComponent
-                fields={fields}
-                onSubmit={onSubmit}
-                formInitValues={formInitValues}
-                formValidationSchema={formValidationSchema}
-                checkbox={false}
-                uploadImage={true}
-                disabled={true}
-            />
-        </View>
+	        <ScrollView style={{flex: 1}}>
+		        <View style={styles.container}>
+			        <View
+				        style={{
+					        display: "flex",
+					        flexDirection: isRTL ? "row-reverse" : 'row',
+					        justifyContent: "space-between",
+					        alignItems: "center"
+				        }}>
+				        <View style={{...(isRTL ? {marginLeft: 20} : {marginRight: 20})}}>
+					        <TouchableOpacity
+						        style={styles.backButton}
+						        onPress={() => {
+							        navigation.navigate(!cameFromLogin?'MyTabs':'Login')
+						        }}
+					        >
+						        <Ionicons name="arrow-back" size={24} color="black"/>
+					        </TouchableOpacity>
+				        </View>
+				        <View>
+					        <Image
+						        source={require("../../../assets/images/Layer_1.png")}
+						        style={styles.logo}
+						        resizeMode="contain"
+					        />
+				        </View>
+			        </View>
+			        <FormComponent
+				        fields={fields}
+				        onSubmit={onSubmit}
+				        formInitValues={formInitValues}
+				        formValidationSchema={formValidationSchema}
+				        checkbox={false}
+				        uploadImage={true}
+				        disabled={true}
+			        />
+		        </View>
+	        </ScrollView>
     );
 };
 
@@ -118,7 +129,6 @@ const styles = StyleSheet.create({
         paddingTop: 70,
         paddingRight: windowWidth * 0.05,
         paddingLeft: windowWidth * 0.05,
-        height: windowHeight,
         width: windowWidth,
     },
     backButton: {

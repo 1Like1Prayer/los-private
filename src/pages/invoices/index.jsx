@@ -5,6 +5,7 @@ import InvoiceSection from "../../components/InvoiceSection";
 import FilterDropDown from "../../components/FilterDropDown";
 import Toast from "react-native-toast-message";
 import {useSelector} from "react-redux";
+import InvoiceSkeleton from "../../components/InvoiceSkeleton";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -42,8 +43,11 @@ const Invoices = () => {
     const [invoicesData, setInvoicesData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [filter, setFilter] = useState({year: "all", month: "all"})
-    const leos_id = useSelector(state => state.user.user.leos_id)
+    const leos_id = useSelector(state => state.user.user.leos_id);
+	const [isLoading, setLoading] = useState(true)
+	
     useEffect(() => {
+	    setLoading(true);
         (async () => {
             try {
                 const invoices = await apiClient.getClientInvoices(leos_id)
@@ -85,6 +89,8 @@ const Invoices = () => {
                     type: 'error',
                     text1: error?.response?.data?.message ?? 'An error occurred while getting invoices data'
                 });
+            } finally {
+	            setLoading(false);
             }
         })()
     }, []);
@@ -139,14 +145,16 @@ const Invoices = () => {
             </View>
 
             <View style={styles.dataContainer}>
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    horizontal={false}
-                    data={filteredData}
-                    renderItem={({item}) => (
-                        <InvoiceSection invoices={item.data} year={item.year} openInvoiceModal={openInvoiceModal}/>
-                    )}
-                />
+	            {isLoading ? <InvoiceSkeleton/> : (
+		            <FlatList
+			            showsVerticalScrollIndicator={false}
+			            horizontal={false}
+			            data={filteredData}
+			            renderItem={({item}) => (
+				            <InvoiceSection invoices={item.data} year={item.year} openInvoiceModal={openInvoiceModal}/>
+			            )}
+		            />
+	            )}
             </View>
             {/*<Modal*/}
             {/*    animationType="slide"*/}
