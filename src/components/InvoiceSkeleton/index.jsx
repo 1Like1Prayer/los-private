@@ -1,12 +1,15 @@
-import SkeletonLoader from "expo-skeleton-loader";
 import {Dimensions, I18nManager, View, Text, StyleSheet} from "react-native";
 import React from "react";
+import { LinearGradient } from 'expo-linear-gradient';
+import {
+	SkeletonContainer,
+} from 'react-native-dynamic-skeletons';
 import SvgDropDownOpen from "../../icons/DropDownOpenIcon";
 
 const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get('window').height;
 const isRTL = I18nManager.isRTL;
 
+const Gradient = (props) => <LinearGradient {...props} />;
 const InvoiceSkeleton = () => {
 	
 	return(
@@ -16,64 +19,72 @@ const InvoiceSkeleton = () => {
 			alignItems: 'center',
 		}}>
 			<View style={styles.skeleton}>
-				<SkeletonLoader
-					boneColor='#E0E0E0'
-					highlightColor='#dbd9d9'
-					duration={800}
-				>
-					<SkeletonLoader.Container
-						style={{
-							flexDirection: isRTL ? 'row-reverse' : 'row',
-							justifyContent: 'space-between',
-						}}
+				<View
+				style={{
+					flexDirection: isRTL ? 'row-reverse' : 'row',
+					justifyContent: 'space-between',
+				}}
+			>
+				<SvgDropDownOpen ColorFill="#6226CF"/>
+				<View style={{
+					flexDirection: 'row',
+					justifyContent: !isRTL ? 'flex-end' : 'flex-start',
+				}}>
+					<SkeletonContainer
+						isLoading={true}
+						animationType="leftRight"
+						duration={1000}
+						colors={['#E0E0E0', '#dbd9d9']}
+						Gradient={Gradient}
 					>
-						<SvgDropDownOpen ColorFill="#6226CF"/>
-						<SkeletonLoader.Container style={{
-							width: '80%',
-							flexDirection: 'row',
-							justifyContent: isRTL ? 'flex-start' : 'flex-end',
-						}}>
-							<SkeletonLoader.Item
-								style={{ width: '35%', height: 30, borderRadius: 5, marginRight: isRTL ? 0 : 5 }}
-							/>
-							<SkeletonLoader.Item
-								style={{ width: '15%', height: 30, borderRadius: 5, marginRight: isRTL ? 0 : 5 }}
-							/>
-						</SkeletonLoader.Container>
-						
-					</SkeletonLoader.Container>
-				</SkeletonLoader>
-			</View>
-			<View style={styles.skeleton}>
-				<SkeletonLoader
-					boneColor='#E0E0E0'
-					highlightColor='#dbd9d9'
-					duration={800}
-				>
-					<SkeletonLoader.Container
-						style={{
-							flexDirection: isRTL ? 'row-reverse' : 'row',
-							justifyContent: 'space-between',
-						}}
+						<View style={{ width: '55%', height: 30, borderRadius: 5, marginRight: isRTL ? 5 : 0 }}/>
+					</SkeletonContainer>
+					<SkeletonContainer
+						isLoading={true}
+						animationType="leftRight"
+						duration={1000}
+						colors={['#E0E0E0', '#dbd9d9']}
+						Gradient={Gradient}
 					>
-						<SvgDropDownOpen ColorFill="#6226CF"/>
-						<SkeletonLoader.Container style={{
-							width: '80%',
-							flexDirection: 'row',
-							justifyContent: isRTL ? 'flex-start' : 'flex-end',
-						}}>
-							<SkeletonLoader.Item
-								style={{ width: '35%', height: 30, borderRadius: 5, marginRight: isRTL ? 0 : 5 }}
-							/>
-							<SkeletonLoader.Item
-								style={{ width: '15%', height: 30, borderRadius: 5, marginRight: isRTL ? 0 : 5 }}
-							/>
-						</SkeletonLoader.Container>
-					
-					</SkeletonLoader.Container>
-				</SkeletonLoader>
+						<View style={{ width: '15%', height: 30, borderRadius: 5, marginLeft: isRTL ? 0 : 5 }}/>
+					</SkeletonContainer>
+				</View>
 			</View>
 		</View>
+			<View style={styles.skeleton}>
+				<View
+					style={{
+						flexDirection: isRTL ? 'row-reverse' : 'row',
+						justifyContent: 'space-between',
+					}}
+				>
+					<SvgDropDownOpen ColorFill="#6226CF"/>
+					<View style={{
+						flexDirection: 'row',
+						justifyContent: !isRTL ? 'flex-end' : 'flex-start',
+					}}>
+						<SkeletonContainer
+							isLoading={true}
+							animationType="leftRight"
+							duration={1000}
+							colors={['#E0E0E0', '#dbd9d9']}
+							Gradient={Gradient}
+						>
+							<View style={{ width: '55%', height: 30, borderRadius: 5, marginRight: isRTL ? 5 : 0 }}/>
+						</SkeletonContainer>
+						<SkeletonContainer
+							isLoading={true}
+							animationType="leftRight"
+							duration={1000}
+							colors={['#E0E0E0', '#dbd9d9']}
+							Gradient={Gradient}
+						>
+							<View style={{ width: '15%', height: 30, borderRadius: 5, marginLeft: isRTL ? 0 : 5 }}/>
+						</SkeletonContainer>
+					</View>
+				</View>
+			</View>
+	</View>
 	)
 };
 

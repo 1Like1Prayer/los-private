@@ -1,11 +1,15 @@
-import SkeletonLoader from "expo-skeleton-loader";
-import {Dimensions, I18nManager, View, Text, StyleSheet} from "react-native";
+import {Dimensions, I18nManager, View, StyleSheet} from "react-native";
 import React, {useId} from "react";
+import { LinearGradient } from 'expo-linear-gradient';
+import {
+	SkeletonContainer,
+} from 'react-native-dynamic-skeletons';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get('window').height;
 const isRTL = I18nManager.isRTL;
 
+const Gradient = (props) => <LinearGradient {...props} />;
 const MarketSkeleton = ({textCounter}) => {
 	const id = useId();
 	const array = new Array(textCounter || 3);
@@ -30,37 +34,57 @@ const MarketSkeleton = ({textCounter}) => {
 				shadowRadius: 24,
 				borderRadius: 10,
 			}}>
-				<SkeletonLoader
-					boneColor='#E0E0E0'
-					highlightColor='#dbd9d9'
-					duration={800}
-				>
-					<SkeletonLoader.Container
-						style={{
-							flexDirection: isRTL ? 'row-reverse' : 'row',
-							alignItems: "center",
-							justifyContent: "space-between",
-						}}
+				<View style={{
+					flexDirection: isRTL ? 'row-reverse' : 'row',
+					alignItems: "center",
+					justifyContent: "space-between",
+				}}>
+					<SkeletonContainer
+						isLoading={true}
+						animationType="leftRight"
+						duration={1000}
+						colors={['#E0E0E0', '#dbd9d9']}
+						Gradient={Gradient}
 					>
-						<SkeletonLoader.Item
-							style={{ width: 30, height: 30, borderRadius: 5 }}
+						<View
+							style={{
+								height: 30,
+								width: 30,
+								borderRadius: 5,
+							}}
 						/>
-						<SkeletonLoader.Item
+					</SkeletonContainer>
+					<SkeletonContainer
+						isLoading={true}
+						animationType="leftRight"
+						duration={1000}
+						colors={['#E0E0E0', '#dbd9d9']}
+						Gradient={Gradient}
+					>
+						<View
 							style={{ width: '50%', height: 30, borderRadius: 5 }}
 						/>
-					</SkeletonLoader.Container>
-					<View style={styles.lineGray}/>
-					<SkeletonLoader.Container>
+					</SkeletonContainer>
+				</View>
+				<View style={styles.lineGray}/>
+				<View>
+					<SkeletonContainer
+						isLoading={true}
+						animationType="leftRight"
+						duration={1000}
+						colors={['#E0E0E0', '#dbd9d9']}
+						Gradient={Gradient}
+					>
 						{array.map((_, index) => {
 							return (
-								<SkeletonLoader.Item
+								<View
 									key={`${id}-${index}`}
 									style={{ width: '100%', height: 30, borderRadius: 5, marginBottom: 5, }}
 								/>
 							)
 						})}
-					</SkeletonLoader.Container>
-				</SkeletonLoader>
+					</SkeletonContainer>
+				</View>
 			</View>
 		</View>
 	)
