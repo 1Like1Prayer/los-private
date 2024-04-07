@@ -21,16 +21,16 @@ const Splash = ({navigation}) => {
                 'OpenSans': require('../../../assets/fonts/OpenSans-Regular.ttf'),
             });
         };
-        loadFonts().then(async () => {
-	        const isUserExist = await checkUser();
-	        
-	        setTimeout(() => {
-		        if (isUserExist) {
-			        navigation.navigate(routes.TABS);
-		        } else {
-			        navigation.navigate(routes.INTRO);
-		        }
-	        }, 4000);
+        loadFonts().then(() => {
+	        checkUser().then((isUserExist)=>{
+                setTimeout(() => {
+                    if (isUserExist) {
+                        navigation.navigate(routes.TABS);
+                    } else {
+                        navigation.navigate(routes.INTRO);
+                    }
+                }, 4000);
+            });
         }).catch((error) => console.error('Error loading fonts:', error));
     }, []);
 	

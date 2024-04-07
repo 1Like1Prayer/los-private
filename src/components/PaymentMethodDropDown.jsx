@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
     top: '40%',
     transform: [{ translateY: -windowHeight*0.5 }],
     left: windowWidth * 0.54,
-    transform: [{ translateX: -windowWidth*0.5 }],
     backgroundColor: '#fff',
     width: windowWidth * 0.92,
     borderRadius:10
