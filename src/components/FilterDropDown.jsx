@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
 		borderColor: "#9F9F9F",
 		borderWidth: 0.5,
 		borderRadius: 8,
-		marginTop: Platform.OS === 'android' ? -25 : 0,
+		marginTop: 0,
 		overflowY: "hidden",
 	}
 });
