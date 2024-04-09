@@ -9,5 +9,6 @@ export const routes = {
     TABS_HOME:'TabsHome',
     INVOICE:'Invoices',
     COMING_SOON:'ComingSoon',
-    MARKETPLACE:'MarketPlace'
+    MARKETPLACE:'MarketPlace',
+    MARKETPLACEHOME:'MarketPlaceHome',
 }
