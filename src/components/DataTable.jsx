@@ -30,11 +30,11 @@ const DataTable = ({ data, inputValue }) => {
               <Text style={styles.cellText}>{item?.location}</Text>
             </View>
             <View style={styles.tableCell}>
-              <Text style={{ ...styles.cellText, marginLeft: 20 }}>
+              <Text style={styles.cellText}>
                 {item?.search_volume?.search_volume}
               </Text>
             </View>
-            <View style={styles.tableCellRight}>
+            <View style={styles.tableCell}>
               <Text style={[styles.nameCell, styles.cellText]}>
                 {item?.keyword}
               </Text>
@@ -57,41 +57,42 @@ const DataTable = ({ data, inputValue }) => {
 export default DataTable;
 
 const styles = StyleSheet.create({
+  table: {
+    borderWidth: 1,
+    borderColor: "#000",
+    backgroundColor: "red",
+  },
   tableRow: {
-    flexDirection: "row",
-    paddingVertical: 10,
+    flexDirection: isRTL ? "row-reverse" : "row",
   },
   tableHeaderCell: {
-    width: "15%",
-    justifyContent: "center",
-    alignItems: "center",
+    width: windowWidth * 0.06,
+    marginLeft: windowWidth * 0.045,
+    flexDirection: isRTL ? "row-reverse" : "row",
   },
   tableHeaderCellRight: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "flex-end",
+    width: windowWidth * 0.38,
+    marginLeft: windowWidth * 0.27,
+    flexDirection: isRTL ? "row-reverse" : "row",
   },
   headerText: {
     fontFamily: "OpenSans",
     fontSize: 16,
-    textAlign: "center",
   },
   tableCell: {
-    width: "15%",
-    justifyContent: "center",
-    alignItems: "flex-start",
-  },
-  tableCellRight: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "flex-end",
+    // flex: 1,
+    paddingVertical: 15,
+    width: windowWidth * 0.1,
+    flexDirection: isRTL ? "row-reverse" : "row",
   },
   cellText: {
     fontFamily: "OpenSans",
-    textAlign: "center",
+    textAlign: isRTL ? "left" : "right",
+    flexDirection: isRTL ? "row-reverse" : "row",
   },
   nameCell: {
     color: "#797285",
-    textAlign: "right",
+    width: windowWidth * 0.3,
+    marginLeft: windowWidth * 0.33,
   },
 });

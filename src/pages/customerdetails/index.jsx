@@ -65,7 +65,7 @@ const CustomerDetails = ({
   const dispatch = useDispatch();
   const onSubmit = async (values) => {
     try {
-      if (values.images) {
+      if (values.images && values.images.uri) {
         const { data } = await apiClient.updateClientAvatar(
           leos_id,
           values.images

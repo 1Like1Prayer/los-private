@@ -5,12 +5,20 @@ import { LinearGradient } from "expo-linear-gradient";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const ButtonLower = ({ title, handlePress }) => {
+const ButtonLower = ({ title, handlePress, isDisabled = false }) => {
   return (
     <View style={styles.containerButtonLower}>
-      <Pressable onPress={handlePress} style={styles.Lower}>
+      <Pressable
+        disabled={isDisabled}
+        onPress={handlePress}
+        style={styles.Lower}
+      >
         <LinearGradient
-          colors={["#6226CF", "#5D23C9", "#A61EDF"]}
+          colors={
+            isDisabled
+              ? ["#808080", "#808080"]
+              : ["#6226CF", "#5D23C9", "#A61EDF"]
+          }
           start={{ x: 0, y: 0.5 }}
           end={{ x: 1, y: 0.5 }}
           style={styles.gradient}

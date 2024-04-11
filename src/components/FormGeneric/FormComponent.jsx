@@ -27,6 +27,8 @@ const FormComponent = ({
   checkbox,
   uploadImage,
   disabled = false,
+  allowToSubmit = true,
+  errorMessage = "",
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [checkBoxError, setCheckBoxError] = useState(false);
@@ -38,7 +40,7 @@ const FormComponent = ({
 
   const route = useRoute();
   const handleSubmit = (values) => {
-    if (isChecked && checkbox) {
+    if (!isChecked && checkbox) {
       setCheckBoxError(true);
     } else {
       setCheckBoxError(false);
@@ -115,7 +117,18 @@ const FormComponent = ({
           {uploadImage ? <UploadImage onChange={setImages} /> : null}
           <View style={{ marginTop: 30, marginBottom: 10 }}>
             {/* Disable the button if form is not valid */}
+            {errorMessage && (
+              <Text
+                style={{
+                  textAlign: isRTL ? "left" : "right",
+                  marginBottom: 20,
+                }}
+              >
+                {errorMessage}
+              </Text>
+            )}
             <ButtonLower
+              isDisabled={!allowToSubmit}
               title={
                 route.name !== routes.CUSTOMER_DETAILS
                   ? "שלח והתחל"
