@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'OpenSans-Bold',
-        fontSize: windowWidth * 0.035,
+        fontSize: windowWidth * 0.032,
         color: '#19073A',
         marginHorizontal: windowWidth * 0.0467,
     },
