@@ -77,7 +77,11 @@ const FormComponent = ({
     >
       {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
         <View style={styles.container}>
-          <View style={styles.inputs}>
+          <View
+            style={{
+              marginTop: windowWidth * (disabled ? 0.05 : 0.2),
+            }}
+          >
             {fields.map((field) => (
               <InputComponent
                 key={field.name}
@@ -92,7 +96,9 @@ const FormComponent = ({
 
             {route.name === routes.CUSTOMER_DETAILS && (
               <View>
-                <Text style={styles.label}>לוגו חברה </Text>
+                <Text style={{ ...styles.label, fontWeight: 900 }}>
+                  לוגו חברה{" "}
+                </Text>
               </View>
             )}
           </View>
@@ -137,17 +143,6 @@ const FormComponent = ({
               handlePress={handleSubmit}
             />
           </View>
-          {/*{route.name === routes.CUSTOMER_DETAILS &&*/}
-          {/*    <View style={{*/}
-          {/*        alignItems: 'center',*/}
-          {/*        marginTop: 10,*/}
-          {/*        flexDirection: 'row',*/}
-          {/*        justifyContent: 'center',*/}
-          {/*    }}>*/}
-          {/*        <Ionicons name="pencil" size={24} color="black" style={{color: "#6226CF"}}/>*/}
-          {/*        <Text style={{fontSize: 16, marginRight: 5, color: "#6226CF"}}>אימות פרטים</Text>*/}
-          {/*    </View>*/}
-          {/*}*/}
         </View>
       )}
     </Formik>
@@ -162,10 +157,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
   },
-  inputs: {
-    marginTop: windowWidth * 0.2,
-  },
   label: {
     textAlign: isRTL ? "left" : "right",
+    color: "#A020F0",
   },
 });

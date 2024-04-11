@@ -44,7 +44,6 @@ const InputComponent = ({
         <Text
           style={{
             ...styles.prefixText,
-            color: isDisabled ? "#CCC7C7" : "black",
           }}
         >
           +972
@@ -58,7 +57,7 @@ const InputComponent = ({
     <TouchableWithoutFeedback onPress={handlePressOutside}>
       <View style={styles.inputContainer}>
         <Text
-          style={{ ...styles.label, color: isDisabled ? "#CCC7C7" : "black" }}
+          style={{ ...styles.label, color: isDisabled ? "#A020F0" : "black" }}
         >
           {field.label}
         </Text>
@@ -78,7 +77,12 @@ const InputComponent = ({
             onBlur={onBlur}
             value={value}
             secureTextEntry={!showPassword && field.type === "password"}
-            style={[styles.input, field.name === "phoneNumber"]}
+            style={[
+              styles.input,
+              field.name === "phoneNumber",
+              isDisabled && styles.inputDisabled,
+              { height: isDisabled ? 40 : 56, padding: isDisabled ? 2 : 10, color: "black" },
+            ]}
             label={field.label}
             keyboardType={
               field && ["phoneNumber", "bnNumber"].includes(field.name)
@@ -113,22 +117,24 @@ export default InputComponent;
 
 const styles = StyleSheet.create({
   label: {
+    fontWeight: 900,
     fontSize: 16,
     marginBottom: 8,
     fontFamily: "OpenSans",
     textAlign: isRTL ? "left" : "right",
   },
   input: {
-    height: 56,
     marginBottom: 12,
     borderWidth: 1,
-    padding: 10,
     borderRadius: 5,
     borderColor: "#9F9F9F",
     width: windowWidth * 0.9,
     fontFamily: "OpenSans",
     textAlign: "right",
     backgroundColor: "transparent",
+  },
+  inputDisabled: {
+    borderWidth: 0,
   },
   prefixText: {
     position: "absolute",
