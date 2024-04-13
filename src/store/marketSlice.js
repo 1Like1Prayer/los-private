@@ -10,8 +10,8 @@ const marketSlice = createSlice({
     initialState,
     reducers: {
         addProduct: (state, action) => {
-            const {name, price} = action.payload
-            state.cart[name] = price;
+            const {name, price, isMonthly} = action.payload
+            state.cart[name] = {price: price, isMonthly};
             state.totalPrice += price;
         },
         removeProduct: (state, action) => {
