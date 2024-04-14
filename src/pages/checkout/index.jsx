@@ -1,67 +1,76 @@
-import React, {useEffect, useState} from "react";
-import {Dimensions, Keyboard, Linking, StyleSheet, View} from "react-native";
-import SvgApplePay from "../../icons/ApplePay";
-import SvgBit from "../../icons/Bit";
-import SvgGooglePay from "../../icons/GooglePay";
-import SvgVisaMastercard from "../../icons/VisaMastercard";
-import axios from "axios";
-import {useSelector} from "react-redux";
-import {useNavigation} from "@react-navigation/native";
-import {routes} from "../../routes/routes";
+import React, {useEffect, useState} from 'react';
+import {Dimensions, Keyboard, Linking, StyleSheet, View} from 'react-native';
+import SvgApplePay from '../../icons/ApplePay';
+import SvgBit from '../../icons/Bit';
+import SvgGooglePay from '../../icons/GooglePay';
+import SvgVisaMastercard from '../../icons/VisaMastercard';
+import axios from 'axios';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {routes} from '../../routes/routes';
+import {clearCart, hasMonthlySubscription, monthlySubsPrice} from '../../store/marketSlice';
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 function CheckoutPage({route}) {
     const {cart, totalPrice} = useSelector((state) => state.cart);
     const navigator = useNavigation();
-    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
     const [visible, setVisible] = useState(false);
     const [creditCardData, setCreditCardData] = useState({
-        cardNumber: "",
-        cardHolder: "",
-        cardExpiry: "",
-        cardCVC: "",
+        cardNumber: '',
+        cardHolder: '',
+        cardExpiry: '',
+        cardCVC: '',
     });
+    const dispatch = useDispatch();
+    const isMonthly = useSelector(hasMonthlySubscription);
+    const monthlySubPrice = useSelector(monthlySubsPrice);
     useEffect(() => {
-        console.log(cart)
-    }, [cart])
+        return () => dispatch(clearCart());
+    }, []);
 //todo add handling for monthly payments, add functionality to choose webview, and follow the redirect.
 //todo add handling parent and child items in market
     useEffect(() => {
         const formDataAPISign = new FormData();
-        formDataAPISign.append("action", "APISign");
-        formDataAPISign.append("What", "SIGN");
-        formDataAPISign.append("KEY", "d7c19db1377f260dd6122ed3a985d7ff8ca60b50");
-        formDataAPISign.append("PassP", "yCUMShJAR");
-        formDataAPISign.append("Masof", "4500147832");
-        formDataAPISign.append("UTF8out", "True");
-        formDataAPISign.append("UTF8", "True");
-        formDataAPISign.append("tmp", "4");
-        formDataAPISign.append("PageLang", "HEB");
-        formDataAPISign.append("Pritim", "True");
-        formDataAPISign.append("Amount", `${totalPrice}`);
+        formDataAPISign.append('action', 'APISign');
+        formDataAPISign.append('What', 'SIGN');
+        formDataAPISign.append('KEY', 'd7c19db1377f260dd6122ed3a985d7ff8ca60b50');
+        formDataAPISign.append('PassP', 'yCUMShJAR');
+        formDataAPISign.append('Masof', '4500147832');
+        formDataAPISign.append('UTF8out', 'True');
+        formDataAPISign.append('UTF8', 'True');
+        formDataAPISign.append('tmp', '2');
+        formDataAPISign.append('PageLang', 'HEB');
+        formDataAPISign.append('Pritim', 'True');
+        formDataAPISign.append('Tash', `${isMonthly ? '999' : '12'}`);
+        formDataAPISign.append('Amount', `${isMonthly ? monthlySubPrice : totalPrice}`);
         formDataAPISign.append(
-            "heshDesc",
+            'heshDesc',
             `[${Object.entries(cart).map(([key, val]) => `0~${key}~1~${val.price}`)}]`
-                .split(",")
+                .split(',')
                 .map((item) => `[${item}]`)
-                .join("")
+                .join('')
         );
-        formDataAPISign.append("MoreData", "True");
+        formDataAPISign.append('MoreData', 'True');
+        if (isMonthly) {
+            formDataAPISign.append('HK', `True`);
+            formDataAPISign.append('TashFirstPayment', `${totalPrice - monthlySubPrice}`);
+        }
         (async () => {
             const {data} = await axios.post(
-                "https://icom.yaad.net/p/",
+                'https://icom.yaad.net/p/',
                 formDataAPISign,
                 {
                     headers: {
-                        "Content-Type": "multipart/form-data",
+                        'Content-Type': 'multipart/form-data',
                     },
                 }
             );
             const url = `https://icom.yaad.net/p/?${data}&PassP=yCUMShJAR`;
             await Linking.openURL(url).catch((err) =>
-                console.error("An error occurred", err)
+                console.error('An error occurred', err)
             );
 
             navigator.navigate(routes.MARKETPLACEHOME);
@@ -70,10 +79,10 @@ function CheckoutPage({route}) {
 
     const [selected, setSelected] = useState(undefined);
     const paymentMethods = [
-        {label: "Google Pay", value: "google", icon: <SvgGooglePay/>},
-        {label: "Apple Pay", value: "apple", icon: <SvgApplePay/>},
-        {label: "Visa/MasterCard", value: "visa", icon: <SvgVisaMastercard/>},
-        {label: "Bit", value: "bit", icon: <SvgBit/>},
+        {label: 'Google Pay', value: 'google', icon: <SvgGooglePay/>},
+        {label: 'Apple Pay', value: 'apple', icon: <SvgApplePay/>},
+        {label: 'Visa/MasterCard', value: 'visa', icon: <SvgVisaMastercard/>},
+        {label: 'Bit', value: 'bit', icon: <SvgBit/>},
     ];
 
     const handlePressOutside = () => {
@@ -81,9 +90,9 @@ function CheckoutPage({route}) {
     };
 
     const handlePaymentSubmission = () => {
-        if (selectedPaymentMethod === "Visa/MasterCard") {
+        if (selectedPaymentMethod === 'Visa/MasterCard') {
             // Process Visa/MasterCard payment using creditCardData
-            console.log("Visa/MasterCard Payment Submitted", creditCardData);
+            console.log('Visa/MasterCard Payment Submitted', creditCardData);
         } else {
             // Handle other payment methods
             // console.log(${selectedPaymentMethod} Payment Submitted);
@@ -119,13 +128,13 @@ const styles = StyleSheet.create({
     container: {
         width: windowWidth,
         height: windowHeight * 0.7,
-        position: "relative",
-        justifyContent: "space-between",
-        alignItems: "center",
+        position: 'relative',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     background: {
-        backgroundColor: "rgba(0, 0, 0, 0.7)", // Semi-transparent black background
-        position: "absolute",
+        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Semi-transparent black background
+        position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
