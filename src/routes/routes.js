@@ -6,6 +6,7 @@ export const routes = {
     MY_TABS: 'DrawerHome',
 	TABS: 'MyTabs',
     CHECKOUT:'Checkout',
+    SUCCESS:'Success',
     TABS_HOME:'TabsHome',
     INVOICE:'Invoices',
     COMING_SOON:'ComingSoon',

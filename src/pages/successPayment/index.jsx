@@ -2,13 +2,12 @@ import {StatusBar} from "expo-status-bar";
 import React from "react";
 import {Dimensions, Image, StyleSheet, Text, View} from "react-native";
 import ButtonLower from "../../components/Button/ButtonLower";
+import {routes} from "../../routes/routes";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function SuccessPayment({navigation}) {
-
-
     return (
         <View style={styles.container}>
             <View style={styles.DivSuccess}>
@@ -21,7 +20,7 @@ export default function SuccessPayment({navigation}) {
                     התשלום בוצע, תתחדשו
                 </Text>
                 <ButtonLower title={"סיים"} handlePress={() => {
-                    navigation.navigate('Home')
+                    navigation.navigate(routes.MARKETPLACEHOME)
                 }}/>
 
             </View>

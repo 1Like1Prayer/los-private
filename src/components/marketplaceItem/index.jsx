@@ -12,6 +12,7 @@ const isRTL = I18nManager.isRTL;
 const MarketplaceItem = ({
                              title,
                              price,
+                             isMonthly,
                              description,
                              variations,
                              handleCheck,
@@ -22,7 +23,7 @@ const MarketplaceItem = ({
     const [checked, setChecked] = useState(false);
     const [selected, setSelected] = useState(initSelected);
     const handlePress = () => {
-        !checked ? dispatch(addProduct({name: title, price: itemPrice})) : dispatch(removeProduct(title));
+        !checked ? dispatch(addProduct({name: title, price: itemPrice, isMonthly})) : dispatch(removeProduct(title));
         handleCheck(!checked);
         setChecked((prev) => !prev);
     };

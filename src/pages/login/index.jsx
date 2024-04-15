@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 import {
     Button,
     Dimensions,
@@ -8,59 +8,59 @@ import {
     Text,
     TextInput,
     View,
-} from "react-native";
-import FormComponent from "../../components/FormGeneric/FormComponent";
-import * as Yup from "yup";
-import apiClient from "../../core/apiClient";
-import Toast from "react-native-toast-message";
-import { routes } from "../../routes/routes";
-import { useDispatch, useSelector } from "react-redux";
-import { setCustomer, setUser as setStoreUser } from "../../store/userSlice";
-import axios from "axios";
-import { encode } from "base-64";
-import { setUser } from "../../core/auth";
+} from 'react-native';
+import FormComponent from '../../components/FormGeneric/FormComponent';
+import * as Yup from 'yup';
+import apiClient from '../../core/apiClient';
+import Toast from 'react-native-toast-message';
+import {routes} from '../../routes/routes';
+import {useDispatch, useSelector} from 'react-redux';
+import {setCustomer, setUser as setStoreUser} from '../../store/userSlice';
+import axios from 'axios';
+import {encode} from 'base-64';
+import {setUser} from '../../core/auth';
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const fields = [
     {
-        name: "bnNumber",
-        placeholder: "כתוב כאן ח.פ",
-        label: "ח.פ",
-        type: "number",
+        name: 'bnNumber',
+        placeholder: 'כתוב כאן ח.פ',
+        label: 'ח.פ',
+        type: 'number',
     },
     {
-        name: "phoneNumber",
-        placeholder: "כתוב כאן מספר טלפון",
-        label: "מספר פלאפון",
-        type: "phone",
+        name: 'phoneNumber',
+        placeholder: 'כתוב כאן מספר טלפון',
+        label: 'מספר פלאפון',
+        type: 'phone',
     },
 ];
 
 //testing 0525226939 - 313882557
 const formInitValues = {
-    phoneNumber: "",
-    bnNumber: "",
+    phoneNumber: '',
+    bnNumber: '',
 };
 const formValidationSchema = Yup.object().shape({
     phoneNumber: Yup.string()
-        .matches(/^[0-9]{9,10}$/, { message: "פורמט לא חוקי" })
-        .required("זהו שדה חובה"),
-    bnNumber: Yup.string().required("זהו שדה חובה"),
+        .matches(/^[0-9]{9,10}$/, {message: 'פורמט לא חוקי'})
+        .required('זהו שדה חובה'),
+    bnNumber: Yup.string().required('זהו שדה חובה'),
 });
 
-const Login = ({ navigation }) => {
+const Login = ({navigation}) => {
     const dispatch = useDispatch();
     const [tempRandAttemtsCount, setTempRandAttemtsCount] = useState(3);
     const customerData = useSelector((state) => state.user.customer);
     const [isOpen, setIsOpen] = useState(false);
-    const [otp, setOtp] = useState("");
-    const [randomPass, setRandomPass] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
+    const [otp, setOtp] = useState('');
+    const [randomPass, setRandomPass] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const [dataToSave, setDataToSave] = useState({
-        bnNumber: "",
-        phoneNumber: "",
+        bnNumber: '',
+        phoneNumber: '',
     });
 
     useEffect(() => {
@@ -74,7 +74,7 @@ const Login = ({ navigation }) => {
     }, [tempRandAttemtsCount]);
 
     const onSubmit = async (values) => {
-        setErrorMessage("");
+        setErrorMessage('');
         try {
             setDataToSave(() => {
                 return {
@@ -113,23 +113,23 @@ const Login = ({ navigation }) => {
                     'Authorization':
                         `Basic ${encode('leosapp:7504a046-7952-4dfc-a2d1-ab8f04a8557f')}`
                 }
-            })
+            });
             // console.log("🚀 ~ onSubmit ~ tempRand:", tempRand);
             dispatch(setStoreUser(userInfo));
             dispatch(setCustomer(customerData));
         } catch (error) {
             console.log(error);
-            console.log("An error occurred", error?.response?.data?.message);
-            error?.response?.data?.message === "User not found"
+            console.log('An error occurred', error?.response?.data?.message);
+            error?.response?.data?.message === 'User not found'
                 ? setErrorMessage(
-                    "משתמש לא נמצא במאגר הלקוחות - נא לחייג *2090 לפרטים נוספים"
+                    'משתמש לא נמצא במאגר הלקוחות - נא לחייג *2090 לפרטים נוספים'
                 )
                 : Toast.show({
-                    type: "error",
+                    type: 'error',
                     text1:
-                        error?.response?.data?.message === "User not found"
-                            ? "משתמש לא נמצא במאגר הלקוחות - נא לחייג *2090 לפרטים נוספים"
-                            : "An error occurred while fetching user",
+                        error?.response?.data?.message === 'User not found'
+                            ? 'משתמש לא נמצא במאגר הלקוחות - נא לחייג *2090 לפרטים נוספים'
+                            : 'An error occurred while fetching user',
                 });
         }
     };
@@ -145,20 +145,20 @@ const Login = ({ navigation }) => {
             } else {
                 setTempRandAttemtsCount((prev) => prev - 1);
                 Toast.show({
-                    type: "error",
-                    text1: "סיסמא לא נכונה! נסו שוב",
+                    type: 'error',
+                    text1: 'סיסמא לא נכונה! נסו שוב',
                 });
-                setOtp("");
+                setOtp('');
                 setIsOpen(false);
             }
         } catch (error) {
-            console.log("An error occurred", error?.response?.data?.message);
+            console.log('An error occurred', error?.response?.data?.message);
             Toast.show({
-                type: "error",
+                type: 'error',
                 text1:
-                    error?.response?.data?.message.trim() === "User not found"
-                        ? "משתמש לא נמצא במאגר הלקוחות - נא לחייג *2090 לפרטים נוספים"
-                        : "An error occurred while fetching user",
+                    error?.response?.data?.message.trim() === 'User not found'
+                        ? 'משתמש לא נמצא במאגר הלקוחות - נא לחייג *2090 לפרטים נוספים'
+                        : 'An error occurred while fetching user',
             });
         }
     };
@@ -166,7 +166,7 @@ const Login = ({ navigation }) => {
         <View style={styles.container}>
             <View>
                 <Image
-                    source={require("../../../assets/images/Layer_1.png")}
+                    source={require('../../../assets/images/Layer_1.png')}
                     style={styles.LogoPurple}
                     resizeMode="contain"
                 />
@@ -197,7 +197,7 @@ const Login = ({ navigation }) => {
                         value={otp}
                         keyboardType="numeric"
                     />
-                    <Button title="שלח לאימות" onPress={onOtpSubmit} />
+                    <Button title="שלח לאימות" onPress={onOtpSubmit}/>
                 </View>
             </Modal>
         </View>
@@ -207,11 +207,11 @@ export default Login;
 
 const styles = StyleSheet.create({
     container: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "space-between",
-        paddingBottom: "13%",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingBottom: '13%',
         paddingTop: 70,
         paddingRight: windowWidth * 0.05,
         paddingLeft: windowWidth * 0.05,
@@ -225,11 +225,11 @@ const styles = StyleSheet.create({
     modalView: {
         margin: 20,
         marginTop: windowHeight * 0.25,
-        backgroundColor: "white",
+        backgroundColor: 'white',
         borderRadius: 20,
         padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
+        alignItems: 'center',
+        shadowColor: '#000',
         shadowOffset: {
             width: 0,
             height: 2,
@@ -240,14 +240,14 @@ const styles = StyleSheet.create({
     },
     modalText: {
         marginBottom: 15,
-        textAlign: "center",
-        flexWrap: "wrap",
+        textAlign: 'center',
+        flexWrap: 'wrap',
     },
     modalInput: {
         marginBottom: 15,
         borderWidth: 1,
-        borderColor: "#ddd",
+        borderColor: '#ddd',
         padding: 10,
-        width: "80%",
+        width: '80%',
     },
 });
