@@ -18,7 +18,7 @@ const navRoutes = {
 
 export const MainNavigation = () =>
     (
-        <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Navigator screenOptions={{headerShown: false}} >
             {Object.entries(navRoutes).map(([key, value]) => <Stack.Screen name={key} component={value} key={key}/>)}
         </Stack.Navigator>
     );
