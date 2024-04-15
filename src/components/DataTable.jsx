@@ -31,6 +31,11 @@ const DataTable = ({ data, inputValue }) => {
             </View>
             <View style={styles.tableCell}>
               <Text style={styles.cellText}>
+                {item?.ranks?.[0].rank}
+              </Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text style={styles.cellText}>
                 {item?.search_volume?.search_volume}
               </Text>
             </View>
@@ -64,6 +69,7 @@ const styles = StyleSheet.create({
   },
   tableRow: {
     flexDirection: isRTL ? "row-reverse" : "row",
+    justifyContent:"space-between"
   },
   tableHeaderCell: {
     width: windowWidth * 0.06,
@@ -80,9 +86,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   tableCell: {
-    // flex: 1,
     paddingVertical: 15,
-    width: windowWidth * 0.1,
     flexDirection: isRTL ? "row-reverse" : "row",
   },
   cellText: {

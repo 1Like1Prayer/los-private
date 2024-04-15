@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '../../routes/routes';
 import {clearCart, hasMonthlySubscription, monthlySubsPrice} from '../../store/marketSlice';
+import WebView from "react-native-webview";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -16,22 +17,24 @@ const windowHeight = Dimensions.get('window').height;
 function CheckoutPage({route}) {
     const {cart, totalPrice} = useSelector((state) => state.cart);
     const navigator = useNavigation();
-    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
-    const [visible, setVisible] = useState(false);
-    const [creditCardData, setCreditCardData] = useState({
-        cardNumber: '',
-        cardHolder: '',
-        cardExpiry: '',
-        cardCVC: '',
-    });
     const dispatch = useDispatch();
     const isMonthly = useSelector(hasMonthlySubscription);
     const monthlySubPrice = useSelector(monthlySubsPrice);
+    const [url, setUrl] = useState('')
+
     useEffect(() => {
         return () => dispatch(clearCart());
     }, []);
-//todo add handling for monthly payments, add functionality to choose webview, and follow the redirect.
-//todo add handling parent and child items in market
+
+    useEffect(() => {
+        if (url.length && !isMonthly) {
+            Linking.openURL(url).catch((err) =>
+                console.error('An error occurred', err)
+            );
+            navigator.navigate(routes.MARKETPLACEHOME);
+        }
+    }, [url]);
+
     useEffect(() => {
         const formDataAPISign = new FormData();
         formDataAPISign.append('action', 'APISign');
@@ -45,7 +48,7 @@ function CheckoutPage({route}) {
         formDataAPISign.append('PageLang', 'HEB');
         formDataAPISign.append('Pritim', 'True');
         formDataAPISign.append('Tash', `${isMonthly ? '999' : '12'}`);
-        formDataAPISign.append('Amount', `${isMonthly ? monthlySubPrice : totalPrice}`);
+        formDataAPISign.append('Amount', `${isMonthly ? 0 : totalPrice}`);
         formDataAPISign.append(
             'heshDesc',
             `[${Object.entries(cart).map(([key, val]) => `0~${key}~1~${val.price}`)}]`
@@ -68,40 +71,17 @@ function CheckoutPage({route}) {
                     },
                 }
             );
-            const url = `https://icom.yaad.net/p/?${data}&PassP=yCUMShJAR`;
-            await Linking.openURL(url).catch((err) =>
-                console.error('An error occurred', err)
-            );
-
-            navigator.navigate(routes.MARKETPLACEHOME);
+            setUrl(`https://icom.yaad.net/p/?${data}&PassP=yCUMShJAR`);
         })();
     }, [cart]);
 
-    const [selected, setSelected] = useState(undefined);
-    const paymentMethods = [
-        {label: 'Google Pay', value: 'google', icon: <SvgGooglePay/>},
-        {label: 'Apple Pay', value: 'apple', icon: <SvgApplePay/>},
-        {label: 'Visa/MasterCard', value: 'visa', icon: <SvgVisaMastercard/>},
-        {label: 'Bit', value: 'bit', icon: <SvgBit/>},
-    ];
-
-    const handlePressOutside = () => {
-        Keyboard.dismiss();
+    const handleNavigation = (navState) => {
+        const regex = /CCode=0\b/i;
+        regex.test(navState.url) && navigator.navigate(routes.SUCCESS)
     };
-
-    const handlePaymentSubmission = () => {
-        if (selectedPaymentMethod === 'Visa/MasterCard') {
-            // Process Visa/MasterCard payment using creditCardData
-            console.log('Visa/MasterCard Payment Submitted', creditCardData);
-        } else {
-            // Handle other payment methods
-            // console.log(${selectedPaymentMethod} Payment Submitted);
-        }
-    };
-
     return (
-        <View style={{width: windowWidth, height: windowHeight}}>
-            {/*<WebView source={{uri:url}} />*/}
+        <View style={{width: windowWidth, height: windowHeight * 0.8}}>
+            {isMonthly && <WebView source={{uri: url}} onNavigationStateChange={handleNavigation}/>}
         </View>
         //     <TouchableWithoutFeedback onPress={handlePressOutside}>
         //     <View style={styles.container}>
