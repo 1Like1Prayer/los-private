@@ -33,7 +33,7 @@
     "extra": {
       "smsApi": "https://capi.inforu.co.il/api/v2/SMS/SendSms",
       "eas": {
-        "projectId": "6282100e-f29a-48fe-a223-09cdb8f30738"
+        "projectId": "c90462cd-1af7-4c4c-bb24-a984ed25035f"
       }
     }
   }

@@ -48,7 +48,7 @@ function CheckoutPage({route}) {
         formDataAPISign.append('PageLang', 'HEB');
         formDataAPISign.append('Pritim', 'True');
         formDataAPISign.append('Tash', `${isMonthly ? '999' : '12'}`);
-        formDataAPISign.append('Amount', `${isMonthly ? 0 : totalPrice}`);
+        formDataAPISign.append('Amount', `${isMonthly ? monthlySubPrice : totalPrice}`);
         formDataAPISign.append(
             'heshDesc',
             `[${Object.entries(cart).map(([key, val]) => `0~${key}~1~${val.price}`)}]`
