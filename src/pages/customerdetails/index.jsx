@@ -17,6 +17,7 @@ import apiClient from "../../core/apiClient";
 import { routes } from "../../routes/routes";
 import { useDispatch, useSelector } from "react-redux";
 import { setAvatar } from "../../store/userSlice";
+import { errorMessages } from "../../constants/errorMessages";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -78,9 +79,7 @@ const CustomerDetails = ({
       console.log("update failed:", error);
       Toast.show({
         type: "error",
-        text1:
-          error?.response?.data?.message ??
-          "An error occurred while uploading image",
+        text1: errorMessages[error?.response?.status] || 'שגיאה לא ידועה'
       });
     }
   };

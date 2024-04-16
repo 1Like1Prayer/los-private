@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import HomeSkeleton from "../../components/HomeSkeleton";
 import {deleteUser, getUser} from "../../core/auth";
 import {routes} from "../../routes/routes";
+import { errorMessages } from "../../constants/errorMessages";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -52,9 +53,7 @@ const HomePage = ({navigation}) => {
                 console.log(error);
                 Toast.show({
                     type: "error",
-                    text1:
-                        error?.response?.data?.message ??
-                        "An error occurred while getting data",
+                    text1: errorMessages[error?.response?.status] || 'שגיאה לא ידועה'
                 });
             } finally {
                 setIsLoading(false);

@@ -16,6 +16,7 @@ import {useSelector} from "react-redux";
 import axios from "axios";
 import MarketSkeleton from "../../components/MarketSkeleton";
 import {useIsFocused} from "@react-navigation/native";
+import { errorMessages } from "../../constants/errorMessages";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -35,9 +36,7 @@ export default function MarketPlace({navigation, route}) {
             console.log(error);
             Toast.show({
                 type: "error",
-                text1:
-                    error?.response?.data?.message ??
-                    "An error occurred while getting market Data",
+                text1: errorMessages[error?.response?.status] || 'שגיאה לא ידועה'
             });
         } finally {
             setLoading(false);

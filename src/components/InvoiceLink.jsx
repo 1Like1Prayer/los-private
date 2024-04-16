@@ -3,6 +3,7 @@ import {I18nManager, Linking, Pressable, StyleSheet, Text, View} from "react-nat
 import apiClient from '../core/apiClient';
 import Toast from "react-native-toast-message";
 import {useSelector} from "react-redux";
+import { errorMessages } from "../constants/errorMessages";
 
 const isRTL = I18nManager.isRTL;
 
@@ -14,10 +15,9 @@ const InvoiceLink = ({invoiceId, openInvoiceModal}) => {
             const invoice = await apiClient.getInvoice(leos_id, invoiceId)
             await Linking.openURL(invoice);
         } catch (error) {
-            console.error("Invoice not found in the response");
             Toast.show({
                 type: 'error',
-                text1: error?.response?.data?.message ?? 'An error occurred while getting invoice data'
+                text1: errorMessages[error?.response?.status] || 'שגיאה לא ידועה'
             });
 
         }

@@ -15,6 +15,7 @@ import UploadImage from "../UploadData/UploadImage";
 import { useRoute } from "@react-navigation/native";
 import { routes } from "../../routes/routes";
 import Toast from "react-native-toast-message";
+import { errorMessages } from "../../constants/errorMessages";
 
 const windowWidth = Dimensions.get("window").width;
 const isRTL = I18nManager.isRTL;
@@ -54,17 +55,15 @@ const FormComponent = ({
       if (supported) {
         await Linking.openURL(privacyUrl);
       } else {
-        console.log("Cannot open URL:", privacyUrl);
         Toast.show({
           type: "error",
-          text1: `cannot Open URL: ${privacyUrl}`,
+          text1: errorMessages[error?.response?.status] || 'שגיאה לא ידועה'
         });
       }
     } catch (error) {
-      console.error("Error opening URL:", error);
       Toast.show({
         type: "error",
-        text1: `cannot Open URL: ${privacyUrl}`,
+        text1: errorMessages[error?.response?.status] || 'שגיאה לא ידועה'
       });
     }
   };

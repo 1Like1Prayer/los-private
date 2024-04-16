@@ -19,6 +19,7 @@ import {setCustomer, setUser as setStoreUser} from '../../store/userSlice';
 import axios from 'axios';
 import {encode} from 'base-64';
 import {setUser} from '../../core/auth';
+import { errorMessages } from '../../constants/errorMessages';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -38,7 +39,8 @@ const fields = [
     },
 ];
 
-//testing 0525226939 - 313882557
+//testing ph: 0525226939 - bn: 313882557
+//testing(new) ph: 0524565122 - bn:1234567
 const formInitValues = {
     phoneNumber: '',
     bnNumber: '',
@@ -86,6 +88,7 @@ const Login = ({navigation}) => {
                 values.phoneNumber,
                 values.bnNumber
             );
+            console.log('after')
             const customerData = {
                 bnNumber: values.bnNumber,
                 phoneNumber: values.phoneNumber,
@@ -118,7 +121,6 @@ const Login = ({navigation}) => {
             dispatch(setStoreUser(userInfo));
             dispatch(setCustomer(customerData));
         } catch (error) {
-            console.log(error);
             console.log('An error occurred', error?.response?.data?.message);
             error?.response?.data?.message === 'User not found'
                 ? setErrorMessage(
@@ -126,10 +128,7 @@ const Login = ({navigation}) => {
                 )
                 : Toast.show({
                     type: 'error',
-                    text1:
-                        error?.response?.data?.message === 'User not found'
-                            ? 'משתמש לא נמצא במאגר הלקוחות - נא לחייג *2090 לפרטים נוספים'
-                            : 'An error occurred while fetching user',
+                    text1: errorMessages[error?.response?.status] || 'שגיאה לא ידועה'
                 });
         }
     };
@@ -155,10 +154,7 @@ const Login = ({navigation}) => {
             console.log('An error occurred', error?.response?.data?.message);
             Toast.show({
                 type: 'error',
-                text1:
-                    error?.response?.data?.message.trim() === 'User not found'
-                        ? 'משתמש לא נמצא במאגר הלקוחות - נא לחייג *2090 לפרטים נוספים'
-                        : 'An error occurred while fetching user',
+                text1: errorMessages[error?.response?.status] || 'שגיאה לא ידועה'
             });
         }
     };

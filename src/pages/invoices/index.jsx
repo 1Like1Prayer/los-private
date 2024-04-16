@@ -6,6 +6,7 @@ import FilterDropDown from "../../components/FilterDropDown";
 import Toast from "react-native-toast-message";
 import {useSelector} from "react-redux";
 import InvoiceSkeleton from "../../components/InvoiceSkeleton";
+import { errorMessages } from "../../constants/errorMessages";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -87,7 +88,7 @@ const Invoices = () => {
         console.error("Error:", error);
         Toast.show({
           type: 'error',
-          text1: error?.response?.data?.message ?? 'An error occurred while getting invoices data'
+          text1: errorMessages[error?.response?.status] || 'שגיאה לא ידועה'
         });
       } finally {
         setLoading(false);
