@@ -7,7 +7,7 @@ import {useSelector} from "react-redux";
 import HomeSkeleton from "../../components/HomeSkeleton";
 import {deleteUser, getUser} from "../../core/auth";
 import {routes} from "../../routes/routes";
-import { errorMessages } from "../../constants/errorMessages";
+import {errorMessages} from "../../constants/errorMessages";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -26,7 +26,7 @@ const HomePage = ({navigation}) => {
                 .finally(() => {
                     Toast.show({
                         type: 'error',
-                        text1:'User is not allowed!'
+                        text1: 'User is not allowed!'
                     });
                     navigation.navigate(routes.LOGIN);
                 });
@@ -70,7 +70,7 @@ const HomePage = ({navigation}) => {
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={clientData}
-                        renderItem={({ item }) => (
+                        renderItem={({item}) => (
                             item.title && item.dataTable && item.boxData ? (
                                 <Panel
                                     title={item.title}

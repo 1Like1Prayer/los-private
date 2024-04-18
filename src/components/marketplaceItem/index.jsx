@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Dimensions, FlatList, I18nManager, Pressable, ScrollView, StyleSheet, Text, View,} from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {useDispatch, useSelector} from "react-redux";
-import {addProduct, removeProduct} from "../../store/marketSlice";
+import {addProduct, isProductInCart, productInCart, removeProduct} from "../../store/marketSlice";
 import axios from "axios";
 
 const windowWidth = Dimensions.get('window').width;
@@ -18,6 +18,7 @@ const MarketplaceItem = ({
                              handleCheck,
                          }) => {
     const dispatch = useDispatch();
+    const isItemInCart = useSelector(state => productInCart(title))
     const initSelected = {id: ' ', price: 0};
     const [itemPrice, setItemPrice] = useState(price);
     const [checked, setChecked] = useState(false);
@@ -27,6 +28,10 @@ const MarketplaceItem = ({
         handleCheck(!checked);
         setChecked((prev) => !prev);
     };
+
+    useEffect(() => {
+        setChecked(isItemInCart)
+    }, [isItemInCart])
 
     const handleInnerPress = (id, price) => {
         if (id !== selected.id) {

@@ -23,7 +23,10 @@ function CheckoutPage({route}) {
     const [url, setUrl] = useState('')
 
     useEffect(() => {
-        return () => dispatch(clearCart());
+        return () => {
+            // if(!isMonthly) return dispatch(clearCart());
+            return dispatch(clearCart());
+        }
     }, []);
 
     useEffect(() => {
@@ -51,7 +54,7 @@ function CheckoutPage({route}) {
         formDataAPISign.append('Amount', `${isMonthly ? monthlySubPrice : totalPrice}`);
         formDataAPISign.append(
             'heshDesc',
-            `[${Object.entries(cart).map(([key, val]) => `0~${key}~1~${val.price}`)}]`
+            `[${Object.entries(cart).filter(([key, val]) => val.price).map(([key, val]) => `0~${key}~1~${val.price}`)}]`
                 .split(',')
                 .map((item) => `[${item}]`)
                 .join('')
@@ -83,24 +86,6 @@ function CheckoutPage({route}) {
         <View style={{width: windowWidth, height: windowHeight * 0.8}}>
             {isMonthly && <WebView source={{uri: url}} onNavigationStateChange={handleNavigation}/>}
         </View>
-        //     <TouchableWithoutFeedback onPress={handlePressOutside}>
-        //     <View style={styles.container}>
-        //         {visible ? <View style={styles.background}/> : null}
-        //
-        //         <View>
-        //             <PaymentMethodDropDown
-        //                 label="פרטי אשראי"
-        //                 data={paymentMethods}
-        //                 onSelect={setSelected}
-        //                 setVisible={setVisible}
-        //                 visible={visible}
-        //             />
-        //             <CreditCardForm/>
-        //         </View>
-        //
-        //         <ButtonLower title="בצע תשלום" onPress={handlePaymentSubmission}/>
-        //     </View>
-        // </TouchableWithoutFeedback>
     );
 }
 

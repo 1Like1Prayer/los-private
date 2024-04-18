@@ -19,7 +19,7 @@ import {setCustomer, setUser as setStoreUser} from '../../store/userSlice';
 import axios from 'axios';
 import {encode} from 'base-64';
 import {setUser} from '../../core/auth';
-import { errorMessages } from '../../constants/errorMessages';
+import {errorMessages} from '../../constants/errorMessages';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -88,7 +88,6 @@ const Login = ({navigation}) => {
                 values.phoneNumber,
                 values.bnNumber
             );
-            console.log('after')
             const customerData = {
                 bnNumber: values.bnNumber,
                 phoneNumber: values.phoneNumber,
