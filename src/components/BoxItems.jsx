@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
     marginBottom:30
   },
   rowContainer: {
-    flexDirection: isRTL?"row":"row-reverse",
+    flexDirection: isRTL ? "row" : "row-reverse",
     justifyContent: "space-between",
     marginBottom: 15,
-    width: windowWidth * 0.85
+    width: "100%",
   },
 });

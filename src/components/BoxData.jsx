@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: "rgba(159, 159, 159, 0.50)",
-        width: windowWidth*0.4,
+        width: windowWidth * 0.38,
 
     },
     boxRow1: {

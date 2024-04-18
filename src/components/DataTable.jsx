@@ -50,7 +50,7 @@ const DataTable = ({ data, inputValue }) => {
         <View style={styles.tableRow}>
           <View>
             <Text style={[styles.nameCell, styles.cellText]}>
-              No Data Found
+              לא נמצא מידע אודות הלקוח
             </Text>
           </View>
         </View>
@@ -73,12 +73,12 @@ const styles = StyleSheet.create({
   },
   tableHeaderCell: {
     width: windowWidth * 0.06,
-    marginLeft: windowWidth * 0.045,
+    marginLeft: windowWidth * 0.030,
     flexDirection: isRTL ? "row-reverse" : "row",
   },
   tableHeaderCellRight: {
     width: windowWidth * 0.38,
-    marginLeft: windowWidth * 0.27,
+    marginLeft: windowWidth * 0.3,
     flexDirection: isRTL ? "row-reverse" : "row",
   },
   headerText: {
@@ -96,7 +96,8 @@ const styles = StyleSheet.create({
   },
   nameCell: {
     color: "#797285",
-    width: windowWidth * 0.3,
-    marginLeft: windowWidth * 0.33,
+    width: windowWidth * 0.4,
+    marginLeft: windowWidth * 0.20,
+    marginBottom: windowWidth * 0.02
   },
 });

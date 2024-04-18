@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         padding: 8,
         fontFamily: "OpenSans",
         textAlign: "right",
-        width: windowWidth * 0.84,
+        width: "100%",
         marginBottom: 45
     },
     item: {

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Dimensions,
   I18nManager,
-  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -21,7 +20,7 @@ const isRTL = I18nManager.isRTL;
 
 const Panel = ({ title, boxData, dataTable }) => {
   const [filteredDataTable, setFilteredDataTable] = useState(
-    dataTable ? dataTable : []
+      dataTable ? dataTable : []
   );
   const [isOpen, setIsOpen] = useState(false);
   const [textInputValue, setTextInputValue] = useState("");
@@ -40,55 +39,48 @@ const Panel = ({ title, boxData, dataTable }) => {
   };
 
   return (
-    <ScrollView>
-      <View style={[styles.container, shadowStyle]}>
-        <View style={styles.panelHeader}>
-          <View style={styles.panelHeaderRight}>
-            <SvgGoogleIcon style={styles.icon} />
-            <Text>{title}</Text>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={[styles.shadowContainer, styles.shadow]}>
+            <View style={styles.shadowContainer}>
+              <View style={styles.panelHeader}>
+                <View style={styles.panelHeaderRight}>
+                  <SvgGoogleIcon style={styles.icon} />
+                  <Text>{title}</Text>
+                </View>
+                {isOpen ? (
+                    <Pressable
+                        style={styles.dropDownButton}
+                        onPress={() => setIsOpen(!isOpen)}
+                    >
+                      <SvgDropDownClose ColorFill="#6226CF" />
+                    </Pressable>
+                ) : (
+                    <Pressable
+                        style={styles.dropDownButton}
+                        onPress={() => setIsOpen(!isOpen)}
+                    >
+                      <SvgDropDownOpen ColorFill="#6226CF" />
+                    </Pressable>
+                )}
+              </View>
+              {isOpen ? (
+                    <View style={styles.openDropDown}>
+
+                    <View style={styles.lineGray}></View>
+                    <SearchBar onTextInputChange={handleTextInputChange} />
+                    <BoxItems data={boxData} />
+                    <DataTable data={filteredDataTable} inputValue={textInputValue} />
+                    </View>
+              ) : null}
+            </View>
           </View>
-          {isOpen ? (
-            <Pressable
-              style={styles.dropDownButton}
-              onPress={() => setIsOpen(!isOpen)}
-            >
-              <SvgDropDownClose ColorFill="#6226CF" />
-            </Pressable>
-          ) : (
-            <Pressable
-              style={styles.dropDownButton}
-              onPress={() => setIsOpen(!isOpen)}
-            >
-              <SvgDropDownOpen ColorFill="#6226CF" />
-            </Pressable>
-          )}
         </View>
-        {isOpen ? (
-          <View>
-            <View style={styles.lineGray}></View>
-            <SearchBar onTextInputChange={handleTextInputChange} />
-            <BoxItems data={boxData} />
-            <DataTable data={filteredDataTable} inputValue={textInputValue} />
-          </View>
-        ) : null}
-      </View>
-    </ScrollView>
+      </ScrollView>
   );
 };
 
 export default Panel;
-
-const shadowStyle = Platform.select({
-  ios: {
-    shadowColor: "rgba(0, 0, 0, 0.1)",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 1,
-    shadowRadius: 5,
-  },
-  android: {
-    elevation: 5,
-  },
-});
 
 const styles = StyleSheet.create({
   container: {
@@ -97,8 +89,25 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     borderRadius: 10,
-    backgroundColor: "white",
     marginBottom: 20,
+  },
+  shadowContainer: {
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
+  openDropDown:{
+    paddingHorizontal: 10,
+    maxWidth: windowWidth * 0.85,
+  },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   panelHeader: {
     display: "flex",
@@ -107,6 +116,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: 15,
     width: windowWidth * 0.85,
+    padding: 10
+
   },
   panelHeaderRight: {
     display: "flex",

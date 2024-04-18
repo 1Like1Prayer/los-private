@@ -47,8 +47,7 @@ const HomePage = ({navigation}) => {
             setIsLoading(true);
             try {
                 const data = await apiClient.getClientData(leos_id, "seo");
-
-                setClientData([data]);
+                setClientData(data ? [data] : []);
             } catch (error) {
                 console.log(error);
                 Toast.show({
@@ -71,12 +70,14 @@ const HomePage = ({navigation}) => {
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={clientData}
-                        renderItem={({item}) => (
-                            <Panel
-                                title={item.title}
-                                dataTable={item?.dataTable}
-                                boxData={item.boxData}
-                            />
+                        renderItem={({ item }) => (
+                            item.title && item.dataTable && item.boxData ? (
+                                <Panel
+                                    title={item.title}
+                                    dataTable={item.dataTable}
+                                    boxData={item.boxData}
+                                />
+                            ) : null
                         )}
                     />
                 )}
