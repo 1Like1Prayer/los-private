@@ -42,10 +42,8 @@ export const monthlySubsPrice = createSelector((state => state.cart), cart => {
     );
     return price;
 });
-export const productInCart = createSelector([state => state.cart, (state, itemName) => itemName], (cart, itemName) =>{
-    console.log(itemName)
-    return !!cart?.[itemName] || false;
-    }
+export const productInCart = createSelector([state => state.cart.cart, (state, itemName) => itemName], (cart, itemName) =>
+    !!cart?.[itemName]
 )
 
 export default marketSlice.reducer;

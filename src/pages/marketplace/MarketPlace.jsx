@@ -1,19 +1,11 @@
-import React, {useEffect, useState, useFo} from "react";
-import {
-    Dimensions,
-    FlatList,
-    Linking,
-    Platform,
-    StyleSheet,
-    View,
-} from "react-native";
+import React, {useEffect, useState} from "react";
+import {Dimensions, FlatList, Platform, StyleSheet, View,} from "react-native";
 import ButtonLower from "../../components/Button/ButtonLower";
 import MarketplaceItem from "../../components/marketplaceItem";
 import apiClient from "../../core/apiClient";
 import Toast from "react-native-toast-message";
 import {routes} from "../../routes/routes";
 import {useSelector} from "react-redux";
-import axios from "axios";
 import MarketSkeleton from "../../components/MarketSkeleton";
 import {useIsFocused} from "@react-navigation/native";
 import {errorMessages} from "../../constants/errorMessages";
@@ -30,9 +22,7 @@ export default function MarketPlace({navigation, route}) {
         setLoading(true);
         try {
             const products = await apiClient.getProducts();
-            setMarketData(
-                products.map((product) => ({...product, checked: false}))
-            );
+            setMarketData(products)
         } catch (error) {
             console.log(error);
             Toast.show({
@@ -47,12 +37,6 @@ export default function MarketPlace({navigation, route}) {
     useEffect(() => {
         isFocused && loadingFunc();
     }, [isFocused]);
-
-    const handleCheck = (e, index) => {
-        const updateData = [...marketData];
-        updateData[index].checked = e;
-        setMarketData(updateData);
-    };
 
     return (
         <View style={styles.container}>
@@ -71,7 +55,7 @@ export default function MarketPlace({navigation, route}) {
                                 <ButtonLower
                                     title={"יאללה סיימתי"}
                                     handlePress={() =>
-                                        marketData.some((e) => e.checked) && totalPrice
+                                        totalPrice
                                             ? navigation.navigate(routes.CHECKOUT)
                                             : Toast.show({
                                                 type: "info",
@@ -98,7 +82,6 @@ export default function MarketPlace({navigation, route}) {
                                         : []
                                 }
                                 price={Number(item.price)}
-                                handleCheck={(e) => handleCheck(e, index)}
                             />
                         )}
                     />

@@ -24,8 +24,7 @@ function CheckoutPage({route}) {
 
     useEffect(() => {
         return () => {
-            // if(!isMonthly) return dispatch(clearCart());
-            return dispatch(clearCart());
+            if(!isMonthly) return dispatch(clearCart());
         }
     }, []);
 

@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Dimensions, FlatList, I18nManager, Pressable, ScrollView, StyleSheet, Text, View,} from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {useDispatch, useSelector} from "react-redux";
-import {addProduct, isProductInCart, productInCart, removeProduct} from "../../store/marketSlice";
-import axios from "axios";
+import {addProduct, productInCart, removeProduct} from "../../store/marketSlice";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -15,17 +14,15 @@ const MarketplaceItem = ({
                              isMonthly,
                              description,
                              variations,
-                             handleCheck,
                          }) => {
     const dispatch = useDispatch();
-    const isItemInCart = useSelector(state => productInCart(title))
+    const isItemInCart = useSelector(state => productInCart(state, title))
     const initSelected = {id: ' ', price: 0};
     const [itemPrice, setItemPrice] = useState(price);
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(isItemInCart);
     const [selected, setSelected] = useState(initSelected);
     const handlePress = () => {
         !checked ? dispatch(addProduct({name: title, price: itemPrice, isMonthly})) : dispatch(removeProduct(title));
-        handleCheck(!checked);
         setChecked((prev) => !prev);
     };
 
@@ -43,7 +40,6 @@ const MarketplaceItem = ({
             setSelected(initSelected);
             setItemPrice(prev => prev - selected.price);
             dispatch(removeProduct(id));
-            handleCheck(!checked);
             setChecked((prev) => !prev);
         }
     };
