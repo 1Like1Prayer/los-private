@@ -26,12 +26,12 @@ const DataTable = ({data, inputValue}) => {
                             <View style={styles.tableCell}>
                                 <Text style={styles.cellText}>{item?.location}</Text>
                             </View>
-                            <View style={[styles.tableCell, styles.tempCell]}>
+                            <View style={[styles.tableCell, styles.singleColumn]}>
                                 <Text style={styles.cellText}>
                                     {item?.ranks?.[0].rank}
                                 </Text>
                             </View>
-                            <View style={[styles.tableCell, styles.tempCell]}>
+                            <View style={[styles.tableCell, styles.singleColumn]}>
                                 <Text style={styles.cellText}>
                                     {item?.search_volume?.search_volume}
                                 </Text>
@@ -47,7 +47,7 @@ const DataTable = ({data, inputValue}) => {
             ) : (
                 <View style={styles.tableRow}>
                     <View>
-                        <Text style={[styles.nameCell, styles.cellText]}>
+                        <Text style={[styles.nameCell, styles.cellText,styles.tableCell,styles.errorText]}>
                             לא נמצא מידע אודות הלקוח
                         </Text>
                     </View>
@@ -87,10 +87,9 @@ const styles = StyleSheet.create({
     tableCell: {
         paddingVertical: 15,
     },
-    tempCell: {
+    singleColumn: {
         flex:1,
         alignItems:'center'
-        // marginLeft:15
     },
     cellText: {
         fontFamily: "OpenSans",
@@ -98,4 +97,7 @@ const styles = StyleSheet.create({
     nameCell: {
         color: "#797285",
     },
+    errorText:{
+        width:windowWidth*0.75
+    }
 });

@@ -82,7 +82,7 @@ function CheckoutPage({route}) {
         regex.test(navState.url) && navigator.navigate(routes.SUCCESS)
     };
     return (
-        <View style={{width: windowWidth, height: windowHeight * 0.8}}>
+        <View style={{width: windowWidth, height: windowHeight * 0.8 ,overflow:'hidden'}}>
             {isMonthly && <WebView source={{uri: url}} onNavigationStateChange={handleNavigation}/>}
         </View>
     );
