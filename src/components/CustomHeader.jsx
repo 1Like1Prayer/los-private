@@ -23,7 +23,7 @@ const CustomHeader = () => {
                     navigation.navigate(routes.CUSTOMER_DETAILS, customerData);
                 }}>
                     <Image
-                        source={avatar ? profilePic2 : {uri: `${IMAGE_URL}/${avatar}`}}
+                        source={avatar ? {uri: `${IMAGE_URL}/${avatar}`} : profilePic2}
                         resizeMode="contain"
                         style={styles.image}
                     />
