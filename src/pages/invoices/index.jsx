@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Dimensions, FlatList, I18nManager, StyleSheet, View} from "react-native";
+import {Dimensions, FlatList, I18nManager, StyleSheet, View,Text} from "react-native";
 import apiClient from '../../core/apiClient';
 import InvoiceSection from "../../components/InvoiceSection";
 import FilterDropDown from "../../components/FilterDropDown";
@@ -146,7 +146,7 @@ const Invoices = () => {
       </View>
       
       <View style={styles.dataContainer}>
-        {isLoading ? <InvoiceSkeleton/> : (
+        {isLoading ? <InvoiceSkeleton/> : filteredData.length?(
           <FlatList
             showsVerticalScrollIndicator={false}
             horizontal={false}
@@ -155,7 +155,7 @@ const Invoices = () => {
               <InvoiceSection invoices={item.data} year={item.year} openInvoiceModal={openInvoiceModal}/>
             )}
           />
-        )}
+        ):<Text> אין חשבוניות להצגה </Text>}
       </View>
       {/*<Modal*/}
       {/*    animationType="slide"*/}
@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FBF8FF",
     width: windowWidth,
-    height: windowHeight * 0.76,
+    height: windowHeight * 0.794,
     paddingBottom: 60,
   },
   dataContainer: {

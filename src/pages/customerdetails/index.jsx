@@ -91,12 +91,13 @@ const CustomerDetails = ({
           style={{
             display: "flex",
             flexDirection: isRTL ? "row-reverse" : "row",
-            justifyContent: "space-between",
+            justifyContent: "center",
+            width:windowWidth,
             alignItems: "center",
           }}
         >
           <View
-            style={{ ...(isRTL ? { marginLeft: 20 } : { marginRight: 20 }) }}
+              style={{...(isRTL ? { right: windowWidth*0.04 } : { left: windowWidth*0.04 }),position:'absolute'}}
           >
             <TouchableOpacity
               style={styles.backButton}
@@ -139,18 +140,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingBottom: "13%",
     paddingTop: 70,
-    paddingRight: windowWidth * 0.05,
-    paddingLeft: windowWidth * 0.05,
     width: windowWidth,
   },
   backButton: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
   },
   logo: {
     width: windowWidth * 0.5,
     height: windowHeight * 0.1,
-    marginLeft: 10,
   },
 });

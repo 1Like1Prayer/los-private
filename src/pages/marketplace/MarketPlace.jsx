@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "#FBF8FF",
         width: windowWidth,
-        height: Platform.OS === "ios" ? "100%" : windowHeight * 0.75,
+        height: Platform.OS === "ios" ? "100%" : windowHeight * 0.794,
         paddingBottom: Platform.OS === "ios" ? windowHeight * 0.095 : 0,
         alignItems: "center",
     },
