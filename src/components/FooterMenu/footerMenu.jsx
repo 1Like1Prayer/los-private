@@ -42,8 +42,7 @@ const FooterMenu = ({navigation}) => {
             <View style={styles.item}>
                 <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab(routes.MARKETPLACE)}>
                     <SvgMarketPlaceIcon ColorFill={currentTab === "MarketPlace" ? "#6226CF" : '#9F9F9F'}/>
-                    <Text style={[styles.text, {color: currentTab === "MarketPlace" ? "#6226CF" : '#9F9F9F'}]}>זירת
-                        מסחר</Text>
+                    <Text style={[styles.text, {color: currentTab === "MarketPlace" ? "#6226CF" : '#9F9F9F'}]}>מוצרים נלווים</Text>
                 </TouchableOpacity>
             </View>
 

@@ -15,7 +15,7 @@ export let validityInterval;
 const HomePage = ({navigation}) => {
     const checkUserValidity = async () => {
         const {phoneNumber, bnNumber} = await getUser()
-        const success = await apiClient.getUserValidity(phoneNumber, bnNumber);
+        let success = await apiClient.getUserValidity(phoneNumber, bnNumber);
         success ? console.log('user is valid') : console.log('user is not valid')
         if (!success) {
             clearInterval(validityInterval)
