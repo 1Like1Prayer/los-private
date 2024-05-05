@@ -7,6 +7,7 @@ import Toast from "react-native-toast-message";
 import {useSelector} from "react-redux";
 import InvoiceSkeleton from "../../components/InvoiceSkeleton";
 import { errorMessages } from "../../constants/errorMessages";
+import {useUserValidation} from '../../hooks/useUserValidation';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -41,6 +42,7 @@ const months = [
 ];
 
 const Invoices = () => {
+  useUserValidation()
   const [invoicesData, setInvoicesData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [filter, setFilter] = useState({year: "all", month: "all"})
@@ -306,8 +308,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FBF8FF",
     width: windowWidth,
-    height: windowHeight * 0.794,
-    paddingBottom: 60,
+    height: windowHeight * 0.787,
+    paddingBottom: 80,
   },
   dataContainer: {
     justifyContent: "center",

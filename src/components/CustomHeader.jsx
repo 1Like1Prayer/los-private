@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {I18nManager, Image, Pressable, SafeAreaView, StyleSheet, View} from 'react-native';
+import {Dimensions, I18nManager, Image, Pressable, SafeAreaView, StyleSheet, View} from 'react-native';
 import MenuIcon from '../icons/MenueIcon';
 import profilePic2 from '../../assets/images/accountBig.png';
 import {routes} from '../routes/routes';
@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 
 const isRTL = I18nManager.isRTL;
-
+const windowHeight = Dimensions.get("window").height;
 const IMAGE_URL = 'https://leos-zone.fra1.digitaloceanspaces.com';
 
 const CustomHeader = () => {
@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
         flexDirection: isRTL ? 'row-reverse' : 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingVertical: 40,
+        height:windowHeight*0.13,
         paddingHorizontal: 17,
-        marginTop: 5
+        paddingTop: 30
     },
     image: {
         width: 36,

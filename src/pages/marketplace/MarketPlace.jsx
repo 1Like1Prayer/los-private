@@ -9,11 +9,13 @@ import {useSelector} from "react-redux";
 import MarketSkeleton from "../../components/MarketSkeleton";
 import {useIsFocused} from "@react-navigation/native";
 import {errorMessages} from "../../constants/errorMessages";
+import {useUserValidation} from '../../hooks/useUserValidation';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function MarketPlace({navigation, route}) {
+    useUserValidation()
     const isFocused = useIsFocused();
     const totalPrice = useSelector(state => state.cart.totalPrice)
     const [marketData, setMarketData] = useState([]);
