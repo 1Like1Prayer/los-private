@@ -48,8 +48,8 @@ class API {
     }
 
     async getUserValidity(phone, bn_number) {
-        const {data:{success}} = await this.axios.get('/api/app/getUserInfo', {params: {phone, bn_number}})
-      return success;
+        const {data: {success}} = await this.axios.get('/api/app/getUserInfo', {params: {phone, bn_number}})
+        return success || false;
     }
 
     async updateClientAvatar(leos_id, avatar) {
