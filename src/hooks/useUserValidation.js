@@ -9,23 +9,26 @@ export const useUserValidation = () => {
     const navigation = useNavigation();
     const route = useRoute();
     const validateUser = async () => {
-        const {phoneNumber, bnNumber} = await getUser();
-        let success = await apiClient.getUserValidity(phoneNumber, bnNumber);
-        success ? console.log('user is valid') : console.log('user is not valid');
-        if (!success) {
-            deleteUser()
-                .catch((err) => {
-                    console.log(err);
-                })
-                .finally(() => {
-                    Toast.show({
-                        type: 'error',
-                        text1: 'User is not allowed!'
+        try {
+            const {phoneNumber, bnNumber} = await getUser();
+            let success = await apiClient.getUserValidity(phoneNumber, bnNumber);
+            success ? console.log('user is valid') : console.log('user is not valid');
+            if (!success) {
+                deleteUser()
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                    .finally(() => {
+                        Toast.show({
+                            type: 'error',
+                            text1: 'User is not allowed!'
+                        });
+                        navigation.navigate(routes.LOGIN);
                     });
-                    navigation.navigate(routes.LOGIN);
-                });
+            }
+        } catch (e) {
+            console.error('Error validating user:', error);
         }
-
     };
 
     useFocusEffect(useCallback(() => {
