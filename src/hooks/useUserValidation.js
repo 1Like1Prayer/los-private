@@ -21,7 +21,7 @@ export const useUserValidation = () => {
                     .finally(() => {
                         Toast.show({
                             type: 'error',
-                            text1: 'תקופת השירות הסתיימה, לחזרה לשירות ניתן לחייג *2090'
+                            text1: 'תקופת השירות הסתיימה, לבירור חייגו *2090'
                         });
                         navigation.navigate(routes.LOGIN);
                     });
