@@ -137,7 +137,7 @@ const FormComponent = ({
               title={
                 route.name !== routes.CUSTOMER_DETAILS
                   ? "שלח והתחל"
-                  : "אימות נתונים"
+                  : "שמירה"
               }
               handlePress={handleSubmit}
             />

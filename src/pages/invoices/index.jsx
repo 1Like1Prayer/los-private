@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Dimensions, FlatList, I18nManager, StyleSheet, View} from "react-native";
+import {Dimensions, FlatList, I18nManager, StyleSheet, View,Text} from "react-native";
 import apiClient from '../../core/apiClient';
 import InvoiceSection from "../../components/InvoiceSection";
 import FilterDropDown from "../../components/FilterDropDown";
@@ -7,6 +7,7 @@ import Toast from "react-native-toast-message";
 import {useSelector} from "react-redux";
 import InvoiceSkeleton from "../../components/InvoiceSkeleton";
 import { errorMessages } from "../../constants/errorMessages";
+import {useUserValidation} from '../../hooks/useUserValidation';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -41,6 +42,7 @@ const months = [
 ];
 
 const Invoices = () => {
+  useUserValidation()
   const [invoicesData, setInvoicesData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [filter, setFilter] = useState({year: "all", month: "all"})
@@ -146,7 +148,7 @@ const Invoices = () => {
       </View>
       
       <View style={styles.dataContainer}>
-        {isLoading ? <InvoiceSkeleton/> : (
+        {isLoading ? <InvoiceSkeleton/> : filteredData.length?(
           <FlatList
             showsVerticalScrollIndicator={false}
             horizontal={false}
@@ -155,7 +157,7 @@ const Invoices = () => {
               <InvoiceSection invoices={item.data} year={item.year} openInvoiceModal={openInvoiceModal}/>
             )}
           />
-        )}
+        ):<Text> אין חשבוניות להצגה </Text>}
       </View>
       {/*<Modal*/}
       {/*    animationType="slide"*/}
@@ -306,8 +308,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FBF8FF",
     width: windowWidth,
-    height: windowHeight * 0.76,
-    paddingBottom: 60,
+    height: windowHeight * 0.787,
+    paddingBottom: 80,
   },
   dataContainer: {
     justifyContent: "center",

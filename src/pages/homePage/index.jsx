@@ -8,39 +8,41 @@ import HomeSkeleton from "../../components/HomeSkeleton";
 import {deleteUser, getUser} from "../../core/auth";
 import {routes} from "../../routes/routes";
 import {errorMessages} from "../../constants/errorMessages";
+import {useUserValidation} from '../../hooks/useUserValidation';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-export let validityInterval;
+// export let validityInterval;
 const HomePage = ({navigation}) => {
-    const checkUserValidity = async () => {
-        const {phoneNumber, bnNumber} = await getUser()
-        const success = await apiClient.getUserValidity(phoneNumber, bnNumber);
-        success ? console.log('user is valid') : console.log('user is not valid')
-        if (!success) {
-            clearInterval(validityInterval)
-            deleteUser()
-                .catch((err) => {
-                    console.log(err);
-                })
-                .finally(() => {
-                    Toast.show({
-                        type: 'error',
-                        text1: 'User is not allowed!'
-                    });
-                    navigation.navigate(routes.LOGIN);
-                });
-        }
-    }
+useUserValidation();
+    // const checkUserValidity = async () => {
+    //     const {phoneNumber, bnNumber} = await getUser()
+    //     let success = await apiClient.getUserValidity(phoneNumber, bnNumber);
+    //     success ? console.log('user is valid') : console.log('user is not valid')
+    //     if (!success) {
+    //         clearInterval(validityInterval)
+    //         deleteUser()
+    //             .catch((err) => {
+    //                 console.log(err);
+    //             })
+    //             .finally(() => {
+    //                 Toast.show({
+    //                     type: 'error',
+    //                     text1: 'User is not allowed!'
+    //                 });
+    //                 navigation.navigate(routes.LOGIN);
+    //             });
+    //     }
+    // }
     const leos_id = useSelector((state) => state.user.user.leos_id);
     const [clientData, setClientData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    useEffect(() => {
-        validityInterval = setInterval(async () => {
-            checkUserValidity()
-        }, 10000)
-        return () => clearInterval(validityInterval)
-    }, [])
+    // useEffect(() => {
+    //     // validityInterval = setInterval(async () => {
+        //     checkUserValidity()
+        // }, 10000)
+        // return () => clearInterval(validityInterval)
+    // }, [])
 
     useEffect(() => {
         (async () => {

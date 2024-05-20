@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Image, Pressable, Text, StyleSheet } from "react-native";
+import {View, Image, Pressable, Text, StyleSheet, Platform} from 'react-native';
 import * as ImagePicker from "expo-image-picker";
 import { AntDesign } from "@expo/vector-icons";
 

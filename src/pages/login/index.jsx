@@ -144,7 +144,7 @@ const Login = ({navigation}) => {
                 setTempRandAttemtsCount((prev) => prev - 1);
                 Toast.show({
                     type: 'error',
-                    text1: 'סיסמא לא נכונה! נסו שוב',
+                    text1: 'קוד שגוי! נסו שוב',
                 });
                 setOtp('');
                 setIsOpen(false);

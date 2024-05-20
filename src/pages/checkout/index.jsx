@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '../../routes/routes';
 import {clearCart, hasMonthlySubscription, monthlySubsPrice} from '../../store/marketSlice';
-import WebView from "react-native-webview";
+import WebView from 'react-native-webview';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -20,12 +20,12 @@ function CheckoutPage({route}) {
     const dispatch = useDispatch();
     const isMonthly = useSelector(hasMonthlySubscription);
     const monthlySubPrice = useSelector(monthlySubsPrice);
-    const [url, setUrl] = useState('')
+    const [url, setUrl] = useState('');
 
     useEffect(() => {
         return () => {
-            if(!isMonthly) return dispatch(clearCart());
-        }
+            if (!isMonthly) return dispatch(clearCart());
+        };
     }, []);
 
     useEffect(() => {
@@ -79,11 +79,19 @@ function CheckoutPage({route}) {
 
     const handleNavigation = (navState) => {
         const regex = /CCode=0\b/i;
-        regex.test(navState.url) && navigator.navigate(routes.SUCCESS)
+        regex.test(navState.url) && navigator.navigate(routes.SUCCESS);
     };
     return (
-        <View style={{width: windowWidth, height: windowHeight * 0.8 ,overflow:'hidden'}}>
-            {isMonthly && <WebView source={{uri: url}} onNavigationStateChange={handleNavigation}/>}
+        <View style={{
+            width: windowWidth,
+            height: windowHeight * 0.8,
+            paddingLeft: 10,
+            paddingRight: 10,
+            overflow: 'hidden'
+        }}>
+            {isMonthly && <WebView source={{uri: url}}
+                                   injectedJavaScript={`const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta); document.body.style.margin = '0'; document.body.style.padding = '0'; true`}
+                                   onNavigationStateChange={handleNavigation}/>}
         </View>
     );
 }

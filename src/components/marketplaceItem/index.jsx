@@ -17,18 +17,34 @@ const MarketplaceItem = ({
                          }) => {
     const dispatch = useDispatch();
     const isItemInCart = useSelector(state => productInCart(state, title))
+    const cartState = useSelector(state => state.cart.cart)
     const initSelected = {id: ' ', price: 0};
     const [itemPrice, setItemPrice] = useState(price);
     const [checked, setChecked] = useState(isItemInCart);
     const [selected, setSelected] = useState(initSelected);
     const handlePress = () => {
-        !checked ? dispatch(addProduct({name: title, price: itemPrice, isMonthly})) : dispatch(removeProduct(title));
+        !checked ? dispatch(addProduct({
+            name: title,
+            price: itemPrice,
+            isMonthly
+        })) : dispatch(removeProduct(title)) && variations.forEach(item => dispatch(removeProduct(item.id)));
         setChecked((prev) => !prev);
     };
 
     useEffect(() => {
         setChecked(isItemInCart)
     }, [isItemInCart])
+
+    useEffect(() => {
+        if (variations) {
+            variations.forEach(item => cartState?.[item.id] && handleInitVariation(item.id, item.price))
+        }
+    }, []);
+
+    const handleInitVariation = (id, price) => {
+        setSelected({id, price});
+        setItemPrice(prev => prev - selected.price + price);
+    }
 
     const handleInnerPress = (id, price) => {
         if (id !== selected.id) {
@@ -40,7 +56,6 @@ const MarketplaceItem = ({
             setSelected(initSelected);
             setItemPrice(prev => prev - selected.price);
             dispatch(removeProduct(id));
-            setChecked((prev) => !prev);
         }
     };
 
@@ -80,7 +95,7 @@ const MarketplaceItem = ({
                             <View style={styles.innerContainerCheckBox}>
                                 <Pressable onPress={() => handleInnerPress(item.id, item.price)}>
                                     <MaterialCommunityIcons
-                                        name={selected.id === item.id ?
+                                        name={(selected.id === item.id) ?
                                             'checkbox-marked' : 'checkbox-blank-outline'} size={34}
                                         color={selected.id === item.id ? '#6226CF' : '#9F9F9F'}
                                         style={{opacity: selected.id === item.id ? 1 : 0.5}}

@@ -1,13 +1,14 @@
 import {StatusBar} from "expo-status-bar";
 import React from "react";
 import {Dimensions, Image, StyleSheet, Text, View} from "react-native";
+import {useUserValidation} from '../../hooks/useUserValidation';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 
 export default function ComingSoon({navigation}) {
-
+    useUserValidation()
     return (
         <View style={styles.containerGetStarted}>
             <View style={styles.DivComingSoon}>

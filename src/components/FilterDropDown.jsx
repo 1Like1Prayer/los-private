@@ -1,23 +1,10 @@
-import React, {useState} from "react";
-import {View, StyleSheet, Dimensions, I18nManager, Platform} from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
-import { Dropdown } from 'react-native-element-dropdown';
+import React, {useState} from 'react';
+import {Dimensions, I18nManager, StyleSheet, View} from 'react-native';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Icon} from 'react-native-elements';
 
 const windowWidth = Dimensions.get("window").width;
 const isRTL = I18nManager.isRTL;
-
-import {Icon} from "react-native-elements";
-
-const data = [
-	{ label: 'Item 1', value: '1' },
-	{ label: 'Item 2', value: '2' },
-	{ label: 'Item 3', value: '3' },
-	{ label: 'Item 4', value: '4' },
-	{ label: 'Item 5', value: '5' },
-	{ label: 'Item 6', value: '6' },
-	{ label: 'Item 7', value: '7' },
-	{ label: 'Item 8', value: '8' },
-];
 
 export default function FilterDropDown({
                                            options,

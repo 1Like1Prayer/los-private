@@ -1,29 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import SvgMoneyIcon from '../../icons/MoneyIcon'
-import SvgHomeIcon from '../../icons/HomeIcon'
-import SvgMarketPlaceIcon from '../../icons/MarketPlaceIcon'
-import SvgComingSoonIcon from '../../icons/ComingSoonIcon'
+import SvgMoneyIcon from '../../icons/MoneyIcon';
+import SvgHomeIcon from '../../icons/HomeIcon';
+import SvgMarketPlaceIcon from '../../icons/MarketPlaceIcon';
+import SvgComingSoonIcon from '../../icons/ComingSoonIcon';
 import {Dimensions, I18nManager, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {routes} from "../../routes/routes";
+import {routes} from '../../routes/routes';
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const isRTL = I18nManager.isRTL;
 
 const FooterMenu = ({navigation}) => {
 
-    const [currentTab, setCurrentTab] = useState("Home");
+    const [currentTab, setCurrentTab] = useState('Home');
     const handlePressTab = (tabName) => {
         if (tabName !== currentTab) {
-            navigation.navigate(tabName)
+            navigation.navigate(tabName);
         }
-    }
+    };
 
     const navState = navigation.getState();
 
     useEffect(() => {
         const routes = navState.routeNames;
-        setCurrentTab(routes[navState.index])
+        setCurrentTab(routes[navState.index]);
     }, [navState]);
 
 
@@ -32,51 +32,50 @@ const FooterMenu = ({navigation}) => {
 
             <View style={styles.item}>
                 <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab(routes.COMING_SOON)}>
-                    <SvgComingSoonIcon style={styles.icon}
-                                       ColorFill={currentTab === "ComingSoon" ? "#6226CF" : '#9F9F9F'}/>
+                    <SvgComingSoonIcon
+                        ColorFill={currentTab === 'ComingSoon' ? '#6226CF' : '#9F9F9F'}/>
                     <Text
-                        style={[styles.text, {color: currentTab === "ComingSoon" ? "#6226CF" : '#9F9F9F'}]}>בקרוב</Text>
+                        style={[styles.text, {color: currentTab === 'ComingSoon' ? '#6226CF' : '#9F9F9F'}]}>בקרוב</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.item}>
                 <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab(routes.MARKETPLACE)}>
-                    <SvgMarketPlaceIcon ColorFill={currentTab === "MarketPlace" ? "#6226CF" : '#9F9F9F'}/>
-                    <Text style={[styles.text, {color: currentTab === "MarketPlace" ? "#6226CF" : '#9F9F9F'}]}>זירת
-                        מסחר</Text>
+                    <SvgMarketPlaceIcon ColorFill={currentTab === 'MarketPlace' ? '#6226CF' : '#9F9F9F'}/>
+                    <Text style={[styles.text, {color: currentTab === 'MarketPlace' ? '#6226CF' : '#9F9F9F'}]}>מוצרים
+                        נלווים</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.item}>
                 <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab(routes.INVOICE)}>
-                    <SvgMoneyIcon ColorFill={currentTab === "Invoices" ? "#6226CF" : '#9F9F9F'}/>
-                    <Text style={[styles.text, {color: currentTab === "Invoices" ? "#6226CF" : '#9F9F9F'}]}>כספים</Text>
+                    <SvgMoneyIcon ColorFill={currentTab === 'Invoices' ? '#6226CF' : '#9F9F9F'}/>
+                    <Text style={[styles.text, {color: currentTab === 'Invoices' ? '#6226CF' : '#9F9F9F'}]}>כספים</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.item}>
                 <TouchableOpacity style={styles.containerTouch} onPress={() => handlePressTab(routes.TABS_HOME)}>
-                    <SvgHomeIcon ColorFill={currentTab === "TabsHome" ? "#6226CF" : '#9F9F9F'}/>
-                    <Text style={[styles.text, {color: currentTab === "TabsHome" ? "#6226CF" : '#9F9F9F'}]}>בית</Text>
+                    <SvgHomeIcon ColorFill={currentTab === 'TabsHome' ? '#6226CF' : '#9F9F9F'}/>
+                    <Text style={[styles.text, {color: currentTab === 'TabsHome' ? '#6226CF' : '#9F9F9F'}]}>בית</Text>
                 </TouchableOpacity>
             </View>
 
         </View>
-    )
-}
+    );
+};
 
 
 const styles = StyleSheet.create({
         container: {
             backgroundColor: '#FFFFFF',
             width: windowWidth,
-            height: windowHeight * 0.088,
             flex: 1,
             flexDirection: isRTL ? 'row-reverse' : 'row',
             justifyContent: 'space-between',
             position: 'absolute',
-            top: windowHeight - windowHeight * 0.088,
-            paddingHorizontal: windowWidth * 0.04,
+            height: windowHeight * 0.12,
+            top: windowHeight - windowHeight * 0.078,
             borderRadius: 20,
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
@@ -92,9 +91,8 @@ const styles = StyleSheet.create({
             textAlign: 'center',
             alignItems: 'center',
             justifyContent: 'center',
-            width: windowWidth * 0.191,
             height: windowHeight * 0.065,
-            marginTop: windowHeight * 0.0107,
+            marginTop: windowHeight * 0.0307,
 
         },
         containerTouch: {
@@ -107,12 +105,8 @@ const styles = StyleSheet.create({
         text: {
             fontSize: 12,
             color: '#9F9F9F',
-            // fontWeight:400,
             marginTop: windowHeight * 0.006,
         },
-        icon: {}
-
-
     }
 );
 
