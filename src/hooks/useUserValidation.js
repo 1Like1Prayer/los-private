@@ -21,7 +21,7 @@ export const useUserValidation = () => {
                     .finally(() => {
                         Toast.show({
                             type: 'error',
-                            text1: 'User is not allowed!'
+                            text1: 'תקופת השירות הסתיימה, לחזרה לשירות ניתן לחייג *2090'
                         });
                         navigation.navigate(routes.LOGIN);
                     });
